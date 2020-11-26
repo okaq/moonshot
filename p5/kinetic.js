@@ -30,6 +30,14 @@ function setup() {
     strokeWeight(2);
     stroke(0);
     // x-y loop
+    for (let x0 = 0; x0 < nx; x0++) {
+        let x1 = x0 * w1;
+        line(0,x1,w0,x1);
+      }
+      for (let y0 = 0; y0 < ny; y0++) {
+        let y1 = y0 * h1;
+        line(y1,0,y1,h0);
+      }
   }
   
   
