@@ -14,6 +14,9 @@ const ny = h0 / h1;
 const nt = nx * ny;
 console.log(nx,ny,nt);
 
+let line0 = [];
+let lineN = 128;
+
 function setup() {
     // let w0 = 1024;
     // let h0 = 1024;
@@ -23,7 +26,8 @@ function setup() {
   
   function draw() {
     background(128);
-    grid();
+    // grid();
+    zing();
   }
   
   function grid() {
@@ -40,4 +44,13 @@ function setup() {
       }
   }
   
-  
+  function zing() {
+    gen();
+  }
+
+  function gen() {
+    for (let i = 0; i < lineN; i++) {
+      let line1 = [random(w0),random(h0)];
+      line0.push(line1);
+    }
+  }
