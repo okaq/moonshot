@@ -46,11 +46,22 @@ function setup() {
   
   function zing() {
     gen();
+    ren();
   }
 
   function gen() {
     for (let i = 0; i < lineN; i++) {
       let line1 = [random(w0),random(h0)];
       line0.push(line1);
+    }
+  }
+
+  function ren() {
+    stroke(20,200,10);
+    for (let i = 0; i < lineN; i++) {
+      let p0 = line0[i];
+      let x0 = p0[0];
+      let y0 = p0[1];
+      line(0,0,x0,y0);
     }
   }
