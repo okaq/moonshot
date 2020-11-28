@@ -25,7 +25,7 @@ function setup() {
   }
   
   function draw() {
-    background(128);
+    background(8);
     // grid();
     zing();
   }
@@ -51,7 +51,11 @@ function setup() {
 
   function gen() {
     for (let i = 0; i < lineN; i++) {
-      let line1 = [random(w0),random(h0)];
+      let line1 = [];
+      line1[0] = random(w0);
+      line1[1] = random(h0);
+      line1[2] = random(w0);
+      line1[3] = random(h0);
       line0.push(line1);
     }
   }
@@ -62,6 +66,9 @@ function setup() {
       let p0 = line0[i];
       let x0 = p0[0];
       let y0 = p0[1];
-      line(0,0,x0,y0);
+      let x1 = p0[2];
+      let y1 = p0[3];
+      line(x0,y0,x1,y1);
     }
   }
+
