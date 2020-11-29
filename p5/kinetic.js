@@ -17,6 +17,10 @@ console.log(nx,ny,nt);
 let line0 = [];
 let lineN = 128;
 
+let tick = 0;
+let max2 = 16;
+let id = null;
+
 function setup() {
     // let w0 = 1024;
     // let h0 = 1024;
@@ -28,6 +32,9 @@ function setup() {
     background(8);
     // grid();
     zing();
+    // loop
+    // use setInterval
+    // loop();
   }
   
   function grid() {
@@ -47,6 +54,7 @@ function setup() {
   function zing() {
     gen();
     ren();
+    loop2();
   }
 
   function gen() {
@@ -71,4 +79,18 @@ function setup() {
       line(x0,y0,x1,y1);
     }
   }
+
+function loop2() {
+  id = setInterval(frame, 1000);
+}
+
+function frame() {
+  console.log("tick: " + tick);
+  if (tick >= max2) {
+    clearInterval(id);
+    console.log("anim done.");
+    return;
+  }
+  tick = tick + 1;
+}
 
