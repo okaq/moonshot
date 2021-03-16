@@ -1,0 +1,15 @@
+# pad and rename images
+# convert 1962_06.jpg -resize 1920x1080 -background black -gravity center -extent 1920 0001.jpg
+j = 0
+for i in *.jpg
+do
+	# convert "$i" -resize 1920x1080 -background black -gravity center -extent 1920x1080 $((j++)).jpg
+	# echo i: $i
+	# echo j: $((j++))
+	# printf -v k "%04d" $j
+	# echo k: $k
+	printf -v k "%04d.jpg" $((j++))
+	convert "$i" -resize 1920x1080 -background black -gravity center -extent 1920x1080 "$k"
+done
+
+
