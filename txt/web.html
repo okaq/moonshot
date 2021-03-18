@@ -34,7 +34,22 @@ var g = {
             var t0 = window.performance.now();
             console.log("moon shot...");
 	console.log("total render time: " + (window.performance.now() - t0));
-    }
+    },
+	"load": function() {
+		let WebFontConfig = {};
+		WebFontConfig.google.families = ["Droid Sans"];
+
+		WebFont.addEventListener("active", g.active, false);
+		WebFont.addEventListener("inactive", g.inactive, false);
+
+		WebFont.load(WebFontConfig);
+	},
+	"active": function(e) {
+		console.log(e);
+	},
+	"inactive": function(e) {
+		console.log(e);
+	}
 }
    // dom
    var dom = {
