@@ -33,7 +33,18 @@ var g = {
         "init": function() {
             var t0 = window.performance.now();
             console.log("moon shot...");
-	console.log("total render time: " + (window.performance.now() - t0));
+
+		// subs
+		g.subs = [dom,sce];
+		g.subs.forEach(function(el){el.init();});
+
+		ren.clear();
+
+		g.txt = " o k a q ";
+
+		ren.txt();
+
+		console.log("total render time: " + (window.performance.now() - t0));
     },
 	"load": function() {
 		let WebFontConfig = {};
@@ -73,6 +84,31 @@ var g = {
 		// p0.body = fd0;
 		// window.fetch(url0,p0)
 		
+	}
+}
+// scene
+var sce = {
+	"init": function() {
+		sce.a = {};
+		sce.a.r = [1920,1080,0,0];
+		sce.a.c = dom.canvas(sce.a.r);
+		dom.add(sce.a.c);
+		sce.a.c.can.addEventListener("click", sce.click, false);
+	},
+	"click": function(e) {
+		console.log(e);
+	}
+}
+// render
+var ren = {
+	"clear": function() {
+		sce.a.c.con.fillStyle = rgba.rand();
+		sce.a.c.con.fillRect(0,0,sce.a.c.can.width,sce.a.c.can.height);
+	},
+	"txt": function() {
+		sce.a.c.con.fillStyle = rgba.rand();
+		sce.a.c.con.font = "128px Monospace";
+		sce.a.c.con.fillText(g.txt, 576, 476);
 	}
 }
    // dom
