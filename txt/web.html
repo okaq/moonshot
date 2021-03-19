@@ -35,7 +35,7 @@ var g = {
             console.log("moon shot...");
 
 		// subs
-		g.subs = [dom,sce];
+		g.subs = [dom,sce,txt];
 		g.subs.forEach(function(el){el.init();});
 
 		ren.clear();
@@ -44,19 +44,32 @@ var g = {
 
 		ren.txt();
 
+		window.setTimeout(g.load, 1000);
+
 		console.log("total render time: " + (window.performance.now() - t0));
     },
 	"load": function() {
 		let WebFontConfig = {};
-		WebFontConfig.google.families = ["Droid Sans"];
+		WebFontConfig.google = {};
+		// WebFontConfig.google.families = ["Droid Sans"];
+		WebFontConfig.google.families = [txt.b[2]];
+		WebFontConfig.active = g.active;
+		WebFontConfig.inactive = g.inactive;
 
-		WebFont.addEventListener("active", g.active, false);
-		WebFont.addEventListener("inactive", g.inactive, false);
+		console.log(WebFont);
+		// WebFont.addEventListener("active", g.active, false);
+		// WebFont.addEventListener("inactive", g.inactive, false);
 
 		WebFont.load(WebFontConfig);
 	},
 	"active": function(e) {
 		console.log(e);
+
+		window.setTimeout(g.hum, 2000);
+	},
+	"hum": function() {
+		ren.clear();
+		ren.txt2();
 	},
 	"inactive": function(e) {
 		console.log(e);
@@ -86,6 +99,16 @@ var g = {
 		
 	}
 }
+// fonts
+var txt = {
+	"init": function() {
+		txt.a = " o k a q ";
+		txt.b = [];
+		txt.b[0] = "Droid Sans";
+		txt.b[1] = "Roboto";
+		txt.b[2] = "Tangerine";
+	}
+}
 // scene
 var sce = {
 	"init": function() {
@@ -109,6 +132,11 @@ var ren = {
 		sce.a.c.con.fillStyle = rgba.rand();
 		sce.a.c.con.font = "128px Monospace";
 		sce.a.c.con.fillText(g.txt, 576, 476);
+	},
+	"txt2": function() {
+		sce.a.c.con.fillStyle = rgba.rand();
+		sce.a.c.con.font = "128px Tangerine";
+		sce.a.c.con.fillText(txt.a, 576, 476);
 	}
 }
    // dom
