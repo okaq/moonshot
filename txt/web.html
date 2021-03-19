@@ -70,6 +70,13 @@ var g = {
 	"hum": function() {
 		ren.clear();
 		ren.txt2();
+
+		window.setTimeout(g.hum2, 1000);
+	},
+	"hum2": function() {
+		// text metrics web api
+		let m0 = sce.a.c.con.measureText(g.txt);
+		console.log(m0);
 	},
 	"inactive": function(e) {
 		console.log(e);
@@ -137,6 +144,8 @@ var ren = {
 		sce.a.c.con.fillStyle = rgba.rand();
 		sce.a.c.con.font = "128px Tangerine";
 		sce.a.c.con.fillText(txt.a, 576, 476);
+
+		// adjust variant weight and face params
 	}
 }
    // dom
