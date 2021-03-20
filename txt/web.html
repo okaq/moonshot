@@ -77,6 +77,8 @@ var g = {
 		// text metrics web api
 		let m0 = sce.a.c.con.measureText(g.txt);
 		console.log(m0);
+
+		window.setTimeout(g.loop, 1000);
 	},
 	"inactive": function(e) {
 		console.log(e);
@@ -104,6 +106,53 @@ var g = {
 		// p0.body = fd0;
 		// window.fetch(url0,p0)
 		
+	},
+	"loop": function() {
+		// ping pong promises
+		// per cycle, fetch font, render, save
+		
+		// setup font list
+		txt.list();
+		g.tick = 0;
+		// g.id = window.setInterval(g.frame, 1000);
+		window.setTimeout(g.frame2, 1000);
+	},
+	"frame": function() {
+		// not interval fired, but future callbacks
+		if (g.tick >= txt.d.length) {
+			console.log("txt list done");
+			window.clearInterval(g.id);
+			return;
+		}
+
+		let txt0 = txt.d[g.tick];
+		console.log(txt0);
+
+		g.tick = g.tick + 1;
+	},
+	"frame2": function() {
+		// sanity check
+		if (g.tick >= txt.d.length) {
+			console.log("txt list done");
+			console.log("total fonts loaded: " + txt.d.length);
+			return;
+		}
+		// create new config 
+		let wfc0 = {};
+		wfc0.google = {};
+		let txt0 = txt.d[g.tick];
+		wfc0.google.families = [txt0];
+		wfc.active = function() {
+			ren.clear();
+			ren.txt3();
+			g.tick = g.tick + 1;
+			window.setTimetout(g.frame2, 1000);
+		};
+		wfc.inactive = function() {
+			console.log("font load error");
+			// continue
+		};
+		WebFont.load(wfc0);
 	}
 }
 // fonts
@@ -114,6 +163,12 @@ var txt = {
 		txt.b[0] = "Droid Sans";
 		txt.b[1] = "Roboto";
 		txt.b[2] = "Tangerine";
+	},
+	"list": function() {
+		txt.c = "okaq";
+		txt.d = [];
+		txt.d[0] = "Droid Sans";
+		txt.d[1] = "Tangerine";
 	}
 }
 // scene
@@ -146,6 +201,13 @@ var ren = {
 		sce.a.c.con.fillText(txt.a, 576, 476);
 
 		// adjust variant weight and face params
+	},
+	"txt3": function() {
+		sce.a.c.con.fillStyle = rgba.rand();
+		let txt0 = txt.d[g.tick];
+		let txt1 = "256px " + txt0;
+		sce.a.c.con.font = txt1;
+		sce.a.c.con.fillText(txt.c, 448, 348);
 	}
 }
    // dom
