@@ -142,13 +142,15 @@ var g = {
 		wfc0.google = {};
 		let txt0 = txt.d[g.tick];
 		wfc0.google.families = [txt0];
-		wfc.active = function() {
+		wfc0.active = function() {
+			console.log("tick count: " + g.tick);
+			console.log("loading font: " + txt0);
 			ren.clear();
 			ren.txt3();
 			g.tick = g.tick + 1;
-			window.setTimetout(g.frame2, 1000);
+			window.setTimeout(g.frame2, 1000);
 		};
-		wfc.inactive = function() {
+		wfc0.inactive = function() {
 			console.log("font load error");
 			// continue
 		};
@@ -169,6 +171,19 @@ var txt = {
 		txt.d = [];
 		txt.d[0] = "Droid Sans";
 		txt.d[1] = "Tangerine";
+		txt.d[2] = "Roboto";
+		txt.d[3] = "Syne Mono";
+		txt.d[4] = "Chango";
+		txt.d[5] = "Open Sans";
+		txt.d[6] = "Ranchers";
+		txt.d[7] = "Noto Sans JP";
+		txt.d[8] = "Lato";
+		txt.d[9] = "Montserrat";
+		txt.d[10] = "Pangolin";
+		txt.d[11] = "Roboto Condensed";
+		txt.d[12] = "Source Sans Pro";
+		txt.d[13] = "Oswald";
+		txt.d[14] = "Cormorant Unicase";
 	}
 }
 // scene
@@ -207,7 +222,7 @@ var ren = {
 		let txt0 = txt.d[g.tick];
 		let txt1 = "256px " + txt0;
 		sce.a.c.con.font = txt1;
-		sce.a.c.con.fillText(txt.c, 448, 348);
+		sce.a.c.con.fillText(txt.c, 448, 874);
 	}
 }
    // dom
