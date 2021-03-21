@@ -153,6 +153,8 @@ var g = {
 		wfc0.inactive = function() {
 			console.log("font load error");
 			// continue
+			g.tick = g.tick + 1;
+			window.setTimeout(g.frame2, 1000);
 		};
 		WebFont.load(wfc0);
 	}
@@ -209,7 +211,7 @@ var txt = {
 		txt.d[37] = "Mukta";
 		txt.d[38] = "Fira Sans";
 		txt.d[39] = "Quicksand";
-		txt.d[40] = "Titillium web";
+		txt.d[40] = "Titillium Web";
 		txt.d[41] = "Recursive";
 		txt.d[42] = "Hind Siliguri";
 		txt.d[43] = "Inter";
@@ -281,6 +283,46 @@ var txt = {
 		txt.d[109] = "Assistant";
 		txt.d[110] = "Cormorant Garamond";
 		txt.d[111] = "Caveat";
+		txt.d[112] = "Catamaran";
+		txt.d[113] = "Play";
+		txt.d[114] = "Padauk";
+		txt.d[115] = "Noto Serif JP";
+		txt.d[116] = "Fredoka One";
+		txt.d[117] = "Tajawal";
+		txt.d[118] = "Cormorant Garamond";
+		txt.d[119] = "Oranienbaum";
+		txt.d[120] = "Domine";
+		txt.d[121] = "Amatic SC";
+		txt.d[122] = "IBM Plex Serif";
+		txt.d[123] = "Permanent Marker";
+		txt.d[124] = "Architects Daughter";
+		txt.d[125] = "Signika";
+		txt.d[126] = "Bree Serif";
+		txt.d[127] = "Alfa Slab One";
+		txt.d[128] = "Righteous";
+		txt.d[129] = "Nanum Myeongjo";
+		txt.d[130] = "Vollkorn";
+		txt.d[131] = "PT Sans Caption";
+		txt.d[132] = "Amiri";
+		txt.d[133] = "Patua One";
+		txt.d[134] = "Crete Round";
+		txt.d[135] = "Archivo";
+		txt.d[136] = "Barlow Semi Condensed";
+		txt.d[137] = "Satisfy";
+		txt.d[138] = "Cinzel";
+		txt.d[139] = "Frank Ruhl Libre";
+		txt.d[140] = "ABeeZee";
+		txt.d[141] = "Courgette";
+		txt.d[142] = "Changa";
+		txt.d[143] = "Brygada 1918";
+		txt.d[144] = "Alegreya";
+		txt.d[145] = "Manrope";
+		txt.d[146] = "Bangers";
+		txt.d[147] = "Alegreya Sans";
+		txt.d[148] = "Saira Condensed";
+		txt.d[149] = "Ubuntu Condensed";
+		txt.d[150] = "Oi";
+
 	}
 }
 // scene
