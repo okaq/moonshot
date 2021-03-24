@@ -43,7 +43,13 @@ var g = {
 		window.setTimeout(g.load, 1000);
 
 		console.log("total render time: " + (window.performance.now() - t0));
-    }
+    },
+	"load": function() {
+		net.data();
+	},
+	"exp": function() {
+		console.log("load font families: " + net.b.b.length);
+	}
 }
 // scene
 var sce = {
@@ -63,6 +69,19 @@ var ren = {
 	"clear": function() {
 		sce.a.c.con.fillStyle = rgba.rand();
 		sce.a.c.con.fillRect(0,0,sce.a.c.can.width,sce.a.c.can.height);
+	}
+}
+// xhr
+var net = {
+	"init": function() {
+		// urls
+		net.a = [];
+		net.a[0] = "http://localhost:8080/a";
+	},
+	"data": function() {
+		window.fetch(net.a[0])
+			.then(res => res.json())
+			.then(json => {net.b = json; g.exp();});
 	}
 }
    // dom
