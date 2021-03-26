@@ -56,6 +56,7 @@ var g = {
 		console.log(WebFont);
 		// ok
 		g.tick = 0;
+		g.txt = "OKAQ";
 		window.setTimeout(g.frame, 1000);
 	},
 	"frame": function() {
@@ -68,6 +69,7 @@ var g = {
 		console.log("load family: " + g.fam);
 
 		g.conf();
+		g.pick();
 
 		g.tick = g.tick + 1;
 		window.setTimeout(g.frame, 100);
@@ -81,9 +83,23 @@ var g = {
 	},
 	"active": function() {
 		// draw
+		window.setTimeout(g.hum, 100);
 	},
 	"inactive": function(e) {
 		console.log(e);
+	},
+	"pick": function() {
+		WebFont.load(g.fig);
+	},
+	"hum": function() {
+		g.fam2 = "256px " + g.fam;
+		ren.txt();
+		g.measure = sce.a.c.con.measureText(g.txt)
+		console.log(g.measure);
+	},
+	"hum2": function() {
+		ren.clear2();
+		ren.txt();
 	}
 }
 // scene
@@ -104,6 +120,14 @@ var ren = {
 	"clear": function() {
 		sce.a.c.con.fillStyle = rgba.rand();
 		sce.a.c.con.fillRect(0,0,sce.a.c.can.width,sce.a.c.can.height);
+	},
+	"clear2": function() {
+		sce.a.c.con.fillStyle = rgba.css([0,0,0,1.0]);
+		sce.a.c.con.fillRect(0,0,sce.a.c.can.width,sce.a.c.can.height);
+	},
+	"txt": function() {
+		sce.a.c.con.fillStyle = rgba.rand();
+		sce.a.c.con.font = g.fam2;
 	}
 }
 // xhr
