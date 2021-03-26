@@ -49,6 +49,41 @@ var g = {
 	},
 	"exp": function() {
 		console.log("load font families: " + net.b.b.length);
+
+		window.setTimeout(g.load2, 1000);
+	},
+	"load2": function() {
+		console.log(WebFont);
+		// ok
+		g.tick = 0;
+		window.setTimeout(g.frame, 1000);
+	},
+	"frame": function() {
+		if (g.tick >= net.b.b.length) {
+			console.log("font done.");
+			return;
+		}
+		console.log("tick count: " + g.tick);
+		g.fam = net.b.b[g.tick];
+		console.log("load family: " + g.fam);
+
+		g.conf();
+
+		g.tick = g.tick + 1;
+		window.setTimeout(g.frame, 100);
+	},
+	"conf": function() {
+		g.fig = {};
+		g.fig.google = {};
+		g.fig.google.families = [g.fam];
+		g.fig.active = g.active;
+		g.fig.inactive = g.inactive;
+	},
+	"active": function() {
+		// draw
+	},
+	"inactive": function(e) {
+		console.log(e);
 	}
 }
 // scene
