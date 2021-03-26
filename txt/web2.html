@@ -72,7 +72,7 @@ var g = {
 		g.pick();
 
 		g.tick = g.tick + 1;
-		window.setTimeout(g.frame, 100);
+		// window.setTimeout(g.frame, 100);
 	},
 	"conf": function() {
 		g.fig = {};
@@ -87,6 +87,8 @@ var g = {
 	},
 	"inactive": function(e) {
 		console.log(e);
+
+		window.setTimeout(g.frame, 100);
 	},
 	"pick": function() {
 		WebFont.load(g.fig);
@@ -96,10 +98,13 @@ var g = {
 		ren.txt();
 		g.measure = sce.a.c.con.measureText(g.txt)
 		console.log(g.measure);
+		window.setTimeout(g.hum2, 100);
 	},
 	"hum2": function() {
 		ren.clear2();
-		ren.txt();
+		ren.txt2();
+
+		window.setTimeout(g.frame, 800);
 	}
 }
 // scene
@@ -128,6 +133,20 @@ var ren = {
 	"txt": function() {
 		sce.a.c.con.fillStyle = rgba.rand();
 		sce.a.c.con.font = g.fam2;
+	},
+	"txt2": function() {
+		let w0 = g.measure.width;
+		let h0 = g.measure.fontBoundingBoxAscent + g.measure.fontBoundingBoxAscent;
+		let x0 = (1920 - w0) / 2;
+		// let y0 = 1080 - h0;
+		let y0 = 540 + 64;
+		console.log(w0,h0,x0,y0);
+		// sce.a.c.con.fillStyle = rgba.css([255,255,255,1.0]);
+		sce.a.c.con.fillStyle = rgba.rand();
+		// sce.a.c.con.font = "256px Monospace";
+		sce.a.c.con.font = g.fam2;
+		// console.log(g.fam2);
+		sce.a.c.con.fillText(g.txt, x0, y0);
 	}
 }
 // xhr
