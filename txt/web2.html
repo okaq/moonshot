@@ -97,14 +97,23 @@ var g = {
 		g.fam2 = "256px " + g.fam;
 		ren.txt();
 		g.measure = sce.a.c.con.measureText(g.txt)
-		console.log(g.measure);
+		// console.log(g.measure);
 		window.setTimeout(g.hum2, 100);
 	},
 	"hum2": function() {
 		ren.clear2();
 		ren.txt2();
 
-		window.setTimeout(g.frame, 800);
+		// window.setTimeout(g.frame, 800);
+
+		window.setTimeout(g.hum3, 100);
+	},
+	"hum3": function() {
+		// encode and save to disk
+		let t0 = window.performance.now();
+		net.enc();
+		console.log("encode time: " + (window.performance.now() - t0));
+		// window.setTimeout(g.frame, 600);
 	}
 }
 // scene
@@ -137,10 +146,13 @@ var ren = {
 	"txt2": function() {
 		let w0 = g.measure.width;
 		let h0 = g.measure.fontBoundingBoxAscent + g.measure.fontBoundingBoxAscent;
+		let h1 = g.measure.actualBoundingBoxAscent + g.measure.actualBoundingBoxDescent;
 		let x0 = (1920 - w0) / 2;
 		// let y0 = 1080 - h0;
 		let y0 = 540 + 64;
-		console.log(w0,h0,x0,y0);
+		// console.log(w0,h0,x0,y0);
+		// let y0 = 540 + (h1 / 2);
+		// console.log(w0,h1,x0,y0);
 		// sce.a.c.con.fillStyle = rgba.css([255,255,255,1.0]);
 		sce.a.c.con.fillStyle = rgba.rand();
 		// sce.a.c.con.font = "256px Monospace";
@@ -160,6 +172,21 @@ var net = {
 		window.fetch(net.a[0])
 			.then(res => res.json())
 			.then(json => {net.b = json; g.exp();});
+	},
+	"enc": function() {
+		net.c = {};
+		net.c.a = sce.a.c.can.toDataURL();
+		net.c.b = net.c.a.split(",")[1];
+		console.log(net.c);
+		net.c.c = atob(net.c.b);
+		net.c.d = [];
+		for (let i = 0; i < net.c.c.length; i++) {
+			let b0 = net.c.c.charCodeAt(i);
+			net.c.d.push(b0);
+		}
+		net.c.e = new Uint8Array(net.c.d);
+		net.c.f = new Blob([net.c.e],{type:"image/png"});
+		console.log(net.c);
 	}
 }
    // dom
