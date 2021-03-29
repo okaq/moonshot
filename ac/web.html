@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=1920,height=1080,initial-scale=1" />
         <meta name="source" content="https://github.com/okaq/moonshot" />
         <meta name="author" content="AQ<aq@okaq.com>" />
-        <meta name="date" content="2021-03-24" />
+        <meta name="date" content="2021-03-30" />
 	<link rel="shortcut icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAAAMElEQVR4nOzNMREAMAzDwF4vg/kjDol4ewHQT5LX7FfvAAAAAAAAAAAA4LANAAD//9duAFsRg4sHAAAAAElFTkSuQmCC" />
 	<style type="text/css">
             html,body{width:1920px;overflow:auto;height:1080px;margin:0px;border:0px;padding:0px;background-color:rgba(0,0,0,0);}
@@ -13,8 +13,11 @@
         <!-- three.js 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/104/three.min.js"></script>
 	-->
-	<!-- web font -->
+	<!-- web font 
 	<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
+	-->
+	<!-- cheerio -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/cheerio/0.22.0/index.js"></script>
         <script type="text/javascript">
             // ok
             console.log("okaq space launch ok!");
@@ -32,7 +35,7 @@
 var g = {
         "init": function() {
             var t0 = window.performance.now();
-            console.log("space grotesk begin");
+            console.log("calder archive start");
 
 		// subs
 		g.subs = [dom,sce,net];
@@ -45,76 +48,8 @@ var g = {
 		console.log("total render time: " + (window.performance.now() - t0));
     },
 	"load": function() {
-		net.data();
-	},
-	"exp": function() {
-		console.log("load font families: " + net.b.b.length);
-
-		window.setTimeout(g.load2, 1000);
-	},
-	"load2": function() {
-		console.log(WebFont);
-		// ok
-		g.tick = 0;
-		g.txt = "OKAQ";
-		window.setTimeout(g.frame, 1000);
-	},
-	"frame": function() {
-		if (g.tick >= net.b.b.length) {
-			console.log("font done.");
-			return;
-		}
-		console.log("tick count: " + g.tick);
-		g.fam = net.b.b[g.tick];
-		console.log("load family: " + g.fam);
-
-		g.conf();
-		g.pick();
-
-		g.tick = g.tick + 1;
-		// window.setTimeout(g.frame, 100);
-	},
-	"conf": function() {
-		g.fig = {};
-		g.fig.google = {};
-		g.fig.google.families = [g.fam];
-		g.fig.active = g.active;
-		g.fig.inactive = g.inactive;
-	},
-	"active": function() {
-		// draw
-		window.setTimeout(g.hum, 100);
-	},
-	"inactive": function(e) {
-		console.log(e);
-
-		window.setTimeout(g.frame, 100);
-	},
-	"pick": function() {
-		WebFont.load(g.fig);
-	},
-	"hum": function() {
-		g.fam2 = "256px " + g.fam;
-		ren.txt();
-		g.measure = sce.a.c.con.measureText(g.txt)
-		// console.log(g.measure);
-		window.setTimeout(g.hum2, 100);
-	},
-	"hum2": function() {
-		ren.clear2();
-		ren.txt2();
-
-		// window.setTimeout(g.frame, 800);
-
-		window.setTimeout(g.hum3, 100);
-	},
-	"hum3": function() {
-		// encode and save to disk
-		let t0 = window.performance.now();
-		net.enc();
-		net.save();
-		console.log("encode time: " + (window.performance.now() - t0));
-		window.setTimeout(g.frame, 600);
+		// net.data();
+		console.log(cheerio);
 	}
 }
 // scene
@@ -135,73 +70,13 @@ var ren = {
 	"clear": function() {
 		sce.a.c.con.fillStyle = rgba.rand();
 		sce.a.c.con.fillRect(0,0,sce.a.c.can.width,sce.a.c.can.height);
-	},
-	"clear2": function() {
-		sce.a.c.con.fillStyle = rgba.css([0,0,0,1.0]);
-		sce.a.c.con.fillRect(0,0,sce.a.c.can.width,sce.a.c.can.height);
-	},
-	"txt": function() {
-		sce.a.c.con.fillStyle = rgba.rand();
-		sce.a.c.con.font = g.fam2;
-	},
-	"txt2": function() {
-		let w0 = g.measure.width;
-		let h0 = g.measure.fontBoundingBoxAscent + g.measure.fontBoundingBoxAscent;
-		let h1 = g.measure.actualBoundingBoxAscent + g.measure.actualBoundingBoxDescent;
-		let x0 = (1920 - w0) / 2;
-		// let y0 = 1080 - h0;
-		let y0 = 540 + 128;
-		// console.log(w0,h0,x0,y0);
-		// let y0 = 540 + (h1 / 2);
-		// console.log(w0,h1,x0,y0);
-		// sce.a.c.con.fillStyle = rgba.css([255,255,255,1.0]);
-		sce.a.c.con.fillStyle = rgba.rand();
-		// sce.a.c.con.font = "256px Monospace";
-		sce.a.c.con.font = g.fam2;
-		// console.log(g.fam2);
-		sce.a.c.con.fillText(g.txt, x0, y0);
 	}
 }
 // xhr
 var net = {
 	"init": function() {
-		// urls
 		net.a = [];
 		net.a[0] = "http://localhost:8080/a";
-		net.a[1] = "http://localhost:8080/c";
-	},
-	"data": function() {
-		window.fetch(net.a[0])
-			.then(res => res.json())
-			.then(json => {net.b = json; g.exp();});
-	},
-	"enc": function() {
-		net.c = {};
-		net.c.a = sce.a.c.can.toDataURL();
-		net.c.b = net.c.a.split(",")[1];
-		console.log(net.c);
-		net.c.c = atob(net.c.b);
-		net.c.d = [];
-		for (let i = 0; i < net.c.c.length; i++) {
-			let b0 = net.c.c.charCodeAt(i);
-			net.c.d.push(b0);
-		}
-		net.c.e = new Uint8Array(net.c.d);
-		net.c.f = new Blob([net.c.e],{type:"image/png"});
-		console.log(net.c);
-	},
-	"save": function() {
-		net.d = {};
-		net.d.a = g.tick + ".png";
-		net.d.b = new FormData();
-		net.d.b.append("image", net.c.f, net.d.a);
-		net.d.c = {};
-		net.d.c.method = "POST";
-		net.d.c.body = net.d.b;
-
-		window.fetch(net.a[1], net.d.c)
-			.then(res => res.text())
-			.then(txt => console.log(txt));
 	}
 }
    // dom
