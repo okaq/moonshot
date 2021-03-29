@@ -16,8 +16,9 @@
 	<!-- web font 
 	<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
 	-->
-	<!-- cheerio -->
+	<!-- cheerio 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/cheerio/0.22.0/index.js"></script>
+	-->
         <script type="text/javascript">
             // ok
             console.log("okaq space launch ok!");
@@ -49,7 +50,23 @@ var g = {
     },
 	"load": function() {
 		// net.data();
-		console.log(cheerio);
+		// console.log(window.fetch);
+		console.log("load calder archive");
+		net.arc();
+	},
+	"work": function() {
+		console.log(net.b);
+		window.setTimeout(db.lore, 100);
+	}
+}
+// data
+var db = {
+	"lore": function() {
+		db.a = new DOMParser();
+		db.b = db.a.parseFromString(net.b, "text/html");
+		// test
+		db.c = db.b.querySelector("div");
+		console.log(db);
 	}
 }
 // scene
@@ -77,6 +94,22 @@ var net = {
 	"init": function() {
 		net.a = [];
 		net.a[0] = "http://localhost:8080/a";
+		net.a[1] = "https://calder.org/archive/all/works/";
+		net.a[2] = "https://calder.org/?p=6551";
+		net.a[3] = "https://calder.org/wp-json/wp/v2/pages/6551"
+	},
+	"arc": function() {
+		// fetch as text
+		// domparser and queryselector
+		net.c = {}; // new Request(net.a[1]);
+		net.c.mode = "no-cors";
+		window.fetch(net.a[1], net.c)
+			.then(res => {console.log(res);res.text()})
+			.then(txt => {console.log(txt);net.b = txt;window.setTimeout(g.work,100);});
+
+		// fetch blocked by CORS policy
+		// no "access-control-allow-origin:*" on requested resource
+		// no-cors returns an opaque request with body = null
 	}
 }
    // dom
