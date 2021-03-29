@@ -44,7 +44,8 @@ var g = {
 
 		ren.clear();
 
-		window.setTimeout(g.load, 1000);
+		// window.setTimeout(g.load, 1000);
+		window.setTimeout(g.load2, 1000);
 
 		console.log("total render time: " + (window.performance.now() - t0));
     },
@@ -57,6 +58,12 @@ var g = {
 	"work": function() {
 		console.log(net.b);
 		window.setTimeout(db.lore, 100);
+	},
+	"load2": function() {
+		net.arc2();
+	},
+	"work2": function() {
+		console.log(net.d);
 	}
 }
 // data
@@ -112,6 +119,11 @@ var net = {
 		// fetch blocked by CORS policy
 		// no "access-control-allow-origin:*" on requested resource
 		// no-cors returns an opaque request with body = null
+	},
+	"arc2": function() {
+		window.fetch(net.a[4])
+			.then(res => res.text())
+			.then(txt => {net.d=txt;window.setTimeout(g.work2,100);});
 	}
 }
    // dom

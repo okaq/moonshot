@@ -5,7 +5,7 @@ package main
 
 import (
 	"fmt"
-	"io"
+	"io/ioutil"
 	"net/http"
 	"time"
 )
@@ -36,15 +36,33 @@ func ArchiveHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		fmt.Println(err)
 	}
-	body, err := io.ReadAll(res.Body)
+	body, err := ioutil.ReadAll(res.Body)
 	if err != nil {
 		fmt.Println(err)
 	}
+	defer res.Body.Close()
+	fmt.Printf("%s\n", body)
+	fmt.Println(res.StatusCode)
 	w.Write(body)
+}
+
+func arc() {
+	res, err := http.Get(ARCHIVE)
+	if err != nil {
+		fmt.Println(err)
+	}
+	body, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		fmt.Println(err)
+	}
+	defer res.Body.Close()
+	fmt.Printf("%s\n", body)
+	fmt.Println(res.StatusCode)
 }
 
 func main() {
 	motd()
+	// arc()
 	http.HandleFunc("/", WebHandler)
 	http.HandleFunc("/a", SaveHandler)
 	http.HandleFunc("/b", ArchiveHandler)
