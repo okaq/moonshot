@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"os"
 	"time"
 )
 
@@ -15,6 +16,10 @@ const (
 	INDEX = "web.html"
 	ARCHIVE = "https://calder.org/archive/all/works/"
 	HTML = "html/ac.html"
+)
+
+var (
+	Img []string
 )
 
 func motd() {
@@ -90,10 +95,41 @@ func ImgHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(err)
 	}
 	fmt.Printf("image list count: %d\n", len(j0))
+	Img = j0
+	go pop()
 	s0 := fmt.Sprintf("bytes decoded: %d", len(b0))
 	b1 := []byte(s0)
 	w.Header().Set("Content-type", "text/plain")
 	w.Write(b1)
+}
+
+func pop() {
+	// for i, img0 := range Img {
+		for i := 0; i < 4; i++ {
+		img0 := Img[i]
+		fmt.Println(i,img0)
+		res, err := http.Get(img0)
+		if err != nil {
+			fmt.Println(err)
+		}
+		s0 := fmt.Sprintf("img/%05d.jpeg", i)
+		fmt.Printf("creating file: %s\n", s0)
+		f0, err := os.Create(s0)
+		if err != nil {
+			fmt.Println(err)
+		}
+		defer f0.Close()
+		b0, err := ioutil.ReadAll(res.Body)
+		if err != nil {
+			fmt.Println(err)
+		}
+		defer res.Body.Close()
+		n0, err := f0.Write(b0)
+		if err != nil {
+			fmt.Println(err)
+		}
+		fmt.Printf("wrote %d bytes\n", n0)
+	}
 }
 
 func main() {
