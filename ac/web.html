@@ -164,6 +164,7 @@ var net = {
 		net.a[4] = "http://localhost:8080/b";
 		net.a[5] = "http://localhost:8080/c";
 		net.a[6] = "http://localhost:8080/d";
+		net.a[7] = "http://localhost:8080/e";
 	},
 	"arc": function() {
 		// fetch as text
@@ -192,6 +193,12 @@ var net = {
 		// arc2 works, arc3 undefined
 	},
 	"surf": function() {
+		let req0 = {};
+		req0.method = "POST";
+		req0.body = db.a.e;
+		window.fetch(net.a[7], req0)
+			.then(res => res.text())
+			.then(txt => console.log(txt));
 	}
 }
    // dom

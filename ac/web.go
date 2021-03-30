@@ -4,6 +4,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -77,6 +78,24 @@ func TextHandler(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("ok"))
 }
 
+func ImgHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Println(r)
+	b0, err := ioutil.ReadAll(r.Body)
+	if err != nil {
+		fmt.Println(err)
+	}
+	var j0 []string
+	err = json.Unmarshal(b0, &j0)
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Printf("image list count: %d\n", len(j0))
+	s0 := fmt.Sprintf("bytes decoded: %d", len(b0))
+	b1 := []byte(s0)
+	w.Header().Set("Content-type", "text/plain")
+	w.Write(b1)
+}
+
 func main() {
 	motd()
 	// arc()
@@ -85,6 +104,7 @@ func main() {
 	http.HandleFunc("/b", ArchiveHandler)
 	http.HandleFunc("/c", HtmlHandler)
 	http.HandleFunc("/d", TextHandler)
+	http.HandleFunc("/e", ImgHandler)
 	http.ListenAndServe(":8080", nil)
 }
 
