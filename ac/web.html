@@ -63,7 +63,8 @@ var g = {
 		net.arc2();
 	},
 	"work2": function() {
-		console.log(net.d);
+		console.log(net.d.length);
+		window.setTimeout(db.lore2, 100);
 	}
 }
 // data
@@ -74,6 +75,24 @@ var db = {
 		// test
 		db.c = db.b.querySelector("div");
 		console.log(db);
+	},
+	"lore2": function() {
+		db.a = {};
+		db.a.a = new DOMParser();
+		db.a.b = db.a.a.parseFromString(net.d, "text/html");
+		db.a.c = db.a.b.querySelectorAll("img");
+		db.a.d = db.a.b.querySelectorAll("div.grid-item-works");
+		console.log(db.a.c.length);
+		// console.log(db.a.c[0]);
+		// console.log(db.a.d.length);
+		db.a.d[db.a.d.length-1].scrollIntoView();
+		db.a.e = db.a.b.querySelectorAll("img");
+		// console.log(db.a.e.length);
+		console.log(db.a.e[99]);
+		console.log(db.a.c[99]);
+		// only retruns first 100
+		// lazy load? document scroll requires client
+		// save ac.html to server, img srcset contains data
 	}
 }
 // scene
