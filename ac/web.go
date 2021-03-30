@@ -89,6 +89,16 @@ func ImgHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		fmt.Println(err)
 	}
+	f0, err := os.Create("html/img.json")
+	if err != nil {
+		fmt.Println(err)
+	}
+	defer f0.Close()
+	n0, err := f0.Write(b0)
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Printf("image json %d bytes\n", n0)
 	var j0 []string
 	err = json.Unmarshal(b0, &j0)
 	if err != nil {
@@ -105,7 +115,7 @@ func ImgHandler(w http.ResponseWriter, r *http.Request) {
 
 func pop() {
 	// for i, img0 := range Img {
-		for i := 0; i < 4; i++ {
+	for i := 1015; i < len(Img); i++ {
 		img0 := Img[i]
 		fmt.Println(i,img0)
 		res, err := http.Get(img0)
@@ -130,6 +140,8 @@ func pop() {
 		}
 		fmt.Printf("wrote %d bytes\n", n0)
 	}
+	// too many files open, close on sync, not defer
+	// 1300 jpegs, 386 MB calder archive on disk
 }
 
 func main() {
