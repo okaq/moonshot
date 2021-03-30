@@ -45,7 +45,8 @@ var g = {
 		ren.clear();
 
 		// window.setTimeout(g.load, 1000);
-		window.setTimeout(g.load2, 1000);
+		// window.setTimeout(g.load2, 1000);
+		window.setTimeout(g.load3, 1000);
 
 		console.log("total render time: " + (window.performance.now() - t0));
     },
@@ -65,6 +66,15 @@ var g = {
 	"work2": function() {
 		console.log(net.d.length);
 		window.setTimeout(db.lore2, 100);
+	},
+	"load3": function() {
+		console.log("calder archive from html");
+		net.arc3();
+	},
+	"work3": function() {
+		// console.log(net.e.length);
+		// net.e is undefined
+		window.setTimeout(db.lore2, 100);
 	}
 }
 // data
@@ -79,7 +89,7 @@ var db = {
 	"lore2": function() {
 		db.a = {};
 		db.a.a = new DOMParser();
-		db.a.b = db.a.a.parseFromString(net.d, "text/html");
+		db.a.b = db.a.a.parseFromString(net.e, "text/html");
 		db.a.c = db.a.b.querySelectorAll("img");
 		db.a.d = db.a.b.querySelectorAll("div.grid-item-works");
 		console.log(db.a.c.length);
@@ -122,7 +132,7 @@ var net = {
 		net.a[0] = "http://localhost:8080/a";
 		net.a[1] = "https://calder.org/archive/all/works/";
 		net.a[2] = "https://calder.org/?p=6551";
-		net.a[3] = "https://calder.org/wp-json/wp/v2/pages/6551"
+		net.a[3] = "https://calder.org/wp-json/wp/v2/pages/6551";
 		net.a[4] = "http://localhost:8080/b";
 		net.a[5] = "http://localhost:8080/c";
 	},
@@ -143,6 +153,12 @@ var net = {
 		window.fetch(net.a[4])
 			.then(res => res.text())
 			.then(txt => {net.d=txt;window.setTimeout(g.work2,100);});
+	},
+	"arc3": function() {
+		console.log(net.a[5]);
+		window.fetch(net.a[5])
+			.then(res => {console.log(res);res.text()})
+			.then(txt => {console.log(txt);net.e=txt;window.setTimeout(g.work3,100)});
 	}
 }
    // dom

@@ -13,6 +13,7 @@ import (
 const (
 	INDEX = "web.html"
 	ARCHIVE = "https://calder.org/archive/all/works/"
+	HTML = "html/ac.html"
 )
 
 func motd() {
@@ -60,12 +61,24 @@ func arc() {
 	fmt.Println(res.StatusCode)
 }
 
+func HtmlHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Println(r)
+	// http.ServeFile(w,r,HTML)
+	b0, err := ioutil.ReadFile(HTML)
+	if err != nil {
+		fmt.Println(err)
+	}
+	w.Header().Set("Content-type", "text/plain")
+	w.Write(b0)
+}
+
 func main() {
 	motd()
 	// arc()
 	http.HandleFunc("/", WebHandler)
 	http.HandleFunc("/a", SaveHandler)
 	http.HandleFunc("/b", ArchiveHandler)
+	http.HandleFunc("/c", HtmlHandler)
 	http.ListenAndServe(":8080", nil)
 }
 
