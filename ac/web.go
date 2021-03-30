@@ -72,6 +72,11 @@ func HtmlHandler(w http.ResponseWriter, r *http.Request) {
 	w.Write(b0)
 }
 
+func TextHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Println(r)
+	w.Write([]byte("ok"))
+}
+
 func main() {
 	motd()
 	// arc()
@@ -79,6 +84,7 @@ func main() {
 	http.HandleFunc("/a", SaveHandler)
 	http.HandleFunc("/b", ArchiveHandler)
 	http.HandleFunc("/c", HtmlHandler)
+	http.HandleFunc("/d", TextHandler)
 	http.ListenAndServe(":8080", nil)
 }
 
