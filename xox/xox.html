@@ -44,6 +44,31 @@ var g = {
 		ren.grey();
 	}
 }
+// data
+var db = {
+	"color": function() {
+		db.c = {};
+		db.c.a = {};
+		db.c.b = [];
+		db.c.a["white"] = [255,255,255,1.0];
+		db.c.a["silver"] = [192,192,192,1.0];
+		db.c.a["gray"] = [128,128,128,1.0];
+		db.c.a["black"] = [0,0,0,a.0];
+		db.c.a["red"] = [255,0,0,1.0];
+		db.c.a["maroon"] = [128,0,0,1.0];
+		db.c.a["yellow"] = [255,255,0,1.0];
+		db.c.a["olive"] = [128,128,0,1.0];
+		db.c.a["lime"] = [0,255,0,1.0];
+		db.c.a["green"] = [0,128,0,1.0];
+		db.c.a["aqua"] = [0,255,255,1.0];
+		db.c.a["teal"] = [0,128,128,1.0];
+		db.c.a["blue"] = [0,0,255,1.0];
+		db.c.a["navy"] = [0,0,128,1.0];
+		db.c.a["fuschia"] = [255,0,255,1.0];
+		db.c.a["purple"] = [128,0,128,1.0];
+		for (var k0 in db.c.a) {db.c.b.push(k0);};
+	}
+}
 // scene
 var sce = {
 	"init": function() {
@@ -55,6 +80,9 @@ var sce = {
 	},
 	"click": function(e) {
 		console.log(e);
+	},
+	"full": function() {
+		// update on resize
 	}
 }
 // render
