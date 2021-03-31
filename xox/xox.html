@@ -41,7 +41,29 @@ var g = {
     },
 	"load": function() {
 		console.log("get screen dimensions");
+		g.s = window.screen;
+		console.log("width: " + g.s.width + " height: " + g.s.height);
 		ren.grey();
+		
+		window.setTimeout(g.load2, 1000);
+	},
+	"load2": function() {
+		console.log("box art");
+		g.tick = 0;
+		g.max = db.c.a.length;
+		db.box();
+		g.id = window.setInterval(g.frame, 1000);
+	},
+	"frame": function() {
+		console.log("tick count: " + g.tick)
+		if (g.tick >= g.max) {
+			console.log("anim done.");
+			window.clearInterval(g.id);
+			return;
+		}
+		db.frame();
+		ren.frame();
+		g.tick = g.tick + 1;
 	}
 }
 // data
@@ -53,7 +75,7 @@ var db = {
 		db.c.a["white"] = [255,255,255,1.0];
 		db.c.a["silver"] = [192,192,192,1.0];
 		db.c.a["gray"] = [128,128,128,1.0];
-		db.c.a["black"] = [0,0,0,a.0];
+		db.c.a["black"] = [0,0,0,1.0];
 		db.c.a["red"] = [255,0,0,1.0];
 		db.c.a["maroon"] = [128,0,0,1.0];
 		db.c.a["yellow"] = [255,255,0,1.0];
@@ -67,6 +89,11 @@ var db = {
 		db.c.a["fuschia"] = [255,0,255,1.0];
 		db.c.a["purple"] = [128,0,128,1.0];
 		for (var k0 in db.c.a) {db.c.b.push(k0);};
+	},
+	"box": function() {
+		db.a = {};
+	},
+	"frame": function() {
 	}
 }
 // scene
@@ -95,6 +122,9 @@ var ren = {
 		// sce.a.c.con.fillStyle = rgba.css([192,192,192,1.0]);
 		sce.a.c.con.fillStyle = rgba.css([63,63,63,1.0]);
 		sce.a.c.con.fillRect(0,0,sce.a.c.can.width,sce.a.c.can.height);
+	},
+	"frame() {
+		// draw data
 	}
 }
    // dom
