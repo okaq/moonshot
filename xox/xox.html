@@ -92,6 +92,17 @@ var db = {
 	},
 	"box": function() {
 		db.a = {};
+		db.a.a = db.box2();
+	},
+	"box2": function() {
+		// single random square, half size, centered
+		let w0 = (Math.random() * (1920 / 2)) >>> 0;
+		let h0 = (Math.random() * (1080 / 2)) >>> 0;
+		let x0 = ((1920 - w0) / 2) >>> 0;
+		let y0 = ((1080 - h0) / 2) >>> 0;
+		let r0 = [w0,h0,x0,y0];
+
+		return r0;
 	},
 	"frame": function() {
 	}
