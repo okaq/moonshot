@@ -43,15 +43,16 @@ var g = {
 		console.log("get screen dimensions");
 		g.s = window.screen;
 		console.log("width: " + g.s.width + " height: " + g.s.height);
-		ren.grey();
+		ren.gray();
 		
 		window.setTimeout(g.load2, 1000);
 	},
 	"load2": function() {
 		console.log("box art");
+		db.color();
 		g.tick = 0;
-		g.max = db.c.a.length;
-		db.box();
+		g.max = db.c.b.length;
+		// db.box();
 		g.id = window.setInterval(g.frame, 1000);
 	},
 	"frame": function() {
@@ -105,6 +106,11 @@ var db = {
 		return r0;
 	},
 	"frame": function() {
+		// pick color
+		db.c.c = db.c.b[g.tick];
+		db.c.d = db.c.a[db.c.c];
+		// create rect
+		db.box();
 	}
 }
 // scene
@@ -129,13 +135,19 @@ var ren = {
 		sce.a.c.con.fillStyle = rgba.rand();
 		sce.a.c.con.fillRect(0,0,sce.a.c.can.width,sce.a.c.can.height);
 	},
-	"grey": function() {
+	"gray": function() {
 		// sce.a.c.con.fillStyle = rgba.css([192,192,192,1.0]);
 		sce.a.c.con.fillStyle = rgba.css([63,63,63,1.0]);
 		sce.a.c.con.fillRect(0,0,sce.a.c.can.width,sce.a.c.can.height);
 	},
-	"frame() {
+	"frame": function() {
 		// draw data
+		ren.gray();
+		sce.a.c.con.beginPath();
+		sce.a.c.con.strokeStyle = rgba.css(db.c.d);
+		sce.a.c.con.rect(db.a.a[2],db.a.a[3],db.a.a[0],db.a.a[1]);
+		// (...db.a.a)
+		sce.a.c.con.stroke();
 	}
 }
    // dom
