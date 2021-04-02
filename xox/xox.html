@@ -63,7 +63,9 @@ var g = {
 			return;
 		}
 		db.frame();
+		db.frame2();
 		ren.frame();
+		ren.frame2();
 		g.tick = g.tick + 1;
 	}
 }
@@ -111,6 +113,22 @@ var db = {
 		db.c.d = db.c.a[db.c.c];
 		// create rect
 		db.box();
+	},
+	"frame2": function() {
+		// anim frames, within 1fps iteration
+		db.a.b = [];
+		let w1 = db.a.a[0];
+		let h1 = db.a.a[1];
+		let x1 = db.a.a[2];
+		let y1 = db.a.a[3];
+		while (w1 >= 8 && h1 >= 8) {
+			w1 = w1 - 8;
+			h1 = h1 - 8;
+			x1 = x1 + 4;
+			y1 = y1 + 4;
+			let r0 = [w1,h1,x1,y1];
+			db.a.b.push(r0);
+		}
 	}
 }
 // scene
@@ -143,11 +161,20 @@ var ren = {
 	"frame": function() {
 		// draw data
 		ren.gray();
-		sce.a.c.con.beginPath();
+		// sce.a.c.con.beginPath();
 		sce.a.c.con.strokeStyle = rgba.css(db.c.d);
-		sce.a.c.con.rect(db.a.a[2],db.a.a[3],db.a.a[0],db.a.a[1]);
+		sce.a.c.con.strokeRect(db.a.a[2],db.a.a[3],db.a.a[0],db.a.a[1]);
 		// (...db.a.a)
-		sce.a.c.con.stroke();
+		// sce.a.c.con.stroke();
+	},
+	"frame2": function() {
+		for (let i = 0; i < db.a.b.length; i++) {
+			let r0 = db.a.b[i];
+			// sce.a.c.con.beginPath();
+			sce.a.c.con.strokeRect(r0[2],r0[3],r0[0],r0[1]);
+			// sce.a.c.con.stroke();
+		}
+		console.log(db.a.b);
 	}
 }
    // dom
