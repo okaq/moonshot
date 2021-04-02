@@ -65,7 +65,8 @@ var g = {
 		db.frame();
 		db.frame2();
 		ren.frame();
-		ren.frame2();
+		// ren.frame2();
+		ren.frame3();
 		g.tick = g.tick + 1;
 	}
 }
@@ -175,6 +176,21 @@ var ren = {
 			// sce.a.c.con.stroke();
 		}
 		console.log(db.a.b);
+	},
+	"frame3": function() {
+		let f0 = db.a.b.length;
+		let f1 = 1000 / (f0+1);
+		let t0 = 0;
+		let f2 = window.setInterval(function() {
+			if (t0 >= f0) {
+				window.clearInterval(f2);
+				return;
+			}
+			let r0 = db.a.b[t0];
+			sce.a.c.con.strokeRect(r0[2],r0[3],r0[0],r0[1]);
+			t0 = t0 + 1;
+		}, f1);
+		// nice, smooth procedural animation
 	}
 }
    // dom
