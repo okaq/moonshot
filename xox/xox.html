@@ -60,6 +60,7 @@ var g = {
 		if (g.tick >= g.max) {
 			console.log("anim done.");
 			window.clearInterval(g.id);
+			window.setTimeout(g.load3, 1000);
 			return;
 		}
 		db.frame();
@@ -68,6 +69,9 @@ var g = {
 		// ren.frame2();
 		ren.frame3();
 		g.tick = g.tick + 1;
+	},
+	"load3": function() {
+		ren.clear();
 	}
 }
 // data
@@ -179,8 +183,12 @@ var ren = {
 	},
 	"frame3": function() {
 		let f0 = db.a.b.length;
+		if (f0 == 0) {return;};
 		let f1 = 1000 / (f0+1);
 		let t0 = 0;
+		// stats
+		console.log("width: " + db.a.a[0] + " height: " + db.a.a[1]);
+		console.log("frames: " + f0 + " duration: " + f1);
 		let f2 = window.setInterval(function() {
 			if (t0 >= f0) {
 				window.clearInterval(f2);
