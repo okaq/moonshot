@@ -76,6 +76,28 @@ var g = {
 		ren.clear();
 		// net.tone();
 		console.log(Tone);
+		window.setTimeout(osc.beep, 1000);
+	}
+}
+// audio
+var osc = {
+	"beep": function() {
+		osc.a = {};
+		osc.a.a = 16;
+		osc.a.b = 0;
+		osc.a.c = window.setInterval(osc.frame, 1000);
+	},
+	"frame": function() {
+		console.log("beep tick: " + osc.a.b);
+		if (osc.a.b >= osc.a.a) {
+			console.log("beep done.");
+			window.clearInterval(osc.a.c);
+			return;
+		}
+		osc.frame2();
+		osc.a.b = osc.a.b + 1;
+	},
+	"frame2": function() {
 	}
 }
 // xhr
