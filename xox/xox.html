@@ -108,11 +108,12 @@ var osc = {
 		osc.a.d = {};
 		osc.a.d.type = "square";
 		osc.a.d.frequency = ((Math.random() * 440) + 440) >>> 0;
-		osc.a.d.volume = -16;
-		osc.a.e = new Tone.Oscillator(osc.a.d);
+		osc.a.d.volume = 16;
+		osc.a.e = new Tone.Oscillator(osc.a.d).toDestination();
 		osc.a.f = (Math.random() * 1000) >>> 0;
+		osc.a.g = function() { osc.a.e.stop(); };
 		osc.a.e.start();
-		window.setTimeout(osc.a.e => osc.a.e.stop(), osc.a.f);
+		window.setTimeout(osc.a.g, osc.a.f);
 	}
 }
 // xhr
@@ -205,8 +206,10 @@ var sce = {
 		dom.add(sce.a.c);
 		sce.a.c.can.addEventListener("click", sce.click, false);
 	},
-	"click": function(e) {
+	"click": async function(e) {
 		console.log(e);
+		await Tone.start();
+		console.log("audio live");
 	},
 	"full": function() {
 		// update on resize
