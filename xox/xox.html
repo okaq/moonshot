@@ -9,7 +9,8 @@
 	<link rel="shortcut icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAAAMElEQVR4nOzNMREAMAzDwF4vg/kjDol4ewHQT5LX7FfvAAAAAAAAAAAA4LANAAD//9duAFsRg4sHAAAAAElFTkSuQmCC" />
 	<style type="text/css">
             html,body{width:1920px;overflow:auto;height:1080px;margin:0px;border:0px;padding:0px;background-color:rgba(0,0,0,0);}
-        </style>
+        </style>a
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.15/Tone.js"></script>
         <script type="text/javascript">
             // ok
             console.log("okaq space launch ok!");
@@ -71,7 +72,29 @@ var g = {
 		g.tick = g.tick + 1;
 	},
 	"load3": function() {
+		console.log("audio synth");
 		ren.clear();
+		// net.tone();
+		console.log(Tone);
+	}
+}
+// xhr
+var net = {
+	"tone": function() {
+		net.a = [];
+		net.a[0] = "https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.15/Tone.js";
+
+		window.fetch(net.a[0])
+			.then(res => res.text())
+			.then(txt => net.add(txt));
+	},
+	"add": function(txt) {
+		console.log("recieved: " + txt.length);
+		let s0 = document.createElement("script");
+		s0.onload = function() {console.log(Tone);};
+		s0.src = txt;
+		document.getElementById("zeta").appendChild(s0);
+		// no good. can use eval() or window.Function() instead
 	}
 }
 // data
