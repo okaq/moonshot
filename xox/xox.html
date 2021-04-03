@@ -89,15 +89,30 @@ var osc = {
 	},
 	"frame": function() {
 		console.log("beep tick: " + osc.a.b);
+		
 		if (osc.a.b >= osc.a.a) {
 			console.log("beep done.");
 			window.clearInterval(osc.a.c);
 			return;
 		}
+		
 		osc.frame2();
+
+		console.log("osc type = " + osc.a.d.type);
+		console.log("osc freq = " + osc.a.d.frequency);
+		console.log("osc dur  = " + osc.a.f);
+		
 		osc.a.b = osc.a.b + 1;
 	},
 	"frame2": function() {
+		osc.a.d = {};
+		osc.a.d.type = "square";
+		osc.a.d.frequency = ((Math.random() * 440) + 440) >>> 0;
+		osc.a.d.volume = -16;
+		osc.a.e = new Tone.Oscillator(osc.a.d);
+		osc.a.f = (Math.random() * 1000) >>> 0;
+		osc.a.e.start();
+		window.setTimeout(osc.a.e => osc.a.e.stop(), osc.a.f);
 	}
 }
 // xhr
