@@ -81,6 +81,8 @@ var g = {
 	"load4": function() {
 		console.log("midi tones");
 		osc.midi();
+		console.log(osc.b);
+		window.setTimeout(osc.beep2, 1000);
 	}
 }
 // audio
@@ -131,8 +133,40 @@ var osc = {
 			let f1 = f0 / 12;
 			let f2 = Math.pow(2,f1);
 			let f3 = 440*f2;
-			osc.push(f3);
+			osc.b.push(f3);
 		}
+	},
+	"beep2": function() {
+		osc.c = {};
+		osc.c.a = 0;
+		osc.c.b = osc.b.length;
+		osc.c.c = window.setInterval(osc.frame3, 1000);
+	},
+	"frame3": function() {
+		console.log("tone tick: " + osc.c.a);
+
+		if (osc.c.a >= osc.c.b) {
+			console.log("tone done.");
+			window.clearInterval(osc.c.c);
+			return;
+		}
+
+		console.log("freq: " + osc.b[osc.c.a]);
+
+		osc.frame4();
+
+		osc.c.a = osc.c.a + 1;
+	},
+	"frame4": function() {
+		osc.c.d = {};
+		osc.c.d.type = "sine";
+		osc.c.d.frequency = osc.b[osc.c.a];
+		osc.c.d.volume = 16;
+		osc.c.e = new Tone.Oscillator(osc.c.d).toDestination();
+		osc.c.f = 600;
+		osc.c.g = function() { osc.c.e.stop() };
+		osc.c.e.start();
+		window.setTimeout(osc.c.g, osc.c.f);
 	}
 }
 // xhr
