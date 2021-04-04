@@ -77,6 +77,10 @@ var g = {
 		// net.tone();
 		console.log(Tone);
 		window.setTimeout(osc.beep, 1000);
+	},
+	"load4": function() {
+		console.log("midi tones");
+		osc.midi();
 	}
 }
 // audio
@@ -93,6 +97,7 @@ var osc = {
 		if (osc.a.b >= osc.a.a) {
 			console.log("beep done.");
 			window.clearInterval(osc.a.c);
+			window.setTimeout(g.load4, 1000);
 			return;
 		}
 		
@@ -114,6 +119,20 @@ var osc = {
 		osc.a.g = function() { osc.a.e.stop(); };
 		osc.a.e.start();
 		window.setTimeout(osc.a.g, osc.a.f);
+
+		// midi formula
+		// freq = 440 * 2^((n-69)/12)
+	},
+	"midi": function() {
+		osc.b = [];
+		for (let i = 0; i < 88; i++) {
+			let i0 = i + 21;
+			let f0 = i0 - 69;
+			let f1 = f0 / 12;
+			let f2 = Math.pow(2,f1);
+			let f3 = 440*f2;
+			osc.push(f3);
+		}
 	}
 }
 // xhr
