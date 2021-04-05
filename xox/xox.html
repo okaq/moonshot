@@ -258,6 +258,13 @@ var sce = {
 		sce.a.c = dom.canvas(sce.a.r);
 		dom.add(sce.a.c);
 		sce.a.c.can.addEventListener("click", sce.click, false);
+		
+		// fire auto
+		const ev0 = new Event("click");
+		window.setTimeout(() => sce.a.c.can.dispatchEvent(ev0), 10);
+
+		// only starts audio on actual user interaction
+		// apr '18 chrome autoplay policy changes
 	},
 	"click": async function(e) {
 		console.log(e);
