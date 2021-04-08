@@ -64,6 +64,14 @@ var g = {
 	"load2": function() {
 		// set field at 80 / 20
 		sce.field();
+		ren.field();
+		sce.ball();
+		ren.ball();
+		sce.cursor();
+		ren.cursor();
+
+		// maintain single full screen canvas
+		// data "grid" of 2x2 pixels for ball, cursor, fill
 	}
 }
 // scene
@@ -92,6 +100,18 @@ var sce = {
 	},
 	"click2": function(e) {
 		console.log(e);	
+	},
+	"ball": function() {
+		// 2x2 grey ball
+	},
+	"click3": function(e) {
+		console.log(e);
+	},
+	"cursor": function() {
+		// 2x2 player cursor
+	},
+	"click4": function(e) {
+		console.log(e);
 	}
 }
 // render
@@ -99,6 +119,19 @@ var ren = {
 	"clear": function() {
 		sce.a.c.con.fillStyle = rgba.rand();
 		sce.a.c.con.fillRect(0,0,sce.a.c.can.width,sce.a.c.can.height);
+	},
+	"field": function() {
+		// bkgd
+		sce.a.c.con.fillStyle = rgba.css([0,0,0,1.0]);
+		sce.a.c.con.fillRect(0,0,sce.a.c.can.width,sce.a.c.can.height);
+
+		// field
+		sce.b.c.con.fillStyle = rgba.css([255,255,255,1.0]);
+		sce.b.c.con.fillRect(0,0,sce.b.c.can.width,sce.b.c.can.height);
+	},
+	"cursor": function() {
+	},
+	"ball": function() {
 	}
 }
    // dom
