@@ -48,6 +48,8 @@ var g = {
 		console.log("attach event handler");
 
 		window.addEventListener("resize", g.size, false);
+
+		window.setTimeout(g.load2, 1000);
 	},
 	"size": function() {
 		// create history buffer for all time stamps
@@ -58,6 +60,10 @@ var g = {
 
 
 
+	},
+	"load2": function() {
+		// set field at 80 / 20
+		sce.field();
 	}
 }
 // scene
@@ -72,6 +78,21 @@ var sce = {
 	"click": async function(e) {
 		console.log(e);
 	},
+	"field": function() {
+		sce.b = {};
+		let w0 = (1920 * 0.8) >>> 0;
+		let h0 = (1080 * 0.8) >>> 0;
+		let x0 = ((1920 - w0) / 2) >>> 0;
+		let y0 = ((1080 - h0) / 2) >>> 0;
+		sce.b.r = [w0,h0,x0,y0];
+		sce.b.c = dom.canvas(sce.b.r);
+		dom.canvas(sce.b.c);
+		sce.b.d = [];
+		sce.b.d.can.addEventListener("click", sce.click2, false);
+	},
+	"click2": function(e) {
+		console.log(e);	
+	}
 }
 // render
 var ren = {
