@@ -70,8 +70,24 @@ var g = {
 		sce.cursor();
 		ren.cursor();
 
+		window.setTimeout(g.load3, 1000);
+
 		// maintain single full screen canvas
 		// data "grid" of 2x2 pixels for ball, cursor, fill
+	},
+	"load3": function() {
+		// attach keyboard input handlers
+		document.addEventListener("keydown", g.key, false);
+
+		window.setTimeout(g.load4, 1000);
+	},
+	"key": function(e) {
+		g.k = e.keyCode;
+		// [37..40] = [l,u,r,d]
+	},
+	"load4": function() {
+		// animate
+		console.log("start game");
 	}
 }
 // scene
