@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head id="zeta">
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+        <meta name="viewport" content="width=1920,height=1080,initial-scale=1" />
+        <meta name="source" content="https://github.com/okaq/moonshot" />
+        <meta name="author" content="AQ<aq@okaq.com>" />
+        <meta name="date" content="2021-04-12" />
+	<link rel="shortcut icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAAAMElEQVR4nOzNMREAMAzDwF4vg/kjDol4ewHQT5LX7FfvAAAAAAAAAAAA4LANAAD//9duAFsRg4sHAAAAAElFTkSuQmCC" />
+	<style type="text/css">
+            html,body{width:1920px;overflow:auto;height:1080px;margin:0px;border:0px;padding:0px;background-color:rgba(0,0,0,0);}
+        </style>
+	<!-- 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.15/Tone.js"></script>
+	-->
+        <script type="text/javascript">
+            // ok
+            console.log("okaq space launch ok!");
+            // async load
+            (function() {
+                var a = {
+                    "load": function(e) {
+                        console.log(e);
+                        g.init();
+                    }
+                }
+                document.addEventListener("DOMContentLoaded", a.load, false);
+            })();
+// game
+var g = {
+        "init": function() {
+            var t0 = window.performance.now();
+            console.log("xonix full screen");
+
+		// subs
+		g.subs = [dom,sce];
+		g.subs.forEach(function(el){el.init();});
+
+		ren.clear();
+
+		window.setTimeout(g.load, 1000);
+
+		console.log("total render time: " + (window.performance.now() - t0));
+    },
+	"load": function() {
+		console.log("get screen dimensions");
+
+		g.s = window.screen;
+
+		console.log("attach event handler");
+
+		window.addEventListener("resize", g.size, false);
+		document.addEventListener("keydown", g.key, false);
+	}
+	"size": function(e) {
+		console.log(e);
+	},
+	"key": function(e) {
+		console.log(e);
+		g.k = e.keyCode;
+		// [37..40] = [l,u,r,d]
+	}
+}
+// scene
+var sce = {
+	"init": function() {
+		sce.a = {};
+		sce.a.r = [1920,1080,0,0];
+		sce.a.c = dom.canvas(sce.a.r);
+		dom.add(sce.a.c);
+		sce.a.c.can.addEventListener("click", sce.click, false);
+	},
+	"click": async function(e) {
+		console.log(e);
+	}
+}
+// render
+var ren = {
+	"clear": function() {
+		sce.a.c.con.fillStyle = rgba.rand();
+		sce.a.c.con.fillRect(0,0,sce.a.c.can.width,sce.a.c.can.height);
+	}
+}
+   // dom
+   var dom = {
+        "init": function() {
+            dom.alpha = document.getElementById("alpha");
+            console.log(dom.alpha);
+        },
+        "canvas": function(r0) {
+            var c0 = {};
+            c0.can = document.createElement("canvas");
+            c0.con = c0.can.getContext("2d");
+            c0.can.width = r0[0];
+            c0.can.height = r0[1];
+            c0.can.style.position = "absolute";
+            c0.can.style.top = r0[3] + "px";
+            c0.can.style.left = r0[2] + "px";
+            return c0;
+        },
+        "canvas2": function(r0) {
+            var c0 = {};
+            c0.can = document.createElement("canvas");
+            // c0.con = c0.can.getContext("2d");
+            // let threejs create the wegbl context
+            c0.can.width = r0[0];
+            c0.can.height = r0[1];
+            c0.can.style.position = "absolute";
+            c0.can.style.top = r0[3] + "px";
+            c0.can.style.left = r0[2] + "px";
+            return c0;
+        },
+        "add": function(c0) {
+            dom.alpha.appendChild(c0.can);
+        },
+        "remove": function(c0) {
+            dom.alpha.removeChild(c0.can);
+        }
+    }
+    // colors
+    var rgba = {
+        "rc": function() {
+            // return random rgba
+            var c0 = [
+                rgba.rb(),
+                rgba.rb(),
+                rgba.rb(),
+                1.0
+                ];
+            return c0;
+        },
+        "css": function(c0) {
+            // return css string
+            return "rgba(" + c0.join(",") + ")";
+        },
+        "rb": function() {
+            // random byte
+            return (Math.random() * 255) >>> 0;
+        },
+        "rba": function(size0) {
+            // random byte array length of input
+            var r0 = [];
+            for (var i = 0; i < size0; i++) {
+                r0.push(rgba.rb());
+            }
+            return r0;
+        },
+        "rand": function() {
+            return rgba.css(rgba.rc());
+        },
+        "mono": function(c0) {
+            return rgba.css([c0,c0,c0,1.0]);
+        },
+        "rmon": function() {
+            var c0 = rgba.rb();
+            return rgba.mono(c0);
+        }
+    }
+</script>
+    	</head>
+        <body id="alpha">
+        </body>
+    </html>
+
+
+
+
+
+
