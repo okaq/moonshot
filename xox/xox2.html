@@ -9,8 +9,10 @@
 	<link rel="shortcut icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAAAMElEQVR4nOzNMREAMAzDwF4vg/kjDol4ewHQT5LX7FfvAAAAAAAAAAAA4LANAAD//9duAFsRg4sHAAAAAElFTkSuQmCC" />
 	<style type="text/css">
             html,body{width:1920px;overflow:auto;height:1080px;margin:0px;border:0px;padding:0px;background-color:rgba(0,0,0,0);}
-        </style>a
+        </style>
+	<!-- 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.15/Tone.js"></script>
+	-->
         <script type="text/javascript">
             // ok
             console.log("okaq space launch ok!");
@@ -110,21 +112,34 @@ var sce = {
 		let y0 = ((1080 - h0) / 2) >>> 0;
 		sce.b.r = [w0,h0,x0,y0];
 		sce.b.c = dom.canvas(sce.b.r);
-		dom.canvas(sce.b.c);
+		dom.add(sce.b.c);
 		sce.b.d = [];
-		sce.b.d.can.addEventListener("click", sce.click2, false);
+		sce.b.c.can.addEventListener("click", sce.click2, false);
 	},
 	"click2": function(e) {
 		console.log(e);	
 	},
 	"ball": function() {
 		// 2x2 grey ball
+		sce.c = {};
+		let x0 = ((Math.random() * 1916) + 2) >>> 0;
+		let y0 = ((Math.random() * (1080 * 0.8)) + (1080 * 0.8)) >>> 0;
+		sce.c.r = [2,2,x0,y0];
+		sce.c.c = dom.canvas(sce.c.r);
+		dom.add(sce.c.c);
+		sce.c.c.can.addEventListener("click", sce.click3, false);
 	},
 	"click3": function(e) {
 		console.log(e);
 	},
 	"cursor": function() {
 		// 2x2 player cursor
+		sce.d = {};
+		let x0 = ((1920 / 2) - 1) >>> 0;
+		sce.d.r = [2,2,x0,4];
+		sce.d.c = dom.canvas(sce.d.r);
+		dom.add(sce.d.c);
+		sce.d.c.can.addEventListener("click", sce.click4, false);
 	},
 	"click4": function(e) {
 		console.log(e);
