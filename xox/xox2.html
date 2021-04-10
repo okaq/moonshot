@@ -120,11 +120,11 @@ var sce = {
 		console.log(e);	
 	},
 	"ball": function() {
-		// 2x2 grey ball
+		// 8x8 grey ball
 		sce.c = {};
-		let x0 = ((Math.random() * 1916) + 2) >>> 0;
-		let y0 = ((Math.random() * (1080 * 0.8)) + (1080 * 0.8)) >>> 0;
-		sce.c.r = [2,2,x0,y0];
+		let x0 = ((Math.random() * 1904) + 8) >>> 0;
+		let y0 = ((Math.random() * (1080 * 0.1)) + (1080 * 0.9)) >>> 0;
+		sce.c.r = [8,8,x0,y0];
 		sce.c.c = dom.canvas(sce.c.r);
 		dom.add(sce.c.c);
 		sce.c.c.can.addEventListener("click", sce.click3, false);
@@ -133,10 +133,10 @@ var sce = {
 		console.log(e);
 	},
 	"cursor": function() {
-		// 2x2 player cursor
+		// 8x8 player cursor
 		sce.d = {};
-		let x0 = ((1920 / 2) - 1) >>> 0;
-		sce.d.r = [2,2,x0,4];
+		let x0 = ((1920 / 2) - 4) >>> 0;
+		sce.d.r = [8,8,x0,16];
 		sce.d.c = dom.canvas(sce.d.r);
 		dom.add(sce.d.c);
 		sce.d.c.can.addEventListener("click", sce.click4, false);
@@ -160,9 +160,13 @@ var ren = {
 		sce.b.c.con.fillStyle = rgba.css([255,255,255,1.0]);
 		sce.b.c.con.fillRect(0,0,sce.b.c.can.width,sce.b.c.can.height);
 	},
-	"cursor": function() {
-	},
 	"ball": function() {
+		sce.c.c.con.fillStyle = rgba.css([86,86,86,1.0]);
+		sce.c.c.con.fillRect(0,0,sce.c.c.can.width,sce.c.c.can.height);
+	},
+	"cursor": function() {
+		sce.d.c.con.fillStyle = rgba.css([172,172,172,1.0]);
+		sce.d.c.con.fillRect(0,0,sce.d.c.can.width,sce.d.c.can.height);
 	}
 }
    // dom
