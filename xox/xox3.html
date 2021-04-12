@@ -66,6 +66,15 @@ var g = {
 		// quick snake
 		db.snake();
 		ren.frame();
+
+		// begin 1fps loop
+		g.tick = 0;
+		g.id = window.setInterval(g.frame, 1000);
+	},
+	"frame": function() {
+		// check condition
+		// update frame
+		g.tick = g.tick + 1;
 	}
 }
 // data
