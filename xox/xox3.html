@@ -65,6 +65,7 @@ var g = {
 	"load2": function() {
 		// quick snake
 		db.snake();
+		ren.frame();
 	}
 }
 // data
@@ -117,6 +118,23 @@ var ren = {
 	"clear": function() {
 		sce.a.c.con.fillStyle = rgba.rand();
 		sce.a.c.con.fillRect(0,0,sce.a.c.can.width,sce.a.c.can.height);
+	},
+	"frame": function() {
+		// bkgd
+		sce.a.c.con.fillStyle = rgba.css([8,8,8,1.0]);
+		sce.a.c.con.fillRect(0,0,sce.a.c.can.width,sce.a.c.can.height);
+
+		// apple
+		sce.a.c.con.fillStyle = rgba.css([128,128,128,1.0]);
+		let x0 = db.b.pos.x;
+		let y0 = db.b.pos.y;
+		sce.a.c.con.fillRect(x0,y0,8,8);
+
+		// cursor
+		sce.a.c.con.fillStyle = rgba.css([248,248,248,1.0]);
+		let x1 = db.a.pos.x;
+		let y1 = db.a.pos.y;
+		sce.a.c.con.fillRect(x1,y1,8,8);
 	}
 }
    // dom
