@@ -73,6 +73,11 @@ var g = {
 	},
 	"frame": function() {
 		// check condition
+		db.coll();
+		if (db.a.eat == true) {
+			console.log("bit eaten");
+			// end
+		}
 		// update frame
 		g.tick = g.tick + 1;
 	}
@@ -88,6 +93,7 @@ var db = {
 		db.a.vel = {};
 		db.a.vel.x = 0;
 		db.a.vel.y = 0;
+		db.a.eat = false;
 		
 		// apple
 		db.b = {};
@@ -107,6 +113,14 @@ var db = {
 		r0.x = (1920 / 2) >>> 0;
 		r0.y = (1080 / 2) >>> 0;
 		return r0;
+	},
+	"coll": function() {
+		// apple cursor collision simple
+		if (db.a.pos.x == db.b.pos.x) {
+			if (db.a.pos.x == db.b.pos.y) {
+				db.a.eat = true;
+			}
+		}
 	}
 }
 // scene
