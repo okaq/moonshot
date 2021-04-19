@@ -43,8 +43,9 @@ var g = {
 		console.log("get screen dimensions");
 
 		g.s = window.screen;
+		console.log("screen width: " + g.s.width + " height: " + g.s.height);
 
-		console.log("attach event handler");
+		console.log("attach resize / keydown event handlers");
 
 		window.addEventListener("resize", g.size, false);
 		document.addEventListener("keydown", g.key, false);
@@ -52,10 +53,10 @@ var g = {
 		window.setTimeout(g.load2, 1000);
 	},
 	"size": function(e) {
-		console.log(e);
+		// console.log(e);
 	},
 	"key": function(e) {
-		console.log(e);
+		// console.log(e);
 		g.k = e.keyCode;
 		// [37..40] = [l,u,r,d]
 	},
@@ -95,7 +96,13 @@ var g = {
         db.pick();
         ren.pick();
         g.tick = g.tick + 1;
-    }
+    },
+	"load4": function() {
+		// kaleidoscope
+		// mirror top left quad
+		// then 5 text rects Nx32
+		// "nano games at peta scale"
+	}
 }
 // data
 var db = {
