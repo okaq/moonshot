@@ -151,14 +151,25 @@ var db = {
 		let y0 = db.a.h / 2;
 		for (let y = 0; y < y0; y++) {
 			for (let x = 0; x < x0; x++) {
-				let i0 = (y * x0) >>> 0;
+				let i0 = (y * db.a.w) >>> 0;
 				let i1 = (i0 + x) >>> 0;
 				db.d[i1] = [];
 				// top left
 				db.d[i1][0] = i1;
 				// top right
+				let x1 = (x0 - x) >>> 0;
+				let x2 = (x0 + x1) >>> 0;
+				let i2 = (i0 + x2) >>> 0;
+				db.d[i1][1] = i2;
 				// bot left
+				let y1 = (y0 - y) >>> 0;
+				let y2 = (y0 + y1) >>> 0;
+				let i3 = (y2 * db.a.w) >>> 0;
+				let i4 = (i3 + x) >>> 0;
+				db.d[i1][2] = i4;
 				// bot right
+				let i5 = (i3 + x2) >>> 0;
+				db.d.i1[3] = i5;
 			}
 		}
 	}
