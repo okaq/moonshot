@@ -54,7 +54,6 @@ var g = {
 	},
 	"size": function(e) {
 		// console.log(e);
-		g.s = window.screen;
 	},
 	"key": function(e) {
 		// console.log(e);
@@ -62,11 +61,9 @@ var g = {
 		// [37..40] = [l,u,r,d]
 	},
 	"load2": function() {
-        	// quick grid
+        // quick grid
 		db.grid();
 		ren.black();
-		// kaleido setup
-		db.mirror();
 
 		// begin 1fps loop
 		g.tick = 0;
@@ -74,33 +71,37 @@ var g = {
 	},
 	"frame": function() {
 		// check condition
-        	if (g.tick >= db.a.nt) {
-            		console.log("grid init");
-            		window.clearInterval(g.id);
-            		window.setTimeout(g.load3, 100);
-            		return;
-        	}
+        if (g.tick >= db.a.nt) {
+            console.log("grid init");
+            window.clearInterval(g.id);
+            window.setTimeout(g.load3, 100);
+            return;
+        }
 		// update frame
 		// console.log(g.tick);
-        	ren.grid();
+        ren.grid();
 		g.tick = g.tick + 1;
 	},
+    "load3": function() {
+        g.tick = 0;
+        g.max = db.a.nt;
+        g.id = window.setInterval(g.frame2, 20);
+    },
+    "frame2": function() {
+        if (g.tick >= g.max) {
+            console.log("anim done.");
+            window.clearInterval(g.id);
+            return;
+        }
+        db.pick();
+        ren.pick();
+        g.tick = g.tick + 1;
+    },
 	"load4": function() {
 		// kaleidoscope
 		// mirror top left quad
 		// then 5 text rects Nx32
 		// "nano games at peta scale"
-
-		// kaleido game
-		// do 2048 iterations
-		// each grid cell logs
-		// rand rgba history buffer
-		// starting at black with white boundary
-		// final tally, most picks wins
-		// avg per grid cell, total time to render
-
-		// pre cursor to xonix full screen
-		// per frame tick velocity, input handle, render perf
 	}
 }
 // data
@@ -143,25 +144,7 @@ var db = {
     "pick": function() {
         db.c = db.rand();
         db.cyc();
-    },
-	"mirror": function() {
-		// top left quad of grid pixels
-		db.d = [];
-		let x0 = db.a.w / 2;
-		let y0 = db.a.h / 2;
-		for (let y = 0; y < y0; y++) {
-			for (let x = 0; x < x0; x++) {
-				let i0 = (y * x0) >>> 0;
-				let i1 = (i0 + x) >>> 0;
-				db.d[i1] = [];
-				// top left
-				db.d[i1][0] = i1;
-				// top right
-				// bot left
-				// bot right
-			}
-		}
-	}
+    }
 }
 // scene
 var sce = {
