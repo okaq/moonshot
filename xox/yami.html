@@ -34,7 +34,7 @@ var g = {
 		g.subs = [dom,sce];
 		g.subs.forEach(function(el){el.init();});
 
-		ren.clear();
+		// ren.clear();
 
 		window.setTimeout(g.load, 1000);
 
@@ -44,9 +44,17 @@ var g = {
 		console.log("get screen dimensions");
 		g.s = window.screen;
 		console.log("width: " + g.s.width + " height: " + g.s.height);
-		ren.gray();
+		// ren.gray();
 		
 		window.setTimeout(g.load2, 1000);
+	}
+}
+// scene
+var sce = {
+	"init": function() {
+		// create context via threejs
+		// single full screen "renderer"
+		// multiple virtual "scenes"
 	}
 }
    // dom
