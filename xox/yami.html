@@ -9,7 +9,7 @@
 	<link rel="shortcut icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAAAMElEQVR4nOzNMREAMAzDwF4vg/kjDol4ewHQT5LX7FfvAAAAAAAAAAAA4LANAAD//9duAFsRg4sHAAAAAElFTkSuQmCC" />
 	<style type="text/css">
             html,body{width:1920px;overflow:auto;height:1080px;margin:0px;border:0px;padding:0px;background-color:rgba(0,0,0,0);}
-        </style>a
+        </style>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
         <script type="text/javascript">
             // ok
@@ -44,9 +44,15 @@ var g = {
 		console.log("get screen dimensions");
 		g.s = window.screen;
 		console.log("width: " + g.s.width + " height: " + g.s.height);
+
+		// no resize handler, fixed HD resolution
+
 		// ren.gray();
 		
 		window.setTimeout(g.load2, 1000);
+	},
+	"load2": function() {
+		sce.view();
 	}
 }
 // scene
@@ -55,6 +61,20 @@ var sce = {
 		// create context via threejs
 		// single full screen "renderer"
 		// multiple virtual "scenes"
+		sce.a = {};
+		sce.a.r = [1920,1080,0,0];
+		sce.a.c = dom.canvas2(sce.a.r);
+		dom.add(sce.a.c);
+		console.log(sce.a.c.can);
+
+		console.log(THREE);
+	},
+	"view": function() {
+		// initialize the full screen webgl viewport
+		sce.b = new THREE.WebGLRenderer({canvas:sce.a.c.can});
+		sce.b.setClearColor(new THREE.Color(0x000000));
+		sce.b.clear();
+		sce.c = new THREE.Scene();
 	}
 }
    // dom
