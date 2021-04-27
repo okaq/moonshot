@@ -49,10 +49,32 @@ var g = {
 
 		// ren.gray();
 		
-		window.setTimeout(g.load2, 1000);
+		// window.setTimeout(g.load2, 1000);
+
+		sce.view();
+
+		// begin flashing looping
+		g.tick = 0;
+		g.max = 1024;
+		g.id = window.setInterval(g.frame, 10);
 	},
 	"load2": function() {
 		sce.view();
+	},
+	"frame": function() {
+		// check
+		if (g.tick >= g.max) {
+			console.log("flash fini");
+			window.clearInterval(g.id);
+			window.setTimeout(g.load3, 1000);
+		}
+
+		sce.clear();
+
+		g.tick = g.tick + 1;
+	},
+	"load3": function() {
+		console.log("init grid");
 	}
 }
 // scene
@@ -72,9 +94,16 @@ var sce = {
 	"view": function() {
 		// initialize the full screen webgl viewport
 		sce.b = new THREE.WebGLRenderer({canvas:sce.a.c.can});
-		sce.b.setClearColor(new THREE.Color(0x000000));
+		// sce.b.setClearColor(new THREE.Color(0x000000));
+		let c0 = rgba.rand2();
+		let c1 = new THREE.Color(c0);
+		sce.b.setClearColor(c1);
 		sce.b.clear();
 		sce.c = new THREE.Scene();
+	},
+	"clear": function() {
+		sce.b.setClearColor(new THREE.Color(rgba.rand2()));
+		sce.b.clear();
 	}
 }
    // dom
@@ -144,6 +173,10 @@ var sce = {
         "rand": function() {
             return rgba.css(rgba.rc());
         },
+	"rand2": function() {
+		let c0 = [rgba.rb(),rgba.rb(),rgba.rb()];
+		return "rgb("+c0.join(",")+")";
+	},
         "mono": function(c0) {
             return rgba.css([c0,c0,c0,1.0]);
         },
