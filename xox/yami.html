@@ -76,6 +76,7 @@ var g = {
 	"load3": function() {
 		console.log("init grid");
 		db.grid();
+		db.bloc();
 	}
 }
 // scene
@@ -120,6 +121,10 @@ var db = {
 		db.a.ny = (db.a.h / db.a.py) >>> 0;
 		db.a.nt = (db.a.nx * db.a.ny) >>> 0;
 		console.log(db.a);
+	},
+	"bloc": function() {
+		// cells
+		db.b = [];
 	}
 }
    // dom
