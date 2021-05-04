@@ -26,7 +26,7 @@ func YamiHandler(w http.ResponseWriter, r *http.Request) {
 func main() {
 	motd()
 	http.HandleFunc("/", YamiHandler)
-	htp.ListenAndServe(":8080", nil)
+	http.ListenAndServe(":8080", nil)
 }
 
 // set up map[string]string cache
