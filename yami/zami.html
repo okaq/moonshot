@@ -121,10 +121,25 @@ var db = {
 			// cell struct
 			db.d[i] = {};
 			// state
+			db.d[i].a = db.rand();
 			// neighbor index
+			db.d[i].b = db.kern(i);
 			// sum
+			db.d[i].c = db.sum(i);
 			// parity
+			db.d[i].d = dp.par(i);
 		}
+		// class functions access db.d array data by index
+		// interesting arch, but prefer functional logic
+	},
+	"rand": function() {
+		return (Math.random() >= 0.5) ? 0 : 1; 
+	},
+	"kern": function(i) {
+	},
+	"sum": function(i) {
+	},
+	"par": function(i) {
 	}
 }
 // scene
