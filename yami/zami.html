@@ -61,7 +61,7 @@ var g = {
 		// [37..40] = [l,u,r,d]
 	},
 	"load2": function() {
-		db.grid();
+		db.grid2();
 	}
 }
 // data
@@ -104,7 +104,28 @@ var db = {
     "pick": function() {
         db.c = db.rand();
         db.cyc();
-    }
+    },
+	"grid2": function() {
+		// self reproductive cellular automata
+		db.c = {};
+		db.c.w = 1024;
+		db.c.h = 1024;
+		db.c.px = 32;
+		db.c.py = 32;
+		db.c.nx = (db.c.w / db.c.px) >>> 0;
+		db.c.ny = (db.c.h / db.c.py) >>> 0;
+		db.c.nt = (db.c.nx * db.c.ny) >>> 0;
+
+		db.d = [];
+		for (let i = 0; i < db.c.nt; i++ ) {
+			// cell struct
+			db.d[i] = {};
+			// state
+			// neighbor index
+			// sum
+			// parity
+		}
+	}
 }
 // scene
 var sce = {
