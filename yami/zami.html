@@ -131,6 +131,9 @@ var db = {
 		}
 		// class functions access db.d array data by index
 		// interesting arch, but prefer functional logic
+
+		// animation state graph / player input
+		// every thing should be proc gen / dynamic data oriented
 	},
 	"rand": function() {
 		return (Math.random() >= 0.5) ? 0 : 1; 
@@ -148,8 +151,26 @@ var db = {
 			return r0;
 		}
 		// top right corner
+		if (x0 == (db.c.w - 1) && y0 == 0) {
+			r0.push(i-1);
+			r0.push(i+db.c.w-1);
+			r0.push(i+db.c.w);
+			return r0;
+		}
 		// bot left corner
+		if (x0 == 0 && y0 == (db.c.h - 1)) {
+			r0.push(i-db.c.w);
+			r0.push(i-db.c.w+1);
+			r0.push(i+1);
+			return r0;
+		}
 		// bot right corner
+		if (x0 == (db.c.w - 1) && y0 = (db.c.h - 1)) {
+			r0.push(i-db.c.w-1);
+			r0.push(i-db.c.w);
+			r0.push(i-1);
+			return r0;
+		}
 		// top edge
 		// bot edge
 		// left edge
