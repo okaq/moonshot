@@ -172,10 +172,51 @@ var db = {
 			return r0;
 		}
 		// top edge
+		if (y0 == 0) {
+			r0.push(i-1);
+			r0.push(i+1);
+			r0.push(i+db.c.w-1);
+			r0.push(i+db.c.w);
+			r0.push(i+db.c.w+1);
+			return r0;
+		}
 		// bot edge
+		if (y0 == (db.c.h - 1)) {
+			r0.push(i-db.c.w-1);
+			r0.push(i-db.c.w);
+			r0.push(i-db.c.w+1);
+			r0.push(i-1);
+			r0.push(i+1);
+			return r0;
+		}
 		// left edge
+		if (x0 == 0) {
+			r0.push(i-db.c.w);
+			r0.push(i-db.c.w+1);
+			r0.push(i+1);
+			r0.push(i+db.c.w);
+			r0.push(i+db.c.w+1);
+			return r0;
+		}
 		// right edge
-		// interior 
+		if (x0 = (db.c.w - 1)) {
+			r0.push(i-db.c.w-1);
+			r0.push(i-db.c.w);
+			r0.push(i-1);
+			r0.push(i+db.c.w-1);
+			r0.push(i+db.c.w);
+			return r0;
+		}
+		// interior
+		r0.push(i-db.c.w-1);
+		r0.push(i-db.c.w);
+		r0.push(i-db.c.w+1);
+		r0.push(i-1);
+		r0.push(i+1);
+		r0.push(i+db.c.w-1);
+		r0.push(i+db.c.w);
+		r0.push(i+db.c.w+1);
+		return r0;
 	},
 	"sum": function(i) {
 	},
