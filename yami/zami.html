@@ -144,6 +144,8 @@ var db = {
 			db.d[i].c = db.sum(i);
 			// parity
 			db.d[i].d = db.par(i);
+			// pos
+			db.d[i].e = db.pos(i);
 		}
 		// class functions access db.d array data by index
 		// interesting arch, but prefer functional logic
@@ -235,8 +237,31 @@ var db = {
 		return r0;
 	},
 	"sum": function(i) {
+		let s0 = 0;
+		let n0 = db.d[i].b;
+		for (let i = 0; i < n0.length; i++) {
+			let i0 = n0[i];
+			let s1 = db.d[i0].a;
+			s0 = s0 + s1;
+		}
+		return s0;
+
+		// strange api, think about efficient design
+		// access global data by parameter
+		// update value via function call
+		// no use of functional programming
 	},
 	"par": function(i) {
+		return db.d[i].c % 2;
+	},
+	"pos": function(i) {
+		let p0 = [];
+		p0[0] = i % db.c.nx;
+		p0[1] = (i / db.c.nx) >>> 0;
+		return p0;
+	},
+	"avg": function(i) {
+		return db.d[i].c / db.d[i].b.length;
 	}
 }
 // scene
