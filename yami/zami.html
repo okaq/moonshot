@@ -63,6 +63,11 @@ var g = {
 	"load2": function() {
 		db.grid2();
 		db.shuf();
+
+		// grid render split
+		let t0 = window.performance.now();
+		ren.grid();
+		console.log("grid split: " + (window.performance.now() - t0));
 		
 		// loop
 		g.tick = 0;
@@ -148,6 +153,8 @@ var db = {
 			// pos
 			db.d[i].e = db.pos(i);
 		}
+
+		console.log(db.c, db.d);
 		// class functions access db.d array data by index
 		// interesting arch, but prefer functional logic
 
@@ -160,33 +167,33 @@ var db = {
 	"kern": function(i) {
 		// 3x3 nearest neighbors
 		let r0 = [];
-		let x0 = i % db.c.w;
-		let y0 = (i / db.c.w) >>> 0;
+		let x0 = i % db.c.px;
+		let y0 = (i / db.c.px) >>> 0;
 		// top left corner
 		if (x0 == 0 && y0 == 0) {
 			r0.push(i+1);
-			r0.push(i+db.c.w);
-			r0.push(i+db.c.w+1);
+			r0.push(i+db.c.px);
+			r0.push(i+db.c.px+1);
 			return r0;
 		}
 		// top right corner
-		if (x0 == (db.c.w - 1) && y0 == 0) {
+		if (x0 == (db.c.px - 1) && y0 == 0) {
 			r0.push(i-1);
-			r0.push(i+db.c.w-1);
-			r0.push(i+db.c.w);
+			r0.push(i+db.c.px-1);
+			r0.push(i+db.c.px);
 			return r0;
 		}
 		// bot left corner
 		if (x0 == 0 && y0 == (db.c.h - 1)) {
-			r0.push(i-db.c.w);
-			r0.push(i-db.c.w+1);
+			r0.push(i-db.c.px);
+			r0.push(i-db.c.px+1);
 			r0.push(i+1);
 			return r0;
 		}
 		// bot right corner
-		if (x0 == (db.c.w - 1) && y0 == (db.c.h - 1)) {
-			r0.push(i-db.c.w-1);
-			r0.push(i-db.c.w);
+		if (x0 == (db.c.px - 1) && y0 == (db.c.h - 1)) {
+			r0.push(i-db.c.px-1);
+			r0.push(i-db.c.px);
 			r0.push(i-1);
 			return r0;
 		}
@@ -194,54 +201,58 @@ var db = {
 		if (y0 == 0) {
 			r0.push(i-1);
 			r0.push(i+1);
-			r0.push(i+db.c.w-1);
-			r0.push(i+db.c.w);
-			r0.push(i+db.c.w+1);
+			r0.push(i+db.c.px-1);
+			r0.push(i+db.c.px);
+			r0.push(i+db.c.px+1);
 			return r0;
 		}
 		// bot edge
 		if (y0 == (db.c.h - 1)) {
-			r0.push(i-db.c.w-1);
-			r0.push(i-db.c.w);
-			r0.push(i-db.c.w+1);
+			r0.push(i-db.c.px-1);
+			r0.push(i-db.c.px);
+			r0.push(i-db.c.px+1);
 			r0.push(i-1);
 			r0.push(i+1);
 			return r0;
 		}
 		// left edge
 		if (x0 == 0) {
-			r0.push(i-db.c.w);
-			r0.push(i-db.c.w+1);
+			r0.push(i-db.c.px);
+			r0.push(i-db.c.px+1);
 			r0.push(i+1);
-			r0.push(i+db.c.w);
-			r0.push(i+db.c.w+1);
+			r0.push(i+db.c.px);
+			r0.push(i+db.c.px+1);
 			return r0;
 		}
 		// right edge
-		if (x0 == (db.c.w - 1)) {
-			r0.push(i-db.c.w-1);
-			r0.push(i-db.c.w);
+		if (x0 == (db.c.px - 1)) {
+			r0.push(i-db.c.px-1);
+			r0.push(i-db.c.px);
 			r0.push(i-1);
-			r0.push(i+db.c.w-1);
-			r0.push(i+db.c.w);
+			r0.push(i+db.c.px-1);
+			r0.push(i+db.c.px);
 			return r0;
 		}
 		// interior
-		r0.push(i-db.c.w-1);
-		r0.push(i-db.c.w);
-		r0.push(i-db.c.w+1);
+		r0.push(i-db.c.px-1);
+		r0.push(i-db.c.px);
+		r0.push(i-db.c.px+1);
 		r0.push(i-1);
 		r0.push(i+1);
-		r0.push(i+db.c.w-1);
-		r0.push(i+db.c.w);
-		r0.push(i+db.c.w+1);
+		r0.push(i+db.c.px-1);
+		r0.push(i+db.c.px);
+		r0.push(i+db.c.px+1);
 		return r0;
 	},
 	"sum": function(i) {
 		let s0 = 0;
 		let n0 = db.d[i].b;
-		for (let i = 0; i < n0.length; i++) {
-			let i0 = n0[i];
+		for (let i1 = 0; i1 < n0.length; i1++) {
+			let i0 = n0[i1];
+			if (db.d[i0] == undefined) {
+				// console.log(i,i0,i1,n0);
+				continue;
+			}
 			let s1 = db.d[i0].a;
 			s0 = s0 + s1;
 		}
@@ -332,7 +343,20 @@ var ren = {
         let h0 = d0.h - 4;
         sce.a.c.con.fillStyle = c0;
         sce.a.c.con.fillRect(x0,y0,w0,h0);
-    }
+    },
+	"grid2": function() {
+		for (let i = 0; i < db.c.nt; i++) {
+			let x0 = i % db.c.nx;
+			let y0 = (i / db.c.nx) >>> 0;
+			let x1 = (x0 * db.c.px) >>> 0;
+			let y1 = (y0 * db.c.px) >>> 0;
+			// hard code cell pos in struct
+			let c0 = (db.d[i].a * 255) >>> 0;
+			let c1 = rgba.mono(c0);
+			sce.b.c.con.fillStyle = c1;
+			sce.b.c.con.fillRect(0,0,db.c.px,db.c.py);
+		}
+	}
 }
    // dom
    var dom = {
