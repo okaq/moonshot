@@ -66,7 +66,7 @@ var g = {
 
 		// grid render split
 		let t0 = window.performance.now();
-		ren.grid();
+		ren.grid2();
 		console.log("grid split: " + (window.performance.now() - t0));
 		
 		// loop
@@ -146,6 +146,9 @@ var db = {
 			db.d[i].a = db.rand();
 			// neighbor index
 			db.d[i].b = db.kern(i);
+		}
+		// two loops, once all neighbors assigned a state
+		for (let i = 0; i < db.c.nt; i++) {
 			// sum
 			db.d[i].c = db.sum(i);
 			// parity
@@ -245,7 +248,7 @@ var db = {
 		return r0;
 	},
 	"sum": function(i) {
-		let s0 = 0;
+		let s0 = 0.0;
 		let n0 = db.d[i].b;
 		for (let i1 = 0; i1 < n0.length; i1++) {
 			let i0 = n0[i1];
@@ -253,8 +256,9 @@ var db = {
 				// console.log(i,i0,i1,n0);
 				continue;
 			}
-			let s1 = db.d[i0].a;
+			let s1 = db.d[1].a;
 			s0 = s0 + s1;
+			// console.log(i, s0, s1);
 		}
 		return s0;
 
@@ -348,15 +352,16 @@ var ren = {
     },
 	"grid2": function() {
 		for (let i = 0; i < db.c.nt; i++) {
-			let x0 = i % db.c.nx;
-			let y0 = (i / db.c.nx) >>> 0;
-			let x1 = (x0 * db.c.px) >>> 0;
-			let y1 = (y0 * db.c.px) >>> 0;
+			// let x0 = i % db.c.nx;
+			// let y0 = (i / db.c.nx) >>> 0;
+			// let x1 = (x0 * db.c.px) >>> 0;
+			// let y1 = (y0 * db.c.px) >>> 0;
 			// hard code cell pos in struct
 			let c0 = (db.d[i].a * 255) >>> 0;
 			let c1 = rgba.mono(c0);
 			sce.b.c.con.fillStyle = c1;
-			sce.b.c.con.fillRect(0,0,db.c.px,db.c.py);
+			// sce.b.c.con.fillRect(x1,y1,db.c.px,db.c.py);
+			sce.b.c.con.fillRect(db.d[i].e[2],db.d[i].e[3],db.c.px,db.c.py);
 		}
 	}
 }
