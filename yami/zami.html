@@ -167,33 +167,33 @@ var db = {
 	"kern": function(i) {
 		// 3x3 nearest neighbors
 		let r0 = [];
-		let x0 = i % db.c.px;
-		let y0 = (i / db.c.px) >>> 0;
+		let x0 = i % db.c.nx;
+		let y0 = (i / db.c.nx) >>> 0;
 		// top left corner
 		if (x0 == 0 && y0 == 0) {
 			r0.push(i+1);
-			r0.push(i+db.c.px);
-			r0.push(i+db.c.px+1);
+			r0.push(i+db.c.nx);
+			r0.push(i+db.c.nx+1);
 			return r0;
 		}
 		// top right corner
-		if (x0 == (db.c.px - 1) && y0 == 0) {
+		if (x0 == (db.c.nx - 1) && y0 == 0) {
 			r0.push(i-1);
-			r0.push(i+db.c.px-1);
-			r0.push(i+db.c.px);
+			r0.push(i+db.c.nx-1);
+			r0.push(i+db.c.nx);
 			return r0;
 		}
 		// bot left corner
-		if (x0 == 0 && y0 == (db.c.h - 1)) {
-			r0.push(i-db.c.px);
-			r0.push(i-db.c.px+1);
+		if (x0 == 0 && y0 == (db.c.ny - 1)) {
+			r0.push(i-db.c.nx);
+			r0.push(i-db.c.nx+1);
 			r0.push(i+1);
 			return r0;
 		}
 		// bot right corner
-		if (x0 == (db.c.px - 1) && y0 == (db.c.h - 1)) {
-			r0.push(i-db.c.px-1);
-			r0.push(i-db.c.px);
+		if (x0 == (db.c.nx - 1) && y0 == (db.c.ny - 1)) {
+			r0.push(i-db.c.nx-1);
+			r0.push(i-db.c.nx);
 			r0.push(i-1);
 			return r0;
 		}
@@ -201,47 +201,47 @@ var db = {
 		if (y0 == 0) {
 			r0.push(i-1);
 			r0.push(i+1);
-			r0.push(i+db.c.px-1);
-			r0.push(i+db.c.px);
-			r0.push(i+db.c.px+1);
+			r0.push(i+db.c.nx-1);
+			r0.push(i+db.c.nx);
+			r0.push(i+db.c.nx+1);
 			return r0;
 		}
 		// bot edge
-		if (y0 == (db.c.h - 1)) {
-			r0.push(i-db.c.px-1);
-			r0.push(i-db.c.px);
-			r0.push(i-db.c.px+1);
+		if (y0 == (db.c.ny - 1)) {
+			r0.push(i-db.c.nx-1);
+			r0.push(i-db.c.nx);
+			r0.push(i-db.c.nx+1);
 			r0.push(i-1);
 			r0.push(i+1);
 			return r0;
 		}
 		// left edge
 		if (x0 == 0) {
-			r0.push(i-db.c.px);
-			r0.push(i-db.c.px+1);
+			r0.push(i-db.c.nx);
+			r0.push(i-db.c.nx+1);
 			r0.push(i+1);
-			r0.push(i+db.c.px);
-			r0.push(i+db.c.px+1);
+			r0.push(i+db.c.nx);
+			r0.push(i+db.c.nx+1);
 			return r0;
 		}
 		// right edge
-		if (x0 == (db.c.px - 1)) {
-			r0.push(i-db.c.px-1);
-			r0.push(i-db.c.px);
+		if (x0 == (db.c.nx - 1)) {
+			r0.push(i-db.c.nx-1);
+			r0.push(i-db.c.nx);
 			r0.push(i-1);
-			r0.push(i+db.c.px-1);
-			r0.push(i+db.c.px);
+			r0.push(i+db.c.nx-1);
+			r0.push(i+db.c.nx);
 			return r0;
 		}
 		// interior
-		r0.push(i-db.c.px-1);
-		r0.push(i-db.c.px);
-		r0.push(i-db.c.px+1);
+		r0.push(i-db.c.nx-1);
+		r0.push(i-db.c.nx);
+		r0.push(i-db.c.nx+1);
 		r0.push(i-1);
 		r0.push(i+1);
-		r0.push(i+db.c.px-1);
-		r0.push(i+db.c.px);
-		r0.push(i+db.c.px+1);
+		r0.push(i+db.c.nx-1);
+		r0.push(i+db.c.nx);
+		r0.push(i+db.c.nx+1);
 		return r0;
 	},
 	"sum": function(i) {
@@ -270,6 +270,8 @@ var db = {
 		let p0 = [];
 		p0[0] = i % db.c.nx;
 		p0[1] = (i / db.c.nx) >>> 0;
+		p0[2] = (p0[0] * db.c.px) >>> 0;
+		p0[3] = (p0[1] * db.c.py) >>> 0;
 		return p0;
 	},
 	"avg": function(i) {
