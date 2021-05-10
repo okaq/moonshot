@@ -301,6 +301,15 @@ var db = {
 	},
 	"wav": function() {
 		// center weighted avg, loop over all grid cells
+		for (let i = 0; i < db.c.nt; i++) {
+			let d0 = db.d[i].a;
+			// let d0 = db.d[i].b;
+			// let d1 = db.d[i].b.length;
+			let d1 = db.d[i].d;
+			// center even weight
+			let d2 = (d0 + d1) / 2;
+			db.d[i].f = d2;
+		}
 	}
 }
 // scene
