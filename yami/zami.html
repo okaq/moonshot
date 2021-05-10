@@ -80,10 +80,20 @@ var g = {
 			window.setTimeout(g.load3, 1000);
 			return;
 		}
+		// time step
+		if ((g.tick % 100) == 0) {
+			console.log("tick count: " + g.tick);
+		}
+		// db.shuf();
+		// ren.grid2();
+		// for each cell, compute average, center weighted
+		// render just that cell at tick index
+		db.wav();
 		g.tick = g.tick + 1;
 	},
 	"load3": function() {
 		console.log("self reproductive cellular automata");
+		// for the next loop, render neighbors after rotate op
 	}
 }
 // data
@@ -157,7 +167,7 @@ var db = {
 			db.d[i].e = db.pos(i);
 		}
 
-		console.log(db.c, db.d);
+		// console.log(db.c, db.d);
 		// class functions access db.d array data by index
 		// interesting arch, but prefer functional logic
 
@@ -288,6 +298,9 @@ var db = {
 	},
 	"grey": function() {
 		return Math.random();
+	},
+	"wav": function() {
+		// center weighted avg, loop over all grid cells
 	}
 }
 // scene
