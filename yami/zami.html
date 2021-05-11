@@ -101,11 +101,14 @@ var g = {
 		// draw the "Q" glyph
 		// start automaton
 		ren.clear2();
+		g.bmp = bmp.a["Q"];
 		ren.glyph();
 		
 		// set grid state to bitmap data
 		// this should be sync'd automatically
 		// update cell state and render per frame
+
+		db.bmp(g.bmp);
 
 		// to repeat the kernel avg loop
 		// functional loop system, with anim level update
@@ -325,6 +328,12 @@ var db = {
 			let d2 = (d0 + d1) / 2;
 			db.d[i].f = d2;
 		}
+	},
+	"bmp": function(b0) {
+		// set grid cell states to bmp values
+		for (let i = 0; i < b0.length; i++) {
+			db.d[i].a = b0[i];
+		}
 	}
 }
 // scene
@@ -418,8 +427,9 @@ var ren = {
 	"glyph": function() {
 		sce.b.c.con.fillStyle = rgba.css([255,255,255,1.0]);
 		// ren bmp
-		let b0 = bmp.a["Q"];
-		ren.bmp(b0);
+		// let b0 = bmp.a["Q"];
+		// ren.bmp(b0);
+		ren.bmp(g.bmp);
 	},
 	"bmp": function(b0) {
 		// assume pane, 32x32
