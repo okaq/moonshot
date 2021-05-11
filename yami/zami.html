@@ -100,6 +100,8 @@ var g = {
 
 		// draw the "Q" glyph
 		// start automaton
+		ren.clear2();
+		ren.glyph();
 
 		// to repeat the kernel avg loop
 		// functional loop system, with anim level update
@@ -401,6 +403,17 @@ var ren = {
 		let c1 = rgba.mono(c0);
 		sce.b.c.con.fillStyle = c1;
 		sce.b.c.con.fillRect(d0.e[2],d0.e[3],db.c.px,db.c.py);
+	},
+	"clear2": function() {
+		sce.a.c.con.fillStyle = rgba.css([255,255,255,1.0]);
+		sce.a.c.con.fillRect(0,0,sce.a.c.can.width,sce.a.c.can.height);
+
+		sce.b.c.con.fillStyle = rgba.css([0,0,0,1.0]);
+		sce.b.c.con.fillRect(0,0,sce.b.c.can.width,sce.b.c.can.height);
+	},
+	"glyph": function() {
+		sce.b.c.con.fillStyle = rgba.css([255,255,255,1.0]);
+		// ren bmp
 	}
 }
    // dom
