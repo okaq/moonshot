@@ -63,6 +63,8 @@ var g = {
 	"load2": function() {
 		db.grid2();
 		db.shuf();
+		// center weighted kernel avg
+		db.wav();
 
 		// grid render split
 		let t0 = window.performance.now();
@@ -71,10 +73,10 @@ var g = {
 		
 		// loop
 		g.tick = 0;
-		g.id = window.setInterval(g.frame, 250);
+		g.id = window.setInterval(g.frame, 30);
 	},
 	"frame": function() {
-		if (g.tick >= 1024) {
+		if (g.tick >= db.c.nt) {
 			console.log("grid done");
 			window.clearInterval(g.id);
 			window.setTimeout(g.load3, 1000);
@@ -88,12 +90,19 @@ var g = {
 		// ren.grid2();
 		// for each cell, compute average, center weighted
 		// render just that cell at tick index
-		db.wav();
+		// db.wav();
+		ren.grid3();
 		g.tick = g.tick + 1;
 	},
 	"load3": function() {
 		console.log("self reproductive cellular automata");
 		// for the next loop, render neighbors after rotate op
+
+		// draw the "Q" glyph
+		// start automaton
+
+		// to repeat the kernel avg loop
+		// functional loop system, with anim level update
 	}
 }
 // data
@@ -385,6 +394,13 @@ var ren = {
 			// sce.b.c.con.fillRect(x1,y1,db.c.px,db.c.py);
 			sce.b.c.con.fillRect(db.d[i].e[2],db.d[i].e[3],db.c.px,db.c.py);
 		}
+	},
+	"grid3": function() {
+		let d0 = db.d[g.tick];
+		let c0 = (d0.f * 255) >>> 0;
+		let c1 = rgba.mono(c0);
+		sce.b.c.con.fillStyle = c1;
+		sce.b.c.con.fillRect(d0.e[2],d0.e[3],db.c.px,db.c.py);
 	}
 }
    // dom
