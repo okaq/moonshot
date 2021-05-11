@@ -30,7 +30,7 @@ var g = {
             var t0 = window.performance.now();
 
 		// subs
-		g.subs = [dom,sce];
+		g.subs = [dom,sce,bmp];
 		g.subs.forEach(function(el){el.init();});
 
 		ren.clear();
@@ -102,6 +102,10 @@ var g = {
 		// start automaton
 		ren.clear2();
 		ren.glyph();
+		
+		// set grid state to bitmap data
+		// this should be sync'd automatically
+		// update cell state and render per frame
 
 		// to repeat the kernel avg loop
 		// functional loop system, with anim level update
@@ -414,6 +418,22 @@ var ren = {
 	"glyph": function() {
 		sce.b.c.con.fillStyle = rgba.css([255,255,255,1.0]);
 		// ren bmp
+		let b0 = bmp.a["Q"];
+		ren.bmp(b0);
+	},
+	"bmp": function(b0) {
+		// assume pane, 32x32
+		// draw color set in reciever
+		for (let i = 0; i < b0.length; i++) {
+			if (b0[i] == 1) {
+				continue;
+			}
+			let x0 = i % db.c.nx;
+			let y0 = (i / db.c.nx) >>> 0;
+			let x1 = (x0 * db.c.px) >>> 0;
+			let y1 = (y0 * db.c.py) >>> 0;
+			sce.b.c.con.fillRect(x1,y1,db.c.px,db.c.py);
+		}
 	}
 }
    // dom
