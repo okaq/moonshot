@@ -63,6 +63,7 @@ var g = {
 	"load2": function() {
 		// golden screens
 		sce.log();
+		ren.log();
 	}
 }
 // scene
@@ -99,7 +100,13 @@ var sce = {
 		sce.b.r[1] = [w0,h0,w0,0];
 		// book
 		let h1 = sce.b.a.h - h0;
-		sce.b.r[2] = [sce.b.a.w,h1,w0,0];
+		sce.b.r[2] = [sce.b.a.w,h1,0,h0];
+	}
+}
+// text
+var txt = {
+	"print": function(s0) {
+		// write string to book (console)
 	}
 }
 // render
@@ -107,6 +114,20 @@ var ren = {
 	"clear": function() {
 		sce.a.c.con.fillStyle = rgba.css([0,0,0,1.0]);
 		sce.a.c.con.fillRect(0,0,sce.a.c.can.width,sce.a.c.can.height);
+	},
+	"log": function() {
+		// rand clear with border the logical screens
+		for (let i = 0; i < sce.b.r.length; i++) {
+			let r0 = sce.b.r[i];
+			// outer rect
+			sce.a.c.con.fillStyle = rgba.rand();
+			sce.a.c.con.fillRect(r0[2],r0[3],r0[0],r0[1]);
+			// inner
+			let m0 = 16;
+			let m1 = (m0 * 2) >>> 0;
+			sce.a.c.con.fillStyle = rgba.rand();
+			sce.a.c.con.fillRect(r0[2]+m0,r0[3]+m0,r0[0]-m1,r0[1]-m1);
+		}
 	},
 	"bmp": function(b0) {
 	},
