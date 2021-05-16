@@ -129,6 +129,21 @@ var ren = {
 			sce.a.c.con.fillRect(r0[2]+m0,r0[3]+m0,r0[0]-m1,r0[1]-m1);
 		}
 	},
+	"log2": function() {
+		// bw clear with border the logical screens
+		for (let i = 0; i < sce.b.r.length; i++) {
+			let r0 = sce.b.r[i];
+			// outer rect
+			sce.a.c.con.fillStyle = rgba.css([0,0,0,1.0]);
+			sce.a.c.con.fillRect(r0[2],r0[3],r0[0],r0[1]);
+			// inner
+			let m0 = 16;
+			let m1 = (m0 * 2) >>> 0;
+			sce.a.c.con.fillStyle = rgba.css([255,255,255,1.0]);
+			sce.a.c.con.fillRect(r0[2]+m0,r0[3]+m0,r0[0]-m1,r0[1]-m1);
+		}
+	},
+	
 	"bmp": function(b0) {
 	},
 	"txt": function(s0) {
