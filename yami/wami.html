@@ -105,6 +105,14 @@ var sce = {
 }
 // text
 var txt = {
+	"init": function() {
+		txt.a = {};
+		// console history buffer
+		txt.a.a = [];
+		// limit 8 lines total, 32x(32*N) length
+		// push new messages onto queue
+		// render entire console per frame
+	},
 	"print": function(s0) {
 		// write string to book (console)
 	}
