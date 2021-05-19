@@ -85,8 +85,16 @@ var rw = {
 		rw.a.c = [];
 		rw.a.c[0] = 0;
 		rw.a.c[1] = 0;
+		// time frame
+		rw.a.d = [];
+		rw.a.d[0] = 8;
+		rw.a.d[1] = 8;
 	},
 	"step": function() {
+		// per step
+		// compute timeline (0-8) seconds
+		// compute jump distance (0-4) steps
+		// win cond: first to reach 100th step
 	},
 	"norm": function() {
 		// approx guassian (irwin hall)
