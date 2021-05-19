@@ -63,7 +63,43 @@ var g = {
 	"load2": function() {
 		// golden screens
 		sce.log();
-		ren.log();
+		ren.log2();
+		// walk
+		rw.init();
+		ren.walk();
+	}
+}
+// random walkers
+var rw = {
+	"init": function() {
+		rw.a = {};
+		// player
+		rw.a.a = [];
+		rw.a.a[0] = 0;
+		rw.a.a[1] = 0;
+		// jump
+		rw.a.b = [];
+		rw.a.b[0] = 4;
+		rw.a.b[1] = 4;
+		// step
+		rw.a.c = [];
+		rw.a.c[0] = 0;
+		rw.a.c[1] = 0;
+	},
+	"step": function() {
+	},
+	"norm": function() {
+		// approx guassian (irwin hall)
+		let g0 = 0;
+		let n0 = 100;
+		let n1 = (n0 / 2) >>> 0;
+		for (let i = 0; i < n0; i++) {
+			let f0 = Math.random();
+			g0 = g0 + f0;
+		}
+		let g1 = g0 / n0;
+		return g1;
+		// box plot test
 	}
 }
 // scene
