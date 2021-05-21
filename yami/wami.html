@@ -67,6 +67,14 @@ var g = {
 		// walk
 		rw.init();
 		ren.walk();
+		// players
+		sce.field();
+		ren.play();
+		window.setTimeout(g.load3, 1000);
+	},
+	"load3": function() {
+		// box plot
+		console.log("test guassian");
 	}
 }
 // random walkers
@@ -89,6 +97,10 @@ var rw = {
 		rw.a.d = [];
 		rw.a.d[0] = 8;
 		rw.a.d[1] = 8;
+		// history
+		rw.a.e = [];
+		rw.a.e[0] = {};
+		rw.a.e[1] = {};
 	},
 	"step": function() {
 		// per step
@@ -145,6 +157,20 @@ var sce = {
 		// book
 		let h1 = sce.b.a.h - h0;
 		sce.b.r[2] = [sce.b.a.w,h1,0,h0];
+	},
+	"field": function() {
+		// player walk bar
+		sce.c = {};
+		sce.c.h = 64;
+		sce.c.w = (sce.c.h * 10) >>> 0;
+		// rects, perfectly centered
+		let mw0 = ((sce.b.r[0][0] - sce.c.w) / 2) >>> 0;
+		let mh0 = ((sce.b.r[0][1] - sce.c.h) / 2) >>> 0;
+		let mw1 = (mw0 + sce.b.r[1][2]) >>> 0;
+		sce.c.r = [];
+		sce.c.r[0] = [sce.c.w,sce.c.h,mw0,mh0];
+		sce.c.r[1] = [sce.c.w,sce.c.h,mw1,mh0];
+		console.log(sce.c);
 	}
 }
 // text
@@ -195,10 +221,31 @@ var ren = {
 			sce.a.c.con.fillRect(r0[2]+m0,r0[3]+m0,r0[0]-m1,r0[1]-m1);
 		}
 	},
-	
 	"bmp": function(b0) {
 	},
 	"txt": function(s0) {
+	},
+	"play": function() {
+		// one
+		let r0 = sce.c.r[0];
+		sce.a.c.con.fillStyle = rgba.rmon();
+		sce.a.c.con.fillRect(r0[2],r0[3],r0[0],r0[1]);
+		// two
+		let r1 = sce.c.r[1];
+		sce.a.c.con.fillStyle = rgba.rmon();
+		sce.a.c.con.fillRect(r1[2],r1[3],r1[0],r1[1]);
+		// rand prog
+		let f0 = Math.random();
+		let f1 = Math.random();
+		let w0 = (r0[0] * f0) >>> 0;
+		let w1 = (r1[0] * f1) >>> 0;
+		console.log(f0,f1,w0,w1);
+		sce.a.c.con.fillStyle = rgba.rmon();
+		sce.a.c.con.fillRect(r0[2],r0[3],w0,r0[1]);
+		sce.a.c.con.fillStyle = rgba.rmon();
+		sce.a.c.con.fillRect(r1[2],r1[3],w1,r1[1]);
+	},
+	"walk": function() {
 	}
 }
 // data
