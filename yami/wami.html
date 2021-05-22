@@ -75,6 +75,21 @@ var g = {
 	"load3": function() {
 		// box plot
 		console.log("test guassian");
+		// clear 
+		// plot N (=10k) points
+		ren.clear();
+		g.max = 10000;
+		g.tick = 0;
+		g.id = window.setInterval(g.frame, 10);
+	},
+	"frame": function() {
+		if (g.tick >= g.max) {
+			window.clearTimeout(g.id);
+			console.log("plot done.");
+			return;
+		}
+		ren.plot();
+		g.tick = g.tick + 1;
 	}
 }
 // random walkers
@@ -111,7 +126,9 @@ var rw = {
 	"norm": function() {
 		// approx guassian (irwin hall)
 		let g0 = 0;
-		let n0 = 100;
+		let n0 = 4;
+		// let n0 = 100;
+		// tighter spread
 		let n1 = (n0 / 2) >>> 0;
 		for (let i = 0; i < n0; i++) {
 			let f0 = Math.random();
@@ -246,6 +263,14 @@ var ren = {
 		sce.a.c.con.fillRect(r1[2],r1[3],w1,r1[1]);
 	},
 	"walk": function() {
+	},
+	"plot": function() {
+		sce.a.c.con.fillStyle = rgba.rand();
+		// let x0 = (sce.a.w * Math.random()) >>> 0;
+		// let y0 = (sce.a.h * Math.random()) >>> 0;
+		let x0 = (sce.b.a.w * rw.norm()) >>> 0;
+		let y0 = (sce.b.a.h * rw.norm()) >>> 0;
+		sce.a.c.con.fillRect(x0,y0,1,1);
 	}
 }
 // data
