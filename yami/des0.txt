@@ -1,0 +1,29 @@
+Moonshot design notes
+aq@okaq.com
+2021-05-24
+
+1D random walk
+proc gen gamble system
+
+start the habit of design notes
+concurrent with code proto
+
+LAYOUT
+
+scene class acts as manager
+layout class holds global dims
+
+major full screen hd panel for render tests, intro
+
+TEXT
+
+handle strings to uppercase
+bitmap for each char
+
+RENDER
+
+all render from data
+input is a bitmap or function in a layout rect
+draw call handles shading and color or monochrome
+
+
