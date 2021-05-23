@@ -15,6 +15,8 @@ layout class holds global dims
 
 major full screen hd panel for render tests, intro
 
+start with a full screen hd grid, 32 x 32 pixel square
+
 TEXT
 
 handle strings to uppercase
