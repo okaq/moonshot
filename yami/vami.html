@@ -95,6 +95,27 @@ var lay = {
 		// gold
 		lay.c = {};
 		lay.c.g = 0.62;
+		lay.c.h = 0.50;
+	},
+	"rect": function() {
+		// sets of rects
+		lay.d = [];
+		// full screen
+		lay.d[0] = [[lay.a.w,lay.a.h,0,0]];
+		// 1024 pane
+		lay.d[1] = [];
+		lay.d[1][0] = lay.d[0][0];
+		lay.d[1][1] = [1024,1024,448,26];
+		// golden third
+		lay.d[2] = [];
+		lay.d[2][0] = lay.d[0][0];
+		let h0 = (lay.a.h * lay.c.g) >>> 0;
+		let h1 = (lay.a.h - h0) >>> 0;
+		let w0 = (lay.a.w * lay.c.h) >>> 0;
+		lay.d[2][1] = [w0,h0,0,0];
+		lay.d[2][2] = [w0,h0,w0,0];
+		lay.d[2][3] = [lay.a.w,h1,0,h0];
+		// strange combinations
 	}
 }
 // scene
