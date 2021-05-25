@@ -120,6 +120,19 @@ var lay = {
 	"grid": function() {
 		// systems of pixel blocks
 		// compute index range for rect area
+		lay.e = [];
+		for (let i = 0; i < lay.d.length; i++) {
+			let r0 = lay.d[i];
+			for (let j = 0; j < r0.length; j++) {
+				let r1 = r0[j];
+				// range of grid indicies
+				lay.e[i][j] = lay.grid2(r1);
+			}
+		}
+	},
+	"grid2": function(r0) {
+		let g0 = [];
+		retrun g0;
 	}
 }
 // scene
