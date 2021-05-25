@@ -61,6 +61,12 @@ var g = {
 		// [37..40] = [l,u,r,d]
 	},
 	"load2": function() {
+		// test grid
+		let r0 = [128,128,32,32];
+		let g0 = lay.grid2(r0);
+		console.log(g0);
+		ren.clear();
+		ren.grid(g0);
 	}
 }
 // layout
@@ -148,17 +154,24 @@ var lay = {
 		let y3 = (i1 / lay.b.nx) >>> 0;
 		let x4 = (x3 - x2) >>> 0;
 		let y4 = (y3 - y2) >>> 0;
-		for (let x = 0; x < x4; x++) {
-			for (let y = 0; y < y4; y++) {
+		console.log(r0,i0,i1,x2,y2,x3,y3,x4,y4);
+		for (let y = 0; y < y4; y++) {
+			for (let x = 0; x < x4; x++) {
+				let x5 = (x + x2) >>> 0;
+				let y5 = (y + y2) >>> 0;
+				let i2 = (y5 * lay.b.nx) >>> 0;
+				let i3 = (i2 + x5) >>> 0;
+				g0.push(i3);
 			}
 		}
-		retrun g0;
+		return g0;
 	},
 	"grid3": function(x0,y0) {
 		let x1 = (x0 / lay.b.px) >>> 0;
 		let y1 = (y0 / lay.b.py) >>> 0;
 		let i0 = (y1 * lay.b.nx) >>> 0;
 		let i1 = (i0 + x1) >>> 0;
+		// console.log(x0,y0,x1,y1,i0,i1);
 		return i1;
 	}
 }
@@ -168,6 +181,15 @@ var sce = {
 		sce.a = {};
 		// scene manager
 		// jump to timeline or user input
+	}
+}
+// render
+var ren = {
+	"clear": function() {
+	
+	},
+	"grid": function(g0) {
+	
 	}
 }
    // dom
