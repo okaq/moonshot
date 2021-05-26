@@ -66,7 +66,7 @@ var g = {
 		let g0 = lay.grid2(r0);
 		console.log(g0);
 		ren.clear();
-		ren.grid(g0);
+		// ren.grid(g0);
 		window.setTimeout(g.load3, 1000);
 	},
 	"load3": function() {
@@ -86,6 +86,9 @@ var g = {
 		console.log(r0);
 		let g0 = lay.grid2(r0);
 		console.log(g0);
+		ren.grid(g0);
+
+		// beautiful rand grid rect selector
 	}
 }
 // layout
@@ -173,7 +176,7 @@ var lay = {
 		let y3 = (i1 / lay.b.nx) >>> 0;
 		let x4 = (x3 - x2) >>> 0;
 		let y4 = (y3 - y2) >>> 0;
-		console.log(r0,i0,i1,x2,y2,x3,y3,x4,y4);
+		// console.log(r0,i0,i1,x2,y2,x3,y3,x4,y4);
 		for (let y = 0; y < y4; y++) {
 			for (let x = 0; x < x4; x++) {
 				let x5 = (x + x2) >>> 0;
@@ -220,7 +223,13 @@ var ren = {
 	
 	},
 	"grid": function(g0) {
-	
+		let rgba0 = rgba.rmon();
+		for (let i = 0; i < g0.length; i++) {
+			let i0 = g0[i];
+			let c0 = sce.b[i0].c;
+			c0.con.fillStyle = rgba0;
+			c0.con.fillRect(4,4,c0.can.width-8,c0.can.height-8);
+		}
 	},
 	"grid2": function() {
 		for (let i = 0; i < sce.b.length; i++) {
