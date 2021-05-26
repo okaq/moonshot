@@ -72,6 +72,20 @@ var g = {
 	"load3": function() {
 		sce.grid();
 		ren.grid2();
+		window.setTimeout(g.load4, 1000);
+	},
+	"load4": function() {
+		console.log("rand grid fill");
+		let x0 = (Math.random() * lay.a.w) >>> 0;
+		let y0 = (Math.random() * lay.a.h) >>> 0;
+		let w0 = (lay.a.w - x0) >>> 0;
+		let h0 = (lay.a.h - y0) >>> 0;
+		let w1 = (Math.random() * w0) >>> 0;
+		let h1 = (Math.random() * h0) >>> 0;
+		let r0 = [w1,h1,x0,y0];
+		console.log(r0);
+		let g0 = lay.grid2(r0);
+		console.log(g0);
 	}
 }
 // layout
