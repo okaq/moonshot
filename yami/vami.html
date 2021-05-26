@@ -67,6 +67,11 @@ var g = {
 		console.log(g0);
 		ren.clear();
 		ren.grid(g0);
+		window.setTimeout(g.load3, 1000);
+	},
+	"load3": function() {
+		sce.grid();
+		ren.grid2();
 	}
 }
 // layout
@@ -85,17 +90,17 @@ var lay = {
 		lay.b.ny = (lay.a.h / lay.b.py) >>> 0;
 		lay.b.nt = (lay.b.nx * lay.b.ny) >>> 0;
 		for (let i = 0; i < lay.b.nt; i++) {
-			lay.a[i] = {};
+			lay.b.a[i] = {};
 			let x0 = i % lay.b.px;
 			let y0 = (i / lay.b.px) >>> 0;
 			let x1 = (x0 * lay.b.px) >>> 0;
 			let y1 = (y0 * lay.b.py) >>> 0;
-			lay.a[i].x = x0;
-			lay.a[i].y = y0;
-			lay.a[i].w = lay.b.px;
-			lay.a[i].h = lay.b.py;
-			lay.a[i].bx = x1;
-			lay.a[i].by = y1;
+			lay.b.a[i].x = x0;
+			lay.b.a[i].y = y0;
+			lay.b.a[i].w = lay.b.px;
+			lay.b.a[i].h = lay.b.py;
+			lay.b.a[i].bx = x1;
+			lay.b.a[i].by = y1;
 		}
 		console.log(lay.b);
 		// gold
@@ -178,9 +183,21 @@ var lay = {
 // scene
 var sce = {
 	"init": function() {
-		sce.a = {};
 		// scene manager
-		// jump to timeline or user input
+		sce.a = {};
+		// layout to scene elements
+		// jump triggers: time, user, win / lose cond
+	},
+	"grid": function() {
+		// grid
+		sce.b = [];
+		for (let i = 0; i < lay.b.a.length; i++) {
+			let g0 = lay.b.a[i];
+			sce.b[i] = {};
+			sce.b[i].r = [g0.w,g0.h,g0.x,g0.y];
+			sce.b[i].c = dom.canvas(sce.b[i].r);
+			dom.add(sce.b[i].c);
+		}
 	}
 }
 // render
