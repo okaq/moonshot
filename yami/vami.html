@@ -91,8 +91,8 @@ var lay = {
 		lay.b.nt = (lay.b.nx * lay.b.ny) >>> 0;
 		for (let i = 0; i < lay.b.nt; i++) {
 			lay.b.a[i] = {};
-			let x0 = i % lay.b.px;
-			let y0 = (i / lay.b.px) >>> 0;
+			let x0 = i % lay.b.nx;
+			let y0 = (i / lay.b.nx) >>> 0;
 			let x1 = (x0 * lay.b.px) >>> 0;
 			let y1 = (y0 * lay.b.py) >>> 0;
 			lay.b.a[i].x = x0;
@@ -194,7 +194,7 @@ var sce = {
 		for (let i = 0; i < lay.b.a.length; i++) {
 			let g0 = lay.b.a[i];
 			sce.b[i] = {};
-			sce.b[i].r = [g0.w,g0.h,g0.x,g0.y];
+			sce.b[i].r = [g0.w,g0.h,g0.bx,g0.by];
 			sce.b[i].c = dom.canvas(sce.b[i].r);
 			dom.add(sce.b[i].c);
 		}
@@ -207,6 +207,15 @@ var ren = {
 	},
 	"grid": function(g0) {
 	
+	},
+	"grid2": function() {
+		for (let i = 0; i < sce.b.length; i++) {
+			let c0 = sce.b[i].c;
+			c0.con.fillStyle = rgba.mono(0);
+			c0.con.fillRect(0,0,c0.can.width,c0.can.height);
+			c0.con.fillStyle = rgba.mono(255);
+			c0.con.fillRect(4,4,c0.can.width-8,c0.can.height-8);
+		}
 	}
 }
    // dom
