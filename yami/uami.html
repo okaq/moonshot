@@ -107,7 +107,22 @@ var ren = {
 // data
 var db = {
 	"init": function() {
+		// pane dimensions
 		db.a = {};
+		db.a.w = 1024;
+		db.a.h = 1024;
+		db.a.px = 32;
+		db.a.py = 32;
+		db.a.nx = (db.a.w / db.a.px) >>> 0;
+		db.a.ny = (db.a.h / db.a.py) >>> 0;
+		db.a.nt = (db.a.nx * db.a.ny) >>> 0
+		db.a.c = [128,128,128,0.0];
+		db.a.d = 0.01;
+		// pane alpha chan accumulator
+		db.b = [];
+		for (let i = 0; i < db.a.nt; i++) {
+			db.b[i] = 0.0;
+		}
 	}
 }
    // dom
