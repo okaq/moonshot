@@ -66,6 +66,31 @@ var g = {
 		// additive alpha chan from data
 		sce.pane();
 		ren.clear2();
+		db.init();
+
+		window.setTimeout(g.load3, 1000);
+	},
+	"load3": function() {
+
+		let a0 = g.anim();
+
+		// fully programmatic animation loops
+		// frame tick, max, index
+		// id interval, time, callback
+		// clear condition
+		// update logic
+	},
+	"anim": function() {
+		// create a random animation sequence
+		let a0 = {};
+		a0.max = ((Math.random() * 8) + 8) >>> 0;
+		a0.tick = 0;
+		a0.int = ((Math.random() * 200) + 100) >>> 0;
+		a0.frame = function() {
+			db.shuf();
+			ren.grid();
+		}
+		return a0;
 	}
 }
 // scene
@@ -122,6 +147,13 @@ var db = {
 		db.b = [];
 		for (let i = 0; i < db.a.nt; i++) {
 			db.b[i] = 0.0;
+		}
+		// rand test
+		db.c = [];
+	},
+	"shuf": function() {
+		for (let i = 0; i < db.a.nt; i++) {
+			db.c[i] = rgba.rb();
 		}
 	}
 }
