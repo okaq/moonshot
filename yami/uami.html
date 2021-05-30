@@ -74,6 +74,10 @@ var g = {
 
 		let a0 = g.anim();
 
+		console.log(a0);
+
+		g.id = window.setInterval(a0.line, a0.interval);
+
 		// fully programmatic animation loops
 		// frame tick, max, index
 		// id interval, time, callback
@@ -85,11 +89,21 @@ var g = {
 		let a0 = {};
 		a0.max = ((Math.random() * 8) + 8) >>> 0;
 		a0.tick = 0;
-		a0.int = ((Math.random() * 200) + 100) >>> 0;
+		a0.interval = ((Math.random() * 200) + 100) >>> 0;
 		a0.frame = function() {
 			db.shuf();
 			ren.grid();
-		}
+		};
+		a0.line = function() {
+			console.log("tick count: " + a0.tick);
+			if (a0.tick >= a0.max) {
+				console.log("anim done");
+				window.clearInterval(g.id);
+				return;
+			}
+			a0.frame();
+			a0.tick = a0.tick + 1;
+		};
 		return a0;
 	}
 }
@@ -127,6 +141,16 @@ var ren = {
 
 		sce.b.c.con.fillStyle = rgba.css([0,0,0,1.0]);
 		sce.b.c.con.fillRect(0,0,sce.b.c.can.width,sce.b.c.can.height);
+	},
+	"grid": function() {
+		for (let i = 0; i < db.c.length; i++) {
+			let x0 = i % db.a.nx;
+			let x1 = (x0 * db.a.px) >>> 0;
+			let y0 = (i / db.a.nx) >>> 0;
+			let y1 = (y0 * db.a.py) >>> 0;
+			sce.b.c.con.fillStyle = rgba.mono(db.c[i]);
+			sce.b.c.con.fillRect(x1,y1,db.a.px,db.a.py);
+		}
 	}
 }
 // data
