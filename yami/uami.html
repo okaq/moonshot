@@ -205,6 +205,27 @@ var db = {
 		for (let i = 0; i < db.a.nt; i++) {
 			db.c[i] = rgba.rb();
 		}
+	},
+	"add": function() {
+		// pick guassian random cell
+		// accumulate alpha channel by delta velue
+		let f0 = db.norm();
+		let f1 = db.norm();
+		let x0 = (f0 * db.a.nx) >>> 0;
+		let y0 = (f1 * db.a.ny) >>> 0;
+		let i0 = (y0 * db.a.nx) >>> 0;
+		let i1 = (i0 + x0) >>> 0;
+		db.b[i1] = db.b[i1] + db.a.d;
+	},
+	"norm": function() {
+		let g0 = 0;
+		let n0 = 4;
+		for (let i = 0; i < n0; i++) {
+			let f0 = Math.random();
+			g0 = g0 + f0;
+		}
+		let g1 = g0 / n0;
+		return g1;
 	}
 }
    // dom
