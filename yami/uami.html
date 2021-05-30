@@ -78,6 +78,13 @@ var g = {
 
 		g.id = window.setInterval(a0.line, a0.interval);
 
+		// clever: clear interval with state var
+		// add state func to return control
+
+		// programmatic access to anim api
+		// create, destroy, update params
+		// cancel midway, morph, combine time lines
+
 		// fully programmatic animation loops
 		// frame tick, max, index
 		// id interval, time, callback
@@ -99,11 +106,30 @@ var g = {
 			if (a0.tick >= a0.max) {
 				console.log("anim done");
 				window.clearInterval(g.id);
+				// timeout to game function
 				return;
 			}
 			a0.frame();
 			a0.tick = a0.tick + 1;
 		};
+		return a0;
+	},
+	"anim2": function(max0, int0, frame0, id0, call0) {
+		// anim seq api
+		let a0 = {};
+		a0.max = max0;
+		a0.tick = 0;
+		a0.interval = int0;
+		a0.frame = frame0;
+		a0.line = function() {
+			// tick count
+			if (a0.tick >= a0.max) {
+				console.log("anim done.");
+				window.clearInterval(id0);
+				window.setTimeout(call0, 10);
+				return;
+			}
+		}
 		return a0;
 	}
 }
