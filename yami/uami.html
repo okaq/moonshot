@@ -78,6 +78,9 @@ var g = {
 
 		g.id = window.setInterval(a0.line, a0.interval);
 
+		let int0 = a0.max * a0.interval + 1000;
+		window.setTimeout(g.load4, int0);
+
 		// clever: clear interval with state var
 		// add state func to return control
 
@@ -114,7 +117,7 @@ var g = {
 		};
 		return a0;
 	},
-	"anim2": function(max0, int0, frame0, id0, call0) {
+	"anim2": function(max0, int0, frame0, call0) {
 		// anim seq api
 		let a0 = {};
 		a0.max = max0;
@@ -125,12 +128,31 @@ var g = {
 			// tick count
 			if (a0.tick >= a0.max) {
 				console.log("anim done.");
-				window.clearInterval(id0);
+				window.clearInterval(g.id);
 				window.setTimeout(call0, 10);
 				return;
 			}
+			a0.frame();
+			a0.tick = a0.tick + 1;
 		}
 		return a0;
+	},
+	"load4": function() {
+		console.log("start cloud");
+		
+		g.a = g.anim2(10,100,g.frame,g.load5);
+
+		console.log(g.a);
+
+		g.id = window.setInterval(g.a.line, g.a.interval);
+		
+	},
+	"frame": function() {
+		db.add();
+		ren.grid2();
+	},
+	"load5": function() {
+		console.log("new clouds");
 	}
 }
 // scene
@@ -176,6 +198,10 @@ var ren = {
 			let y1 = (y0 * db.a.py) >>> 0;
 			sce.b.c.con.fillStyle = rgba.mono(db.c[i]);
 			sce.b.c.con.fillRect(x1,y1,db.a.px,db.a.py);
+		}
+	},
+	"grid2": function() {
+		for (let i = 0; i < db.b.length; i++) {
 		}
 	}
 }
