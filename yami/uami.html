@@ -134,13 +134,19 @@ var g = {
 			}
 			a0.frame();
 			a0.tick = a0.tick + 1;
+			// progress
+			if (((a0.max / a0.tick) % 10) == 0) {
+				console.log((a0.tick / a0.max) + " %");
+			}
 		}
 		return a0;
 	},
 	"load4": function() {
 		console.log("start cloud");
+
+		ren.clear2();
 		
-		g.a = g.anim2(10,100,g.frame,g.load5);
+		g.a = g.anim2(1000,100,g.frame,g.load5);
 
 		console.log(g.a);
 
@@ -202,6 +208,14 @@ var ren = {
 	},
 	"grid2": function() {
 		for (let i = 0; i < db.b.length; i++) {
+			let x0 = i % db.a.nx;
+			let x1 = (x0 * db.a.px) >>> 0;
+			let y0 = (i / db.a.nx) >>> 0;
+			let y1 = (y0 * db.a.py) >>> 0;
+			let rgba0 = [128,128,128,db.b[i]];
+			let rgba1 = rgba.css(rgba0);
+			sce.b.c.con.fillStyle = rgba1;
+			sce.b.c.con.fillRect(x1,y1,db.a.px,db.a.py);
 		}
 	}
 }
@@ -241,6 +255,7 @@ var db = {
 		let y0 = (f1 * db.a.ny) >>> 0;
 		let i0 = (y0 * db.a.nx) >>> 0;
 		let i1 = (i0 + x0) >>> 0;
+		if (db.b[i1] >= 1.0) { return };
 		db.b[i1] = db.b[i1] + db.a.d;
 	},
 	"norm": function() {
