@@ -62,16 +62,16 @@ var g = {
 	},
 	"load2": function() {
 		console.log("alpha pastel clouds");
-		// 1024 center pane, 32 pixel blocks
-		// additive alpha chan from data
-		sce.pane();
-		ren.clear2();
+
+		ren.clear();
 		db.init();
 
 		window.setTimeout(g.load3, 1000);
 	},
 	"load3": function() {
+		console.log("points clouds");
 
+		db.point();
 	}
 }
 // scene
@@ -99,6 +99,20 @@ var db = {
 	"init": function() {
 		// pixels
 		db.a = {};
+		db.a.w = 1920;
+		db.a.h = 1080;
+		db.a.t = (db.a.w * db.a.h) >>> 0;
+		db.b = [];
+		for (let i = 0; i < db.a.t; i++) {
+			db.b[i] = [0,0,0,0.0];
+		}
+		// colors
+		db.c = [];
+		for (let = 0; i < 4; i++) {
+			db.c[i] = [rgba.rb(),rgba.rb(),rgba.rb()];
+		}
+		// delta 
+		db.d = 0.0001;
 	}
 	"norm": function() {
 		let g0 = 0;
@@ -109,6 +123,16 @@ var db = {
 		}
 		let g1 = g0 / n0;
 		return g1;
+	},
+	"point": function() {
+		db.e = [];
+		for (let i = 0; i < db.c.length; i++) {
+			db.e[i] = {};
+			db.e[i].x = (Math.random() * db.a.w) >>> 0;
+			db.e[i].y = (Math.random() * db.a.h) >>> 0;
+			db.e[i].i = (db.e[i].y * db.a.w) >>> 0;
+			db.e[i].i = (db.e[i].i + db.e[i].x) >>> 0;
+		}
 	}
 }
    // dom
