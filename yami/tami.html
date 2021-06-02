@@ -72,6 +72,33 @@ var g = {
 		console.log("points clouds");
 
 		db.point();
+
+		// pick 
+		g.pick = (Math.random() * db.c.length) >>> 0;
+		g.tick = 0;
+		g.max = 1000;
+		g.interval = 4;
+		g.id = window.setInterval(g.frame, g.interval);
+
+		// runs
+		// number of pixels to draw (~100k)
+		// pick a cloud (color)
+		// gauss rand point
+		// draw, and tab in accum
+	},
+	"frame": function() {
+		if (g.tick >= g.max) {
+			console.log(anim done");
+			window.clearInterval(g.id);
+			// next cloud
+			return;
+		}
+		if (g.tick % 100 == 0) {
+			console.log("tick count: " + g.tick);
+		}
+		db.pick();
+		ren.pick();
+		g.tick = g.tick + 1;
 	}
 }
 // scene
@@ -93,6 +120,8 @@ var ren = {
 	"clear": function() {
 		sce.a.c.con.fillStyle = rgba.css([0,0,0,1.0]);
 		sce.a.c.con.fillRect(0,0,sce.a.c.can.width,sce.a.c.can.height);
+	},
+	"pick": function() {
 	}
 }
 var db = {
@@ -108,12 +137,12 @@ var db = {
 		}
 		// colors
 		db.c = [];
-		for (let = 0; i < 4; i++) {
+		for (let i = 0; i < 4; i++) {
 			db.c[i] = [rgba.rb(),rgba.rb(),rgba.rb()];
 		}
 		// delta 
 		db.d = 0.0001;
-	}
+	},
 	"norm": function() {
 		let g0 = 0;
 		let n0 = 4;
@@ -141,6 +170,8 @@ var db = {
 			db.e[i].i = (db.e[i].y * db.a.w) >>> 0;
 			db.e[i].i = (db.e[i].i + db.e[i].x) >>> 0;
 		}
+	},
+	"pick": function() {
 	}
 }
    // dom
