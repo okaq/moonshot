@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=1920,height=1080,initial-scale=1" />
         <meta name="source" content="https://github.com/okaq/moonshot" />
         <meta name="author" content="AQ<aq@okaq.com>" />
-        <meta name="date" content="2021-05-31" />
+        <meta name="date" content="2021-06-04" />
 	<link rel="shortcut icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAAAMElEQVR4nOzNMREAMAzDwF4vg/kjDol4ewHQT5LX7FfvAAAAAAAAAAAA4LANAAD//9duAFsRg4sHAAAAAElFTkSuQmCC" />
 	<style type="text/css">
             html,body{width:1920px;overflow:auto;height:1080px;margin:0px;border:0px;padding:0px;background-color:rgba(0,0,0,0);}
@@ -61,98 +61,11 @@ var g = {
 		// [37..40] = [l,u,r,d]
 	},
 	"load2": function() {
-		console.log("alpha pastel clouds");
+		console.log("text layout");
 
 		ren.clear();
-		// ren.clear2();
-		db.init();
 
-		// window.setTimeout(g.load3, 1000);
-
-		// multi cloud
-		g.pick = 0;
-		db.point();
-		g.clouds = db.e.length;
-		window.setTimeout(g.load4, 1000);
-	},
-	"load3": function() {
-		console.log("points clouds");
-
-		db.point();
-
-		// pick 
-		g.pick = (Math.random() * db.c.length) >>> 0;
-		console.log(g.pick);
-		console.log(db.e[g.pick]);
-		console.log(db.c[g.pick]);
-		g.tick = 0;
-		g.max = 10000;
-		g.interval = 8;
-		g.id = window.setInterval(g.frame, g.interval);
-
-		// runs
-		// number of pixels to draw (~100k)
-		// pick a cloud (color)
-		// gauss rand point
-		// draw, and tab in accum
-	},
-	"frame": function() {
-		if (g.tick >= g.max) {
-			console.log("anim done");
-			window.clearInterval(g.id);
-			// next cloud
-			return;
-		}
-		if (g.tick % 1000 == 0) {
-			console.log("tick count: " + g.tick);
-			// console.log("pick: " + g.pick);
-			// console.log("point: " + db.f);
-			console.log(db.f);
-		}
-		// db.pick();
-		db.pick2();
-		// ren.pick();
-		ren.pick2();
-		g.tick = g.tick + 1;
-
-		// render cloud at 10000 points
-		// sparse, full hd field
-
-		// we're gonna need a bigger kernel
-		// or radiate from point cloud source
-
-		// 3 vars: spread, fill, alpha
-	},
-	"load4": function() {
-		if (g.pick >= g.clouds) {
-			console.log("clouds done");
-			return;
-		}
-		// cloud run
-		// g.pick = (Math.random() * db.c.length) >>> 0;
-		console.log(g.pick);
-		console.log(db.e[g.pick]);
-		console.log(db.c[g.pick]);
-		g.tick = 0;
-		g.max = 20000;
-		g.interval = 4;
-		g.id = window.setInterval(g.frame2, g.interval);
-	},
-	"frame2": function() {
-		if (g.tick >= g.max) {
-			console.log("run done");
-			window.clearInterval(g.id);
-			g.pick = g.pick + 1;
-			window.setTimeout(g.load4, 10);
-			return;
-		}
-		if (g.tick % 1000 == 0) {
-			console.log("tick count: " + g.tick);
-			console.log(db.f);
-		}
-		db.pick2();
-		ren.pick2();
-		g.tick = g.tick + 1;
+		txt.init();
 	}
 }
 // scene
@@ -174,143 +87,45 @@ var ren = {
 	"clear": function() {
 		sce.a.c.con.fillStyle = rgba.css([0,0,0,1.0]);
 		sce.a.c.con.fillRect(0,0,sce.a.c.can.width,sce.a.c.can.height);
-	},
-	"clear2": function() {
-		sce.a.c.con.fillStyle = rgba.css([255,255,255,1.0]);
-		sce.a.c.con.fillRect(0,0,sce.a.c.can.width,sce.a.c.can.height);
-	},
-	"pick": function() {
-		if (db.f.x == null || db.f.y == null) {
-			return;
-		}
-		let rgba0 = db.c[g.pick];
-		rgba0[3] = db.d * g.tick;
-		sce.a.c.con.fillStyle = rgba.css(rgba0);
-		sce.a.c.con.fillRect(db.f.x,db.f.y,1,1);
-	},
-	"pick2": function() {
-		if (db.f.x == null || db.f.y == null) {
-			return;
-		}
-		let rgba0 = db.b[db.f.i];
-		if (rgba0 == null) { return };
-		sce.a.c.con.fillStyle = rgba.css(rgba0);
-		sce.a.c.con.fillRect(db.f.x,db.f.y,4,4);
 	}
-}
 // text
 var txt = {
-	"rand": function() {
+	"init": function() {
+		// eleven letters
+		txt.a = [
+			"abandonment",
+			"beautifully",
+			"chantarelle",
+			"deliriously",
+			"eclecticism",
+			"fantabulous",
+			"gravitation",
+			"halfhearted",
+			"idolization",
+			"joyfullness",
+			"kabbalistic",
+			"lacrimatory",
+			"macrobiotic",
+			"nightingale",
+			"occultation",
+			"pandemonium",
+			"quaternions",
+			"rationalist",
+			"scandalized",
+			"tempestuous",
+			"unbreakable",
+			"vacationing",
+			"whimsically",
+			"xenogenesis",
+			"yugoslavian",
+			"zealousness"
+		];
+	
 	}
 }
 // data
 var db = {
 	"init": function() {
-		// pixels
-		db.a = {};
-		db.a.w = 1920;
-		db.a.h = 1080;
-		db.a.t = (db.a.w * db.a.h) >>> 0;
-		db.a.n = 8;
-		db.b = [];
-		for (let i = 0; i < db.a.t; i++) {
-			db.b[i] = [0,0,0,0.0];
-		}
-		// colors
-		db.c = [];
-		for (let i = 0; i < db.a.n; i++) {
-			db.c[i] = [rgba.rb(),rgba.rb(),rgba.rb()];
-		}
-		// delta 
-		db.d = 0.1;
-	},
-	"norm": function() {
-		let g0 = 0;
-		let n0 = 4;
-		for (let i = 0; i < n0; i++) {
-			let f0 = Math.random();
-			g0 = g0 + f0;
-		}
-		let g1 = g0 / n0;
-		return g1;
-	},
-	"norm2": function() {
-		let f0 = ((2.0 * Math.random()) - 1.0);
-		let f1 = ((2.0 * Math.random()) - 1.0);
-		let r0 = ((f0 * f0) + (f1 * f1));
-		if ((r0 <= 0) || (r0 >= 1)) { return db.norm2() };
-		let r1 = Math.sqrt(-2.0*Math.log(r0)/r0);
-		return r1 * f0;
-	},
-	"point": function() {
-		db.e = [];
-		for (let i = 0; i < db.c.length; i++) {
-			db.e[i] = {};
-			db.e[i].x = (Math.random() * db.a.w) >>> 0;
-			db.e[i].y = (Math.random() * db.a.h) >>> 0;
-			db.e[i].i = (db.e[i].y * db.a.w) >>> 0;
-			db.e[i].i = (db.e[i].i + db.e[i].x) >>> 0;
-		}
-	},
-	"pick": function() {
-		// cloud point
-		let p0 = db.e[g.pick];
-		let f0 = db.norm2();
-		let f1 = db.norm2();
-		let x0 = (db.a.w * f0) >>> 0;
-		let y0 = (db.a.h * f1) >>> 0;
-		let x1 = (p0.x + x0) >>> 0;
-		let y1 = (p0.y + y0) >>> 0;
-		db.f = {};
-		if (x1 > db.a.w || x1 < 0) {
-			return;
-		}
-		if (y1 > db.a.h || y1 < 0) {
-			return;
-		}
-		db.f.x = x1;
-		db.f.y = y1;
-		// index, accum
-	},
-	"pick2": function() {
-		// cloud point
-		let p0 = db.e[g.pick];
-		let f0 = db.norm2();
-		let f1 = db.norm2();
-		let f2 = 0.2;
-		let x0 = (db.a.w * f2 * f0) >>> 0;
-		let y0 = (db.a.h * f2 * f1) >>> 0;
-		let x1 = (p0.x + x0) >>> 0;
-		let y1 = (p0.y + y0) >>> 0;
-		db.f = {};
-		if (x1 > db.a.w || x1 < 0) {
-			return;
-		}
-		if (y1 > db.a.h || y1 < 0) {
-			return;
-		}
-		db.f.x = x1;
-		db.f.y = y1;
-		// index
-		db.f.i = (db.a.w * db.f.y) >>> 0;
-		db.f.i = (db.f.i + db.f.x) >>> 0;
-		// accum
-		let p1 = db.b[db.f.i];
-		if (p1 == null) { return };
-		if (p1[3] == 0.0) {
-			db.b[db.f.i] = db.c[g.pick];
-			db.b[db.f.i][3] = db.d;
-			return;
-		}
-		// inc alpha chan
-		let p2 = p1[3];
-		p2 = p2 + db.d;
-		if (p2 >= 1.0) { p2 = Math.random() };
-		db.b[db.f.i][0] = db.c[g.pick][0];
-		db.b[db.f.i][1] = db.c[g.pick][1];
-		db.b[db.f.i][2] = db.c[g.pick][2];
-		db.b[db.f.i][3] = p2;
-		// blend?
 	}
 }
    // dom
