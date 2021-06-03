@@ -76,7 +76,7 @@ var g = {
 		// pick 
 		g.pick = (Math.random() * db.c.length) >>> 0;
 		g.tick = 0;
-		g.max = 1000;
+		g.max = 10000;
 		g.interval = 4;
 		g.id = window.setInterval(g.frame, g.interval);
 
@@ -88,17 +88,22 @@ var g = {
 	},
 	"frame": function() {
 		if (g.tick >= g.max) {
-			console.log(anim done");
+			console.log("anim done");
 			window.clearInterval(g.id);
 			// next cloud
 			return;
 		}
-		if (g.tick % 100 == 0) {
+		if (g.tick % 1000 == 0) {
 			console.log("tick count: " + g.tick);
+			console.log("pick: " + g.pick);
+			console.log("point: " + db.f);
 		}
 		db.pick();
 		ren.pick();
 		g.tick = g.tick + 1;
+
+		// render cloud at 10000 points
+		// sparse, full hd field
 	}
 }
 // scene
@@ -122,6 +127,13 @@ var ren = {
 		sce.a.c.con.fillRect(0,0,sce.a.c.can.width,sce.a.c.can.height);
 	},
 	"pick": function() {
+		if (db.f.x == null || db.f.y == null) {
+			return;
+		}
+		let rgba0 = db.c[g.pick];
+		rgba0[3] = db.d * g.tick;
+		sce.a.c.con.fillStyle = rgba.css(rgba0);
+		sce.a.c.con.fillRect(db.f.x,db.f.y,1,1);
 	}
 }
 var db = {
@@ -181,14 +193,14 @@ var db = {
 		let x1 = (p0.x + x0) >>> 0;
 		let y1 = (p0.y + y0) >>> 0;
 		db.f = {};
-		if (x0 > db.a.w || x0 < 0) {
+		if (x1 > db.a.w || x1 < 0) {
 			return;
 		}
-		if (y0 > db.a.h || y0 < 0) {
+		if (y1 > db.a.h || y1 < 0) {
 			return;
 		}
 		db.f.x = x1;
-		db.x.y = y1;
+		db.f.y = y1;
 		// index, accum
 	}
 }
