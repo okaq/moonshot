@@ -98,8 +98,10 @@ var g = {
 			console.log("pick: " + g.pick);
 			console.log("point: " + db.f);
 		}
-		db.pick();
-		ren.pick();
+		// db.pick();
+		db.pick2();
+		// ren.pick();
+		ren.pick2();
 		g.tick = g.tick + 1;
 
 		// render cloud at 10000 points
@@ -134,8 +136,22 @@ var ren = {
 		rgba0[3] = db.d * g.tick;
 		sce.a.c.con.fillStyle = rgba.css(rgba0);
 		sce.a.c.con.fillRect(db.f.x,db.f.y,1,1);
+	},
+	"pick2": function() {
+		if (db.f.x == null || db.f.y == null) {
+			return;
+		}
+		let rgba0 = db.b[db.f.i];
+		sce.a.c.con.fillStyle = rgba.css(rgba0);
+		sce.a.c.con.fillRect(db.f.x,db.f.y,2,2);
 	}
 }
+// text
+var txt = {
+	"rand": function() {
+	}
+}
+// data
 var db = {
 	"init": function() {
 		// pixels
@@ -153,7 +169,7 @@ var db = {
 			db.c[i] = [rgba.rb(),rgba.rb(),rgba.rb()];
 		}
 		// delta 
-		db.d = 0.01;
+		db.d = 0.1;
 	},
 	"norm": function() {
 		let g0 = 0;
@@ -235,6 +251,7 @@ var db = {
 		// inc alpha chan
 		let p2 = p1[3];
 		p2 = p2 + db.d;
+		if (p2 >= 1.0) { p2 = 1.0 };
 		db.b[db.f.i][3] = p2;
 		// blend?
 	}
