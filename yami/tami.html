@@ -153,7 +153,7 @@ var db = {
 			db.c[i] = [rgba.rb(),rgba.rb(),rgba.rb()];
 		}
 		// delta 
-		db.d = 0.0001;
+		db.d = 0.01;
 	},
 	"norm": function() {
 		let g0 = 0;
@@ -202,6 +202,41 @@ var db = {
 		db.f.x = x1;
 		db.f.y = y1;
 		// index, accum
+	},
+	"pick2": function() {
+		// cloud point
+		let p0 = db.e[g.pick];
+		let f0 = db.norm2();
+		let f1 = db.norm2();
+		let f2 = 0.2;
+		let x0 = (db.a.w * f2 * f0) >>> 0;
+		let y0 = (db.a.h * f2 * f1) >>> 0;
+		let x1 = (p0.x + x0) >>> 0;
+		let y1 = (p0.y + y0) >>> 0;
+		db.f = {};
+		if (x1 > db.a.w || x1 < 0) {
+			return;
+		}
+		if (y1 > db.a.h || y1 < 0) {
+			return;
+		}
+		db.f.x = x1;
+		db.f.y = y1;
+		// index
+		db.f.i = (db.a.w * db.f.y) >>> 0;
+		db.f.i = (db.f.i + db.f.x) >>> 0;
+		// accum
+		let p1 = db.b[db.f.i];
+		if (p1[3] == 0.0) {
+			db.b[db.f.i] = db.c[g.pick];
+			db.b[db.f.i][3] = db.d;
+			return;
+		}
+		// inc alpha chan
+		let p2 = p1[3];
+		p2 = p2 + db.d;
+		db.b[db.f.i][3] = p2;
+		// blend?
 	}
 }
    // dom
