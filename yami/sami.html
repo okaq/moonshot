@@ -126,6 +126,40 @@ var txt = {
 // data
 var db = {
 	"init": function() {
+		// dims
+		db.a = {};
+		db.a.w = 1920;
+		db.a.h = 1080;
+		db.a.px = 32;
+		db.a.py = 32;
+		db.a.nx = (db.a.w / db.a.px) >>> 0;
+		db.a.ny = (db.a.h / db.a.py) >>> 0;
+		db.a.nt = (db.a.nx * db.a.ny) >>> 0;
+
+		// txt layout grid 
+		// random placement "exclusion"
+		// non-intersecting
+		// add remove chars anim time line
+	},
+	"grid": function() {
+		db.b = [];
+		for (let i = 0; i < db.a.nt; i++) {
+			db.b[i] = {};
+			let x0 = i % db.a.nx;
+			let x1 = (x0 * db.a.px) >>> 0;
+			let y0 = (i / db.a.nx) >>> 0;
+			let y1 = (y0 * db.a.py) >>> 0;
+			db.b[i].x = x1;
+			db.b[i].y = y1;
+			// bmp
+			db.b[i].b = null;
+			// color [bkgd,fore]
+			db.b[i].c = [];
+			db.b[i].c[0] = rgba.css([0,0,0,1.0]);
+			db.b[i].c[1] = rgba.css([255,255,255,1.0]);
+		}
+
+		// txt is just "string at index"
 	}
 }
    // dom
