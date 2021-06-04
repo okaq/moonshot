@@ -65,11 +65,33 @@ var g = {
 
 		ren.clear();
 
+		window.setTimeout(g.load3, 1000);
+	},
+	"load3": function() {
+		console.log("grid init");
 		txt.init();
 		db.init();
 		db.grid();
+		console.log("cell count: " + db.a.nt);
 
 		ren.grid();
+
+		window.setTimeout(g.load4, 1000);
+
+		// play / pause master game switch
+		// central anim control brain
+
+		// fire N anim seq custom events
+		// each one is a new anim time line
+		// choose string, index
+		// start loop, print char at 1 fps
+		// when done, remove at 1 fps
+	},
+	"load4": function() {
+		// number of timelines
+		g.n = 8;
+		console.log("time line count: " + g.n);
+		db.time();
 	}
 }
 // scene
@@ -171,6 +193,18 @@ var db = {
 		}
 
 		// txt is just "string at index"
+	},
+	"time": function() {
+		// intervals
+		db.c = [];
+		db.c[0] = 1.0;
+		for (let i = 1; i < g.n; i++) {
+			db.c[i] = db.c[i-1];
+			db.c[i] = db.c[i] + (Math.random() * 8);
+		}
+		console.log(db.c);
+
+		// ping pong with async / await calls
 	}
 }
    // dom
