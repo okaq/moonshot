@@ -167,13 +167,25 @@ var ren = {
 		let b0 = true;
 		let i0 = g.tick;
 		if (g.tick >= s0.length) {
-			i0 = i0 - (g.tick - s0.length) - 1;
+			let i1 = g.tick - s0.length;
+			i0 = s0.length - 1 - i1;
 			b0 = false;
 		}
+		// console.log(i0);
 		let s1 = s0[i0];
 		let s2 = s1.toUpperCase();
-		console.log(i0, s2);
-
+		// console.log(s2);
+		let bmp0 = bmp.a[s2];
+		// console.log(bmp0.length);
+		console.log(d0.i);
+		ren.bmp(bmp0, d0.i+i0);
+	},
+	"bmp": function(bmp0, i0) {
+		let b0 = db.b[i0];
+		console.log(b0);
+		// black bkgd fill
+		sce.a.c.con.fillStyle = rgba.css([0,0,0,1.0]);
+		sce.a.c.con.fillRect(b0.x,b0.y,db.a.px,db.a.py);
 	}
 }
 // text
@@ -265,10 +277,10 @@ var db = {
 		// ping pong with async / await calls
 	},
 	"pick": function() {
-		let x0 = (db.a.w - txt.a[0].length) >>> 0;
+		let x0 = (db.a.nx - txt.a[0].length) >>> 0;
 		let x1 = (x0 * Math.random()) >>> 0;
-		let y0 = (db.a.h * Math.random()) >>> 0;
-		let y1 = (y0 * db.a.w) >>> 0;
+		let y0 = (db.a.ny * Math.random()) >>> 0;
+		let y1 = (y0 * db.a.nx) >>> 0;
 		let i0 = (y1 + x1) >>> 0;
 		let t0 = (txt.a.length * Math.random()) >>> 0;
 		// with replacement
