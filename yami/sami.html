@@ -94,7 +94,7 @@ var g = {
 		db.time();
 
 		g.t = window.performance.now();
-		for (let i = 1; i < db.c.length; i++) {
+		for (let i = 0; i < db.c.length; i++) {
 			// let t0 = db.c[i] - db.c[i-1];
 			// let t1 = t0 * 1000;
 			window.setTimeout(g.frame, db.c[i] * 1000.0);
@@ -105,6 +105,9 @@ var g = {
 		let t0 = window.performance.now();
 		let t1 = t0 - g.t;
 		console.log("time out: " + t1);
+
+		db.pick();
+		console.log(db.d);
 
 		// tick count for db {string,index} pair
 		// let f0 advance and render function
@@ -186,6 +189,9 @@ var db = {
 		db.a.ny = (db.a.h / db.a.py) >>> 0;
 		db.a.nt = (db.a.nx * db.a.ny) >>> 0;
 
+		// string, index, seq
+		db.d = [];
+
 		// txt layout grid 
 		// random placement "exclusion"
 		// non-intersecting
@@ -222,6 +228,20 @@ var db = {
 		console.log(db.c);
 
 		// ping pong with async / await calls
+	},
+	"pick": function() {
+		let x0 = (db.a.w - txt.a[0].length) >>> 0;
+		let x1 = (x0 * Math.random()) >>> 0;
+		let y0 = (db.a.h * Math.random()) >>> 0;
+		let y1 = (y0 * db.a.w) >>> 0;
+		let i0 = (y1 + x1) >>> 0;
+		let t0 = (txt.a.length * Math.random()) >>> 0;
+		// with replacement
+		let s0 = {};
+		s0.i = i0;
+		s0.t = t0;
+		s0.s = 0;
+		db.d.push(s0);
 	}
 }
    // dom
