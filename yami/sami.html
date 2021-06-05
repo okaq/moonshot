@@ -88,13 +88,14 @@ var g = {
 		// when done, remove at 1 fps
 	},
 	"load4": function() {
+		ren.clear2();
 		// number of timelines
 		g.n = 8;
 		console.log("time line count: " + g.n);
 		db.time();
 
 		g.t = window.performance.now();
-		for (let i = 0; i < db.c.length; i++) {
+		for (let i = 0; i < 1; i++) {
 			// let t0 = db.c[i] - db.c[i-1];
 			// let t1 = t0 * 1000;
 			window.setTimeout(g.frame, db.c[i] * 1000.0);
@@ -109,10 +110,23 @@ var g = {
 		db.pick();
 		console.log(db.d);
 
+		g.max = (txt.a[0].length * 2) >>> 0;
+		g.tick = 0;
+		g.id = window.setInterval(g.frame2, 1000);
+
 		// tick count for db {string,index} pair
 		// let f0 advance and render function
 		// g.id.push window.setInterval inc anim
-	}	
+	},
+	"frame2": function() {
+		if (g.tick >= g.max) {
+			window.clearInterval(g.id);
+			console.log("seq done");
+			return;
+		}
+		// render seq bmp
+		g.tick = g.tick + 1;
+	}
 }
 // scene
 var sce = {
@@ -132,6 +146,10 @@ var sce = {
 var ren = {
 	"clear": function() {
 		sce.a.c.con.fillStyle = rgba.css([0,0,0,1.0]);
+		sce.a.c.con.fillRect(0,0,sce.a.c.can.width,sce.a.c.can.height);
+	},
+	"clear2": function() {
+		sce.a.c.con.fillStyle = rgba.css([255,255,255,1.0]);
 		sce.a.c.con.fillRect(0,0,sce.a.c.can.width,sce.a.c.can.height);
 	},
 	"grid": function() {
