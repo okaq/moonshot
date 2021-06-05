@@ -124,7 +124,9 @@ var g = {
 			console.log("seq done");
 			return;
 		}
+		console.log("tick count: " + g.tick);
 		// render seq bmp
+		ren.pick();
 		g.tick = g.tick + 1;
 	}
 }
@@ -157,6 +159,21 @@ var ren = {
 			sce.a.c.con.fillStyle = rgba.rmon();
 			sce.a.c.con.fillRect(db.b[i].x,db.b[i].y,db.a.px,db.a.py);
 		}
+	},
+	"pick": function() {
+		let d0 = db.d[0];
+		let s0 = txt.a[d0.t];
+		// forward flag
+		let b0 = true;
+		let i0 = g.tick;
+		if (g.tick >= s0.length) {
+			i0 = i0 - (g.tick - s0.length) - 1;
+			b0 = false;
+		}
+		let s1 = s0[i0];
+		let s2 = s1.toUpperCase();
+		console.log(i0, s2);
+
 	}
 }
 // text
