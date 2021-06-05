@@ -177,15 +177,35 @@ var ren = {
 		// console.log(s2);
 		let bmp0 = bmp.a[s2];
 		// console.log(bmp0.length);
-		console.log(d0.i);
-		ren.bmp(bmp0, d0.i+i0);
+		// console.log(d0.i);
+		if (b0) {
+			ren.cell(0, d0.i+i0);
+			ren.bmp(bmp0, d0.i+i0);
+		} else {
+			ren.cell(255, d0.i+i0);
+		}
+	},
+	"cell": function(mon0, i0) {
+		sce.a.c.con.fillStyle = rgba.mono(mon0);
+		sce.a.c.con.fillRect(db.b[i0].x,db.b[i0].y,db.a.px,db.a.py);
 	},
 	"bmp": function(bmp0, i0) {
 		let b0 = db.b[i0];
-		console.log(b0);
+		// console.log(b0);
 		// black bkgd fill
-		sce.a.c.con.fillStyle = rgba.css([0,0,0,1.0]);
-		sce.a.c.con.fillRect(b0.x,b0.y,db.a.px,db.a.py);
+		// sce.a.c.con.fillStyle = rgba.css([0,0,0,1.0]);
+		// sce.a.c.con.fillRect(b0.x,b0.y,db.a.px,db.a.py);
+		sce.a.c.con.fillStyle = rgba.mono(255);
+		for (let i = 0; i < bmp0.length; i++) {
+			if (bmp0[i] == 1) {
+				continue;
+			}
+			let x0 = i % 32;
+			let y0 = (i / 32) >>> 0;
+			let x1 = (x0 + b0.x) >>> 0;
+			let y1 = (y0 + b0.y) >>> 0;
+			sce.a.c.con.fillRect(x1,y1,1,1);
+		}
 	}
 }
 // text
