@@ -69,10 +69,25 @@ var sce = {
 	"init": function() {
 		// bkgd
 		sce.a = {};
+		sce.a.r = [1920,1080,0,0];
+		sce.a.c = dom.canvas(sce.a.r);
+		dom.add(sce.a.c);
+		sce.a.c.can.dataset.x = "bkgd";
+		sce.a.c.can.addEventListener("click", sce.click, false);
 		// pane
 		sce.b = {};
+		sce.b.r = [1024,1024,448,28];
+		sce.b.c = dom.canvas(sce.b.r);
+		dom.add(sce.b.c);
+		sce.b.c.can.dataset.x = "pane";
+		sce.b.c.can.addEventListener("click", sce.click, false);
 		// txt
 		sce.c = {};
+	},
+	"click": function(e) {
+		console.log(e);
+		console.log(e.target.dataset.x);
+		// swtich
 	}
 }
 // xhr
@@ -80,6 +95,10 @@ var net = {
 	"init": function() {
 		// urls
 		net.a = [];
+		net.a[0] = "json/bauhaus.json";
+		net.a[1] = "json/golf.json";
+		net.a[2] = "json/noto_emoji.json";
+		net.a[3] = "json/sage.json";
 	}
 }
    // dom
