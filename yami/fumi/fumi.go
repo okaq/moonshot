@@ -11,6 +11,7 @@ import (
 
 const (
 	INDEX = "fumi.html"
+	GUMI = "gumi.html"
 )
 
 func motd() {
@@ -23,9 +24,15 @@ func FumiHandler(w http.ResponseWriter, r *http.Request) {
 	http.ServeFile(w,r,INDEX)
 }
 
+func GumiHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Println(r)
+	http.ServeFile(w,r,GUMI)
+}
+
 func main() {
 	motd()
 	http.HandleFunc("/", FumiHandler)
+	http.HandleFunc("/a", GumiHandler)
 	http.ListenAndServe(":8080", nil)
 }
 

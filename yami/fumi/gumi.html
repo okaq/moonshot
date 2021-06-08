@@ -30,7 +30,7 @@ var g = {
             var t0 = window.performance.now();
 
 		// subs
-		g.subs = [dom,sce,bmp];
+		g.subs = [dom,sce,bmp,net];
 		g.subs.forEach(function(el){el.init();});
 
 		ren.clear();
@@ -62,6 +62,12 @@ var g = {
 	},
 	"load2": function() {
 		console.log("bitmaps slide show");
+		
+		net.pong();
+		net.ping();
+	},
+	"load3": function() {
+		console.log(net.d);
 	}
 }
 // scene
@@ -99,6 +105,27 @@ var net = {
 		net.a[1] = "json/golf.json";
 		net.a[2] = "json/noto_emoji.json";
 		net.a[3] = "json/sage.json";
+	},
+	"pong": function() {
+		// index
+		net.b = 0;
+		net.d = [];
+		net.ping = async function() {
+			const res0 = await fetch(net.a[net.b]);
+			const json0 = await res0.json();
+			net.d[net.b] = json0;
+			if (net.b < net.a.length) {
+				net.b = net.b + 1;
+				net.ping();
+			} else {
+				window.setTimeout(g.load3, 10);
+			}
+		}
+	}
+}
+// render
+var ren = {
+	"clear": function() {
 	}
 }
    // dom
