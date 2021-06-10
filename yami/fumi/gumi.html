@@ -68,6 +68,8 @@ var g = {
 	},
 	"load3": function() {
 		console.log(net.d);
+
+		net.dec();
 	}
 }
 // scene
@@ -101,26 +103,48 @@ var net = {
 	"init": function() {
 		// urls
 		net.a = [];
-		net.a[0] = "json/bauhaus.json";
-		net.a[1] = "json/golf.json";
-		net.a[2] = "json/noto_emoji.json";
-		net.a[3] = "json/sage.json";
+		// net.a[0] = "/json/bauhaus.json";
+		net.a[0] = "/json/golf.json";
+		net.a[1] = "/json/noto_emoji.json";
+		net.a[2] = "/json/sage.json";
+		
+		// odd bauhaus bug, face in golf after cache update 
 	},
 	"pong": function() {
 		// index
 		net.b = 0;
 		net.d = [];
 		net.ping = async function() {
+			if (net.b >= net.a.length) {
+				window.setTimeout(g.load3, 10);
+				return;
+			}
 			const res0 = await fetch(net.a[net.b]);
 			const json0 = await res0.json();
 			net.d[net.b] = json0;
-			if (net.b < net.a.length) {
-				net.b = net.b + 1;
-				net.ping();
-			} else {
-				window.setTimeout(g.load3, 10);
+			net.b = net.b + 1;
+			net.ping();
+		}
+	},
+	"dec": function() {
+		// decode bitmaps once downloaded
+		net.e = {};
+		for (let i = 0; i < net.d.length; i++) {
+			// console.log(net.d[i]);
+			if (i == 1) {
+				continue;
+			}
+			for (var k0 in net.d[i]) {
+				// console.log(k0);
+				if (k0 == "gugi") {
+					continue;
+				}
+				let data0 = net.d[i][k0][0];
+				let bmp0 = base64DecToArr(data0);
+				net.e[k0] = bmp.exp(bmp0);
 			}
 		}
+		console.log(net.e);
 	}
 }
 // render

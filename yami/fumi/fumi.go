@@ -33,6 +33,8 @@ func main() {
 	motd()
 	http.HandleFunc("/", FumiHandler)
 	http.HandleFunc("/a", GumiHandler)
+	fs0 := http.FileServer(http.Dir("json"))
+	http.Handle("/json/", http.StripPrefix("/json/",fs0))
 	http.ListenAndServe(":8080", nil)
 }
 
