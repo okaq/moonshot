@@ -70,6 +70,15 @@ var g = {
 		console.log(net.d);
 
 		net.dec();
+
+		let i0 = 1;
+		for (var k0 in net.e) {
+			console.log("drawing: " + k0);
+			let i1 = i0 * 2;
+			let b0 = net.e[k0];
+			window.setTimeout(ren.bmp(b0), i1*1000);
+			i0 = i0 + 1;
+		}
 	}
 }
 // scene
@@ -144,12 +153,32 @@ var net = {
 				net.e[k0] = bmp.exp(bmp0);
 			}
 		}
-		console.log(net.e);
+		// console.log(net.e);
 	}
 }
 // render
 var ren = {
 	"clear": function() {
+		sce.a.c.con.fillStyle = rgba.css([255,255,255,1.0]);
+		sce.a.c.con.fillRect(0,0,sce.a.c.can.width,sce.a.c.can.height);
+
+		sce.b.c.con.fillStyle = rgba.css([0,0,0,1.0]);
+		sce.b.c.con.fillRect(0,0,sce.b.c.can.width,sce.b.c.can.height);
+	},
+	"bmp": function(b0) {
+		ren.clear();
+
+		sce.b.c.con.fillStyle = rgba.css([255,255,255,1.0]);
+		for (let i = 0; i < b0.length; i++) {
+			if (b0[i] == 1) {
+				continue;
+			}
+			let x0 = i % 32;
+			let x1 = (x0 * 32) >>> 0;
+			let y0 = (i / 32) >>> 0;
+			let y1 = (y0 * 32) >>> 0;
+			sce.b.c.con.fillRect(x1,y1,32,32);
+		}
 	}
 }
    // dom
