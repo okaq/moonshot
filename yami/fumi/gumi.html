@@ -74,11 +74,22 @@ var g = {
 		let i0 = 1;
 		for (var k0 in net.e) {
 			console.log("drawing: " + k0);
-			let i1 = i0 * 2;
+			let i1 = i0 * 500;
 			let b0 = net.e[k0];
-			window.setTimeout(ren.bmp(b0), i1*1000);
+			window.setTimeout(() => {console.log(i1);ren.bmp(b0)}, i1);
 			i0 = i0 + 1;
 		}
+		window.setTimeout(g.load4, (i0+1)*1000);
+	},
+	"load4": function() {
+		let b0 = net.d[0]["face"][0];
+		let b1 = base64DecToArr(b0);
+		console.log(b1);
+		// never mind the face
+		// golf man foot ball
+		// two frame animation
+		let b2 = net.e["golf"];
+		ren.bmp(b2);
 	}
 }
 // scene
@@ -153,7 +164,7 @@ var net = {
 				net.e[k0] = bmp.exp(bmp0);
 			}
 		}
-		// console.log(net.e);
+		console.log(net.e);
 	}
 }
 // render
