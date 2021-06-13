@@ -85,11 +85,17 @@ var g = {
 		let b0 = net.d[0]["face"][0];
 		let b1 = base64DecToArr(b0);
 		console.log(b1);
+		let b2 = bmp.exp(b1);
+		console.log(b2);
+		ren.bmp2(b2);
+		// it may be 4088 bit, 64 x 64, 16 x 16 pixel blocks
+		// nope strange bit pack in rolo: 511 bytes, 4088 bits
+
 		// never mind the face
 		// golf man foot ball
 		// two frame animation
-		let b2 = net.e["golf"];
-		ren.bmp(b2);
+		let b3 = net.e["golf"];
+		// ren.bmp(b2);
 	}
 }
 // scene
@@ -189,6 +195,21 @@ var ren = {
 			let y0 = (i / 32) >>> 0;
 			let y1 = (y0 * 32) >>> 0;
 			sce.b.c.con.fillRect(x1,y1,32,32);
+		}
+	},
+	"bmp2": function(b0) {
+		ren.clear();
+
+		sce.b.c.con.fillStyle = rgba.css([255,255,255,1.0]);
+		for (let i = 0; i < b0.length; i++) {
+			if (b0[i] == 1) {
+				continue;
+			}
+			let x0 = i % 64;
+			let x1 = (x0 * 16) >>> 0;
+			let y0 = (i / 64) >>> 0;
+			let y1 = (y0 * 16) >>> 0;
+			sce.b.c.con.fillRect(x1,y1,16,16);
 		}
 	}
 }
