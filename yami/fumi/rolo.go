@@ -17,9 +17,9 @@ import (
 const (
 	INDEX = "rolo.html"
 	// png dir
-	PNG = "omg/"
+	PNG = "img/"
 	// json dir
-	JSON = "pow/"
+	JSON = "json/"
 )
 
 var (
@@ -104,7 +104,7 @@ func main() {
 	compact()
 	http.HandleFunc("/", RoloHandler)
 	http.HandleFunc("/a", PngHandler)
-	http.Handle("/omg/", http.StripPrefix("/omg/", http.FileServer(http.Dir("omg/"))))
+	http.Handle("/img/", http.StripPrefix("/img/", http.FileServer(http.Dir("img/"))))
 	http.HandleFunc("/b", SaveHandler)
 	http.ListenAndServe(":8080", nil)
 }
