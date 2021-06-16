@@ -4,6 +4,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -45,7 +46,14 @@ func load() {
 
 func PngHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println(r)
-	w.Write([]byte("ok go"))
+	// w.Write([]byte("ok go"))
+	b0, err := json.Marshal(Images)
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Printf("encoding %d bytes json png list\n", len(b0))
+	w.Header().Set("Content-type", "application/json")
+	w.Write(b0)
 }
 
 func main() {
