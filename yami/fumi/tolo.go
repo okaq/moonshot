@@ -5,12 +5,18 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
 	"net/http"
 	"time"
 )
 
 const (
 	INDEX = "tolo.html"
+	IMG = "img/"
+)
+
+var (
+	Images []string
 )
 
 func motd() {
@@ -23,9 +29,25 @@ func ToloHandler(w http.ResponseWriter, r *http.Request) {
 	http.ServeFile(w,r,INDEX)
 }
 
+func load() {
+	// populate img director file names
+	f0, err := ioutil.ReadDir(IMG)
+	if err != nil {
+		fmt.Println(err)
+	}
+	Images = make([]string, len(f0))
+	for i, f1 := range f0 {
+		f2 := fmt.Sprintf("%s%s", IMG, f1.Name())
+		Images[i] = f2
+	}
+	fmt.Println(Images)
+}
+
 func main() {
 	motd()
+	load()
 	http.HandleFunc("/", ToloHandler)
+	http.ListenAndServe(":8080", nil)
 }
 
 // auto gen from PNG files
