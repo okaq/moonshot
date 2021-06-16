@@ -103,6 +103,15 @@ var net = {
 		net.a[1] = "/b";
 	},
 	"pong": function() {
+		net.b = async function(url0) {
+			const resp = await fetch(url0);
+			const json = await resp.json();
+			return json;
+		};
+
+		net.b(net.a[0]).then(json => {
+			console.log(json);		
+		});
 	}
 }
 // render
