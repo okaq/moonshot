@@ -43,10 +43,16 @@ func load() {
 	fmt.Println(Images)
 }
 
+func PngHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Println(r)
+	w.Write([]byte("ok go"))
+}
+
 func main() {
 	motd()
 	load()
 	http.HandleFunc("/", ToloHandler)
+	http.HandleFunc("/a", PngHandler)
 	http.ListenAndServe(":8080", nil)
 }
 
