@@ -61,6 +61,8 @@ func main() {
 	load()
 	http.HandleFunc("/", ToloHandler)
 	http.HandleFunc("/a", PngHandler)
+	fs0 := http.FileServer(http.Dir("img"))
+	http.Handle("/img/", http.StripPrefix("/img/",fs0))
 	http.ListenAndServe(":8080", nil)
 }
 

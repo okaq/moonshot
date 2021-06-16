@@ -64,6 +64,11 @@ var g = {
 		console.log("bitmap sample & encode");
 		
 		net.pong();
+	},
+	"load3": function() {
+		console.log("loading images: " + net.c.length);
+
+		net.ping();
 	}
 }
 // scene
@@ -110,8 +115,30 @@ var net = {
 		};
 
 		net.b(net.a[0]).then(json => {
-			console.log(json);		
+			// console.log(json);
+			net.c = json;
+			window.setTimeout(g.load3, 100);
 		});
+	},
+	"ping": function() {
+		// load img sequence for render loop
+
+		// img data
+		net.d = [];
+
+		// img blob fetch
+		net.e = async function(url0) {
+			const resp = await fetch(url0);
+			const blob = await resp.blob();
+			return blob();
+		};
+
+		for (let i = 0; i < net.c.length; i++) {
+			let url0 = net.c[i];
+			net.e(url0).then(blob => {
+				console.log(blob);	
+			});
+		}
 	}
 }
 // render
