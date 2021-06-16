@@ -11,3 +11,6 @@ gumi.html - async load json botmap from disk
 slide show render in pane, gen stats
 
 
+tolo.html - 1024 x 1024 png sample & encode
+
+
