@@ -110,7 +110,30 @@ var g = {
 		// Uint8 array, 4194304 = 1024 * 1024 * 4
 		console.log(net.h);
 
+		// visual confirm
+		g.tick = 0;
+		g.max = 20;
+		g.id = window.setInterval(g.frame2, 50);
+
 		// send to server
+	},
+	"frame2": function() {
+		if (g.tick >= g.max) {
+			console.log("anim done");
+			window.clearInterval(g.id);
+			window.setTimeout(g.load7, 1000);
+			return;
+		}
+
+		ren.clear();
+		let n0 = g.tick % 2;
+		ren.bmp(net.h[n0]);
+		// beautiful
+
+		g.tick = g.tick + 1;
+	},
+	"load7": function() {
+		console.log("server post");
 	}
 }
 // scene
