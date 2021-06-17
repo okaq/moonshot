@@ -136,7 +136,14 @@ var net = {
 		for (let i = 0; i < net.c.length; i++) {
 			let url0 = net.c[i];
 			net.e(url0).then(blob => {
-				console.log(blob);	
+				console.log(blob);
+				/*
+				net.d[i] = blob;
+				// sync wait
+				if (i >= (net.c.length - 1)) {
+					window.setTimeout(g.load4, 100);
+			 	}
+	       			*/
 			});
 		}
 	}
