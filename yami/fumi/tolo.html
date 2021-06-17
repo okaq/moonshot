@@ -69,6 +69,16 @@ var g = {
 		console.log("loading images: " + net.c.length);
 
 		net.ping();
+	},
+	"load4": function() {
+		console.log("processing blobs");
+
+		net.pop();
+	},
+	"load5": function() {
+		console.log("render and sample loop");
+
+
 	}
 }
 // scene
@@ -145,6 +155,22 @@ var net = {
 			 	}
 	       			*/
 			});
+		}
+	},
+	"pop": function() {
+		// img data uri
+		net.f = [];
+
+		for (let i = 0; i < net.d.length; i++) {
+			let b0 = URL.createObjectURL(net.d[i]);
+			let img0 = new Image();
+			img0.addEventListener("load", () => {
+				net.f[i] = img0;
+				if (i >= (net.d.length - 1)) {
+					window.setTimeout(g.load5, 100);
+				}
+			});
+			img0.src = b0;
 		}
 	}
 }
