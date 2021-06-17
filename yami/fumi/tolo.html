@@ -87,17 +87,31 @@ var g = {
 		if (g.tick >= g.max) {
 			console.log("anim done");
 			window.clearInterval(g.id);
+			window.setTimeout(g.load6, 1000);
 			return;
 		}
 
 		console.log("tick count: " + g.tick);
 
+		// render
 		ren.clear();
 		ren.img(net.f[g.tick]);
 
-		g.tick = g.tick + 1;
-	}
+		// sample
+		net.g[g.tick] = ren.pix();
+		net.h[g.tick] = net.samp(net.g[g.tick]);
 
+		g.tick = g.tick + 1;
+	},
+	"load6": function() {
+		// bitmap smaple data check
+		console.log("check sample data");
+		console.log(net.g);
+		// Uint8 array, 4194304 = 1024 * 1024 * 4
+		console.log(net.h);
+
+		// send to server
+	}
 }
 // scene
 var sce = {
@@ -177,6 +191,10 @@ var net = {
 	"pop": function() {
 		// img data uri
 		net.f = [];
+		// img sample pixels
+		net.g = [];
+		// img bit array
+		net.h = [];
 
 		for (let i = 0; i < net.d.length; i++) {
 			let b0 = URL.createObjectURL(net.d[i]);
@@ -189,6 +207,26 @@ var net = {
 			});
 			img0.src = b0;
 		}
+	},
+	"samp": function(d0) {
+		let b0 = [];
+		for (let i = 0; i < 1024; i++) {
+			// block space
+			let x0 = i % 32;
+			let y0 = (i / 32) >>> 0;
+			// pixel space
+			let y1 = (y0 * 32 * 1024) >>> 0;
+			let x1 = (x0 * 32) >>> 0;
+			let i0 = (y1 + x1) >>> 0;
+			// color space
+			let i1 = (i0 * 4) >>> 0;
+			if (d0[i1] == 0) { 
+				b0[i] = 0; 
+			} else {
+				b0[i] = 1;
+			}
+		}
+		return b0;
 	}
 }
 // render
@@ -217,6 +255,10 @@ var ren = {
 	},
 	"img": function(img0) {
 		sce.b.c.con.drawImage(img0, 0, 0);
+	},
+	"pix": function() {
+		// get pixel rgba values of current render pane
+		return sce.b.c.con.getImageData(0,0,sce.b.c.can.width,sce.b.c.can.height).data;
 	}
 }
    // dom
