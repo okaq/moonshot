@@ -77,9 +77,27 @@ var g = {
 	},
 	"load5": function() {
 		console.log("render and sample loop");
+		console.log(net.f);
+		
+		g.tick = 0;
+		g.max = net.f.length;
+		g.id = window.setInterval(g.frame, 2000);
+	},
+	"frame": function() {
+		if (g.tick >= g.max) {
+			console.log("anim done");
+			window.clearInterval(g.id);
+			return;
+		}
 
+		console.log("tick count: " + g.tick);
 
+		ren.clear();
+		ren.img(net.f[g.tick]);
+
+		g.tick = g.tick + 1;
 	}
+
 }
 // scene
 var sce = {
@@ -140,20 +158,19 @@ var net = {
 		net.e = async function(url0) {
 			const resp = await fetch(url0);
 			const blob = await resp.blob();
-			return blob();
+			return blob;
 		};
 
 		for (let i = 0; i < net.c.length; i++) {
 			let url0 = net.c[i];
 			net.e(url0).then(blob => {
-				console.log(blob);
-				/*
+				// console.log(blob);
+				/* */
 				net.d[i] = blob;
 				// sync wait
 				if (i >= (net.c.length - 1)) {
 					window.setTimeout(g.load4, 100);
 			 	}
-	       			*/
 			});
 		}
 	},
@@ -197,6 +214,9 @@ var ren = {
 			let y1 = (y0 * 32) >>> 0;
 			sce.b.c.con.fillRect(x1,y1,32,32);
 		}
+	},
+	"img": function(img0) {
+		sce.b.c.con.drawImage(img0, 0, 0);
 	}
 }
    // dom
