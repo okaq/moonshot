@@ -134,6 +134,9 @@ var g = {
 	},
 	"load7": function() {
 		console.log("server post");
+
+		net.pack();
+		console.log(net.j);
 	}
 }
 // scene
@@ -250,6 +253,23 @@ var net = {
 			}
 		}
 		return b0;
+	},
+	"pack": function() {
+		net.j = [];
+		for (let i = 0; i < net.h.length; i++) {
+			let b0 = net.h[i];
+			let b1 = [];
+			for (let j = 0; j < 128; j++) {
+				let j0 = (j * 8) >>> 0;
+				let j1 = (j0 + 8) >>> 0;
+				let b2 = b0.slice(j0,j1);
+				let b3 = b2.join('');
+				let b4 = parseInt(b3,2);
+				b1[j] = b4
+			}
+			let b5 = Uint8Array.from(b1);
+			net.j[i] = b5;
+		}
 	}
 }
 // render
