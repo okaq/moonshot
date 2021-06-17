@@ -4,6 +4,7 @@
 package main
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -56,11 +57,32 @@ func PngHandler(w http.ResponseWriter, r *http.Request) {
 	w.Write(b0)
 }
 
+func SaveHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Println(r)
+	// read req body into bytes buffer
+	b0 := new(bytes.Buffer)
+	b0.ReadFrom(r.Body)
+	b1, err := json.Marshal(b0.Bytes())
+	if err != nil {
+		fmt.Println(err)
+	}
+	s0 := fmt.Sprintf("%s%s.json", JSON, time.Now().UnixNano())
+	ioutil.WriteFile(s0,b1,0666)
+	s1 := fmt.Sprintf("file %s written %d bytes", s0, len(b1))
+	b2 := []byte(s1)
+	w.Write(b2)
+
+	// buffered chan reciever for bytes
+	// file name from dir list
+	// json response {name,size}
+}
+
 func main() {
 	motd()
 	load()
 	http.HandleFunc("/", ToloHandler)
 	http.HandleFunc("/a", PngHandler)
+	http.HandleFunc("/b", SaveHandler)
 	fs0 := http.FileServer(http.Dir("img"))
 	http.Handle("/img/", http.StripPrefix("/img/",fs0))
 	http.ListenAndServe(":8080", nil)
