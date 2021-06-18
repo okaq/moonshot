@@ -15,6 +15,7 @@ import (
 const (
 	INDEX = "tolo.html"
 	IMG = "img/"
+	JSON = "json/"
 )
 
 var (
@@ -66,7 +67,7 @@ func SaveHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		fmt.Println(err)
 	}
-	s0 := fmt.Sprintf("%s%s.json", JSON, time.Now().UnixNano())
+	s0 := fmt.Sprintf("%s%d.json", JSON, time.Now().UnixNano())
 	ioutil.WriteFile(s0,b1,0666)
 	s1 := fmt.Sprintf("file %s written %d bytes", s0, len(b1))
 	b2 := []byte(s1)
