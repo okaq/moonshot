@@ -137,6 +137,8 @@ var g = {
 
 		net.pack();
 		console.log(net.j);
+
+		net.save();
 	}
 }
 // scene
@@ -269,6 +271,16 @@ var net = {
 			}
 			let b5 = Uint8Array.from(b1);
 			net.j[i] = b5;
+		}
+	},
+	"save": function() {
+		// post sample data to server as arraybuffer
+		for (let i = 0; i < net.j.length; i++) {
+			fetch(net.a[1],{
+				method: 'POST',
+				body: net.j[i]
+			}).then(res => res.text())
+			  .then(txt => console.log(txt));
 		}
 	}
 }
