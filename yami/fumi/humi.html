@@ -38,7 +38,7 @@ var g = {
 		window.setTimeout(g.load, 1000);
 
 		console.log("total render time: " + (window.performance.now() - t0));
-    },
+    	},
 	"load": function() {
 		console.log("get screen dimensions");
 
@@ -64,6 +64,34 @@ var g = {
 		console.log("okaq rugger bee nano game begin");
 		
 		net.pong();
+	},
+	"load3": function() {
+		console.log("bitmap runner and ball loaded");
+
+		console.log(net.c);
+
+		// proceudral anim
+		// text and bitmap layout (frac grid)
+
+		// meme test
+		// intro
+	}
+}
+// animation
+var loop = {
+	"set": function() {
+		// single
+		loop.a = {};
+		loop.tick = 0;
+		loop.max = 100;
+		loop.interval = 10;
+	}
+}
+// layout
+var grid = {
+	"init": function() {
+		// full hd, 32 x 32 pixel blocks
+		grid.a = {};
 	}
 }
 // scene
@@ -89,7 +117,6 @@ var sce = {
 	"click": function(e) {
 		console.log(e);
 		console.log(e.target.dataset.x);
-		// swtich
 	}
 }
 // xhr
@@ -98,7 +125,7 @@ var net = {
 		// urls
 		net.a = [];
 		// step json bitmap data
-		net.a[1] = "/json/step.json";
+		net.a[0] = "/json/step.json";
 	},
 	"pong": function() {
 		net.b = async function(url0) {
