@@ -92,6 +92,27 @@ var grid = {
 	"init": function() {
 		// full hd, 32 x 32 pixel blocks
 		grid.a = {};
+		grid.a.w = 1920;
+		grid.a.h = 1080;
+		grid.a.px = 32;
+		grid.a.py = 32;
+		grid.a.nx = (grid.a.w / grid.a.px) >>> 0;
+		grid.a.ny = (grid.a.h / grid.a.py) >>> 0;
+		grid.a.nt = (grid.a.nx * grid.a.ny) >>> 0;
+
+		// cells
+		grid.b = [];
+		for (let i = 0; i < grid.a.nt; i++) {
+			grid.b[i] = {};
+			grid.b[i].w = grid.a.px;
+			grid.b[i].h = grid.a.py;
+			let x0 = i % grid.a.nx;
+			let x1 = (x0 * gird.a.px) >>> 0;
+			grid.b[i].x = x1;
+			let y0 = (i / grid.a.nx) >>> 0;
+			let y1 = (y0 * grid.a.py) >>> 0;
+			grid.b[i].y = y1;
+		}
 	}
 }
 // scene
