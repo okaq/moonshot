@@ -212,8 +212,24 @@ var ren = {
 			let f1 = (Math.random() * g1.length) >>> 0;
 			let g2 = g1[f1];
 			let bmp0 = bmp.a[g2];
-			console.log(g2,bmp0.length);
+			// console.log(g2,bmp0.length);
 			// render bitmap font
+			ren.bmp(bmp0,i);
+		}
+	},
+	"bmp": function(bmp0, i0) {
+		sce.a.c.con.fillStyle = rgba.css([255,255,255,1.0]);
+		let x0 = grid.b[i0].x;
+		let y0 = grid.b[i0].y;
+		for (let i = 0; i < bmp0.length; i++) {
+			if (bmp0[i] == 1) {
+				continue;
+			}
+			let x1 = i % 32;
+			let y1 = (i / 32) >>> 0;
+			let x2 = (x0 + x1) >>> 0;
+			let y2 = (y0 + y1) >>> 0;
+			sce.a.c.con.fillRect(x2,y2,1,1);
 		}
 	}
 }
