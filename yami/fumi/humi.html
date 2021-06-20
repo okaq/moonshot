@@ -75,6 +75,25 @@ var g = {
 
 		// meme test
 		// intro
+
+		window.setTimeout(g.load4, 1000);
+	},
+	"load4": function() {
+		console.log("render rand grid cells");
+
+		ren.grid();
+
+		window.setTimeout(g.load5, 1000);
+	},
+	"load5": function() {
+		console.log("render rand text layout");
+
+		ren.text();
+
+		window.setTimeout(g.load6, 1000);
+	},
+	"load6": function() {
+		console.log("spawn player and ball");
 	}
 }
 // animation
@@ -167,6 +186,12 @@ var ren = {
 	"clear": function() {
 		sce.a.c.con.fillStyle = rgba.css([255,255,255,1.0]);
 		sce.a.c.con.fillRect(0,0,sce.a.c.can.width,sce.a.c.can.height);
+	},
+	"grid": function() {
+
+	},
+	"text": function() {
+
 	}
 }
    // dom
