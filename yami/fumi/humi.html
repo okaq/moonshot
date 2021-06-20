@@ -90,6 +90,7 @@ var g = {
 	"load5": function() {
 		console.log("render rand text layout");
 
+		ren.clear();
 		ren.text();
 
 		window.setTimeout(g.load6, 1000);
@@ -196,7 +197,24 @@ var ren = {
 		}
 	},
 	"text": function() {
-
+		// glyph set
+		let g0 = "qwertyuiopasdfghjklzxcvbnm";
+		let g1 = g0.toUpperCase().split('');
+		console.log(g1);
+		for (let i = 0; i < grid.a.nt; i++) {
+			// spaces prob = 0.5
+			let f0 = Math.random();
+			if (f0 >= 0.5) {
+				continue;
+			}
+			sce.a.c.con.fillStyle = rgba.css([0,0,0,1.0]);
+			sce.a.c.con.fillRect(grid.b[i].x,grid.b[i].y,grid.b[i].w,grid.b[i].h);
+			let f1 = (Math.random() * g1.length) >>> 0;
+			let g2 = g1[f1];
+			let bmp0 = bmp.a[g2];
+			console.log(g2,bmp0.length);
+			// render bitmap font
+		}
 	}
 }
    // dom
