@@ -70,6 +70,8 @@ var g = {
 
 		console.log(net.c);
 
+		grid.init();
+
 		// proceudral anim
 		// text and bitmap layout (frac grid)
 
@@ -126,7 +128,7 @@ var grid = {
 			grid.b[i].w = grid.a.px;
 			grid.b[i].h = grid.a.py;
 			let x0 = i % grid.a.nx;
-			let x1 = (x0 * gird.a.px) >>> 0;
+			let x1 = (x0 * grid.a.px) >>> 0;
 			grid.b[i].x = x1;
 			let y0 = (i / grid.a.nx) >>> 0;
 			let y1 = (y0 * grid.a.py) >>> 0;
@@ -188,7 +190,10 @@ var ren = {
 		sce.a.c.con.fillRect(0,0,sce.a.c.can.width,sce.a.c.can.height);
 	},
 	"grid": function() {
-
+		for (let i = 0; i < grid.a.nt; i++) {
+			sce.a.c.con.fillStyle = rgba.rmon();
+			sce.a.c.con.fillRect(grid.b[i].x,grid.b[i].y,grid.b[i].w,grid.b[i].h);
+		}
 	},
 	"text": function() {
 
