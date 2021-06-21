@@ -233,6 +233,38 @@ var ren = {
 		}
 	}
 }
+// bit ops
+var bit = {
+	"rows": function() {
+	},
+	"cols": function() {
+	},
+	"flip": function() {
+
+	},
+	"mirror": function() {
+
+	},
+	"flat": function(a0) {
+		// flatten array of rows into bitmap
+		let b0 = [];
+		for (let i = 0; i < a0.length; i++) {
+			let a1 = a0[i];
+			for (let j = 0; j < a1.length; j++) {
+				b0.push(a1[j]);
+			}
+		}
+		return b0;
+	},
+	"rev": function(a0) {
+		// reverse an array
+		let a1 = [];
+		for (let i = a0.length - 1; i >= 0; i--) {
+			a1.push(a0[i]);
+		}
+		return a1;
+	}
+}
    // dom
    var dom = {
         "init": function() {
