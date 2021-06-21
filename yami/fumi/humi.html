@@ -235,9 +235,32 @@ var ren = {
 }
 // bit ops
 var bit = {
-	"rows": function() {
+	"rows": function(b0) {
+		// split bit array into array of rows
+		// all ops assume 1024 bits, 32 x 32 pixel stride
+		let a0 = [];
+		for (let y = 0; y < 32; y++) {
+			a0[y] = [];
+			for (let x = 0; x < 32; x++) {
+				let i0 = (y * 32) >>> 0;
+				i0 = (i0 + x) >>> 0;
+				a0[y][x] = b0[i0];
+			}
+		}
+		return a0;
 	},
-	"cols": function() {
+	"cols": function(b0) {
+		// column split
+		let a0 = [];
+		for (let x = 0; x < 32; x++) {
+			a0[x] = [];
+			for (let y = 0; y < 32; y++) {
+				let i0 = (y * 32) >>> 0;
+				i0 = (y0 + x0) >>> 0;
+				a0[x][y] = b0[i0];
+			}
+		}
+		return a0;
 	},
 	"flip": function() {
 
