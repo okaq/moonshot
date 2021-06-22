@@ -99,6 +99,8 @@ var g = {
 		console.log("spawn player and ball");
 
 		// test bit ops, arrow key handler
+		let b0 = [0,1,2,3,4,5,6,7];
+		console.log(bit.shuf(b0));
 	}
 }
 // animation
@@ -109,6 +111,11 @@ var loop = {
 		loop.tick = 0;
 		loop.max = 100;
 		loop.interval = 10;
+	},
+	"morph": function() {
+		// if we glitch or shuffle op
+		// set frames for transforming 
+		// between two bitmap states
 	}
 }
 // layout
@@ -299,6 +306,31 @@ var bit = {
 			a1.push(a0[i]);
 		}
 		return a1;
+	},
+	"shuf": function(b0) {
+		// fisher yates randomize
+		let b1 = b0.slice(0);
+		for (let i = 0; i < b1.length - 1; i++) {
+			let i0 = i + 1;
+			let i1 = b1.length - 1;
+			let i2 = [];
+			for (let j = i0; j <= i1; j++) {
+				i2.push(j);
+			}
+			let i3 = (Math.random() * i2.length) >>> 0;
+			let i4 = i2[i3];
+			console.log(i,i0,i1,i2,i3,i4);
+			let b2 = b1[i];
+			b1[i] = b1[i4];
+			b1[i4] = b2;
+		}
+		return b1;
+	},
+	"glitch": function(b0) {
+		// shift every row or col by rand index
+	},
+	"shift": function(a0) {
+		// sub-routine for glitch
 	}
 }
    // dom
