@@ -97,6 +97,8 @@ var g = {
 	},
 	"load6": function() {
 		console.log("spawn player and ball");
+
+		// test bit ops, arrow key handler
 	}
 }
 // animation
@@ -262,11 +264,22 @@ var bit = {
 		}
 		return a0;
 	},
-	"flip": function() {
+	"flip": function(b0) {
+		// vertical flip entire bitmap
+		let a0 = bit.cols(b0);
+		for (let i = 0; i < a0.length; i++) {
+			a0[i] = bit.rev(a0[i]);
+		}
+		return bit.flat(a0);
 
 	},
-	"mirror": function() {
-
+	"mirror": function(b0) {
+		// horizontal mirror
+		let a0 = bit.rows(b0);
+		for (let i = 0; i < a0.length; i++) {
+			a0[i] = bit.rev(a0[i]);
+		}
+		return bit.flat(a0);
 	},
 	"flat": function(a0) {
 		// flatten array of rows into bitmap
