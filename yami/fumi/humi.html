@@ -101,6 +101,7 @@ var g = {
 		// test bit ops, arrow key handler
 		let b0 = [0,1,2,3,4,5,6,7];
 		console.log(bit.shuf(b0));
+		console.log(bit.shift(b0));
 	}
 }
 // animation
@@ -319,7 +320,7 @@ var bit = {
 			}
 			let i3 = (Math.random() * i2.length) >>> 0;
 			let i4 = i2[i3];
-			console.log(i,i0,i1,i2,i3,i4);
+			// console.log(i,i0,i1,i2,i3,i4);
 			let b2 = b1[i];
 			b1[i] = b1[i4];
 			b1[i4] = b2;
@@ -328,9 +329,34 @@ var bit = {
 	},
 	"glitch": function(b0) {
 		// shift every row or col by rand index
+		let a0 = bit.rows(b0);
+		for (let i = 0; i < a0.length; i++) {
+			a0[i] = bit.shift(a0[i])
+		}
+		return bit.flat(a0);
+	},
+	"shift0": function(a0) {
+		// sub-routine for glitch
+		let a1 = a0.slice(0);
+		let f0 = (Math.random() * a0.length) >>> 0;
+		for (let i = 0; i < a0.length; i++) {
+			let i0 = (i + f0) >>> 0;
+			if (i0 > (a0.length - 1)) {
+				i0 = i0 - a0.length;
+			}
+			console.log(f0,i,i0);
+			// let a1 = a0[i];
+			a0[i] = a1[i0];
+			// a0[i0] = a1;
+		}
+		return a0;
 	},
 	"shift": function(a0) {
-		// sub-routine for glitch
+		// glitch subroutine
+		let f0 = (Math.random() * a0.length) >>> 0;
+		let a1 = a0.slice(0,f0);
+		let a2 = a0.slice(f0,a0.length);
+		return a2.concat(a1);
 	}
 }
    // dom
