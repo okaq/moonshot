@@ -133,7 +133,23 @@ var play = {
 // ball
 var ball = {
 	"init": function() {
+		// globals
 		ball.a = {};
+		// dim
+		ball.a.w = 32;
+		ball.a.h = 32;
+		// vel
+		ball.a.vx = 0;
+		ball.a.vy = 0;
+
+		// state
+		ball.b = {};
+		// is caught
+		ball.b.a = false;
+
+		// when held by player, position depends on play.b state
+
+		// only render the ball pixels, ignore bkgd
 	}
 }
 // animation
