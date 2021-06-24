@@ -128,6 +128,17 @@ var play = {
 		play.b = {};
 		play.b.x = (Math.random() * (sce.a.w - play.a.w)) >>> 0;
 		play.b.y = (Math.random() * (sce.a.h - play.a.h)) >>> 0;
+		// anim state
+		play.b.a = 0;
+
+		// bitmap raw & decode
+		play.c = net.c["haus"];
+		play.d = [];
+		for (let i = 0; i < play.c.length; i++) {
+			let b0 = base64DecToArr(play.c[i]);
+			let b1 = bmp.exp(b0);
+			play.d[i] = b1;
+		}
 	}
 }
 // ball
@@ -296,6 +307,17 @@ var ren = {
 		}
 	},
 	"play": function() {
+		sce.a.c.con.fillStyle = rgba.css([0,0,0,1.0]);
+		// pos
+		let x0 = play.b.x;
+		let y0 = play.b.y;
+		// scale
+		let w0 = play.a.w;
+		let h0 = play.a.h;
+		let px = (w0 / 32) >>> 0;
+		let py = (h0 / 32) >>> 0;
+		// bitmap
+		play.d[play.b.a];
 	},
 	"ball": function() {
 	}
