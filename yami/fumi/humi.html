@@ -113,6 +113,7 @@ var g = {
 
 		ren.clear();
 		ren.play();
+		ren.ball();
 	}
 }
 // player
@@ -161,9 +162,10 @@ var ball = {
 		// state
 		ball.b = {};
 		// is caught
-		ball.b.a = false;
+		ball.b.b = false;
 		ball.b.x = (Math.random() * (grid.a.w - ball.a.w)) >>> 0;
 		ball.b.y = (Math.random() * (grid.a.h - ball.a.h)) >>> 0;
+		ball.b.a = 0;
 
 		// bitmap
 		ball.c = net.c["ball"];
@@ -348,6 +350,28 @@ var ren = {
 		}
 	},
 	"ball": function() {
+		sce.a.c.con.fillStyle = rgba.css([0,0,0,1.0]);
+		// pos
+		let x0 = ball.b.x;
+		let y0 = ball.b.y;
+		// scale
+		let w0 = ball.a.w;
+		let h0 = ball.a.h;
+		let px = (w0 / 32) >>> 0;
+		let py = (h0 / 32) >>> 0;
+		// bitmap
+		let b0 = ball.d[ball.b.a];
+
+		for (let i = 0; i < b0.length; i++) {
+			if (b0[i] == 1) {
+				continue;
+			}
+			let x1 = i % 32;
+			let x2 = ((x1 * px) + x0) >>> 0;
+			let y1 = (i / 32) >>> 0;
+			let y2 = ((y1 * py) + y0) >>> 0;
+			sce.a.c.con.fillRect(x2,y2,px,py);
+		}
 	}
 }
 // bit ops
