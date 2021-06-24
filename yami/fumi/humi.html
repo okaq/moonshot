@@ -162,6 +162,18 @@ var ball = {
 		ball.b = {};
 		// is caught
 		ball.b.a = false;
+		ball.b.x = (Math.random() * (grid.a.w - ball.a.w)) >>> 0;
+		ball.b.y = (Math.random() * (grid.a.h - ball.a.h)) >>> 0;
+
+		// bitmap
+		ball.c = net.c["ball"];
+		ball.d = [];
+		for (let k0 in ball.c) {
+			let i0 = parseInt(k0);
+			let b0 = base64DecToArr(ball.c[k0]);
+			let b1 = bmp.exp(b0);
+			ball.d[i0] = b1
+		}
 
 		// when held by player, position depends on play.b state
 
