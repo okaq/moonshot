@@ -165,6 +165,11 @@ var loop = {
 		// if we glitch or shuffle op
 		// set frames for transforming 
 		// between two bitmap states
+
+		// we only draw the blackpixels each frame
+		// previous fill with white to clear
+		// new frame only the black get drawn
+		// we can cache each bitmap fill set
 	}
 }
 // layout
@@ -289,6 +294,10 @@ var ren = {
 			let y2 = (y0 + y1) >>> 0;
 			sce.a.c.con.fillRect(x2,y2,1,1);
 		}
+	},
+	"play": function() {
+	},
+	"ball": function() {
 	}
 }
 // bit ops
