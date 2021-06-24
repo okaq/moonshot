@@ -110,6 +110,9 @@ var g = {
 
 		play.init();
 		ball.init();
+
+		ren.clear();
+		ren.play();
 	}
 }
 // player
@@ -126,19 +129,21 @@ var play = {
 		
 		// state
 		play.b = {};
-		play.b.x = (Math.random() * (sce.a.w - play.a.w)) >>> 0;
-		play.b.y = (Math.random() * (sce.a.h - play.a.h)) >>> 0;
+		play.b.x = (Math.random() * (grid.a.w - play.a.w)) >>> 0;
+		play.b.y = (Math.random() * (grid.a.h - play.a.h)) >>> 0;
 		// anim state
 		play.b.a = 0;
 
 		// bitmap raw & decode
 		play.c = net.c["haus"];
 		play.d = [];
-		for (let i = 0; i < play.c.length; i++) {
-			let b0 = base64DecToArr(play.c[i]);
+		for (let k0 in play.c) {
+			let i0 = parseInt(k0);
+			let b0 = base64DecToArr(play.c[k0]);
 			let b1 = bmp.exp(b0);
-			play.d[i] = b1;
+			play.d[i0] = b1;
 		}
+		// console.log(play.c,play.d);
 	}
 }
 // ball
@@ -317,7 +322,18 @@ var ren = {
 		let px = (w0 / 32) >>> 0;
 		let py = (h0 / 32) >>> 0;
 		// bitmap
-		play.d[play.b.a];
+		let b0 = play.d[play.b.a];
+
+		for (let i = 0; i < b0.length; i++) {
+			if (b0[i] == 1) {
+				continue;
+			}
+			let x1 = i % 32;
+			let x2 = ((x1 * px) + x0) >>> 0;
+			let y1 = (i / 32) >>> 0;
+			let y2 = ((y1 * py) + y0) >>> 0;
+			sce.a.c.con.fillRect(x2,y2,px,py);
+		}
 	},
 	"ball": function() {
 	}
