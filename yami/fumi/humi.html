@@ -114,6 +114,19 @@ var g = {
 		ren.clear();
 		ren.play();
 		ren.ball();
+
+		window.setTimeout(g.load8, 1000);
+
+		// player and ball state
+		// render funcs are virtuall identical
+		// entity system abstraction for all game objects
+	},
+	"load8": function() {
+		console.log("shift bits");
+
+		ren.clear();
+
+		grid.pane();
 	}
 }
 // player
@@ -228,6 +241,28 @@ var grid = {
 			let y1 = (y0 * grid.a.py) >>> 0;
 			grid.b[i].y = y1;
 		}
+	},
+	"pane": function() {
+		// center 1024 pane in grid coordinates
+		// obtain index from (x,y) pos in window
+		grid.c = {};
+		grid.c.x = 448;
+		grid.c.y = 26;
+		grid.c.i = grid.point([grid.c.x,grid.c.y]);
+
+		// a scene is just a collection of bitmap states
+		// arranged at grid location indicies
+
+		// 1fps animation
+		// position restricted to discrete grid points
+	},
+	"point": function(p0) {
+		// translate screen point to grid index
+		let x0 = (p0[0] / grid.a.px) >>> 0;
+		let y0 = (p0[1] / grid.a.py) >>> 0;
+		let y1 = (y0 * grid.a.nx) >>> 0;
+		let i0 = (y1 + x0) >>> 0;
+		return i0;
 	}
 }
 // scene
