@@ -118,7 +118,7 @@ var g = {
 		window.setTimeout(g.load8, 1000);
 
 		// player and ball state
-		// render funcs are virtuall identical
+		// render funcs are virtually identical
 		// entity system abstraction for all game objects
 	},
 	"load8": function() {
@@ -127,6 +127,15 @@ var g = {
 		ren.clear();
 
 		grid.pane();
+
+		// begin const 1 fps loop
+		// alter the update function as necessary
+		// global anim.frame = function() {}
+		// gets called every tick, but can be altered per frame
+
+		// alternative is a data oriented frame update
+		// only the set of renderables, clear calls change
+		// the abstractions remain fixed
 	}
 }
 // player
