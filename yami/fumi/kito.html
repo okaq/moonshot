@@ -72,12 +72,47 @@ var g = {
 
 		grid.init();
 
+		// intro anim sequence
+		// grid render all indexes in order
+		// grid rander random text bitmaps
+		// random pane jumps
+		// bitmap anim dance
+		// "rugger bee" big bold font
+		
+		g.tick = 0;
+		g.max = grid.a.nt;
+		g.id = window.setInterval(g.frame, 8);
+
 		// data structs
 		// "panes" simple rect regions using fillRect
 		// "grid" 32 x 32 pixel blocks full screen, bitmap renders
 		// "text" bitmap font instructions to the user render to grid
 		// "bitmap" render in a tick resolved animation state
 		// scene manager handles jumps between logical screens
+	},
+	"frame": function() {
+		if (g.tick % 100 == 0) {
+			console.log("% done: " + (g.tick / g.max));		
+		}
+
+		if (g.tick >= g.max) {
+			console.log("anim done");
+			window.clearInterval(g.id);
+			window.setTimeout(g.load4, 1000);
+			return;
+		}
+
+		// render grid tick
+		ren.grid();
+
+		g.tick = g.tick + 1;
+	},
+	"load4": function() {
+		console.log("text shuffle");
+
+		// pre-populate grid cells
+		// with random data from glyph set
+		// then random render pick with replacement
 	}
 }
 // layout
@@ -184,6 +219,11 @@ var ren = {
 		sce.a.c.con.fillRect(0,0,sce.a.c.can.width,sce.a.c.can.height);
 	},
 	"grid": function() {
+		sce.a.c.con.fillStyle = rgba.css([0,0,0,1.0]);
+		let c0 = grid.b[g.tick];
+		sce.a.c.con.fillRect(c0.x,c0.y,c0.w,c0.h);
+	},
+	"grid2": function() {
 		for (let i = 0; i < grid.a.nt; i++) {
 			sce.a.c.con.fillStyle = rgba.rmon();
 			sce.a.c.con.fillRect(grid.b[i].x,grid.b[i].y,grid.b[i].w,grid.b[i].h);
