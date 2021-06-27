@@ -145,6 +145,18 @@ var g = {
 	"load5": function() {
 		console.log("layout panes");
 
+		// gen rand (poisson) rect
+
+		// algo one:
+		// add new random rect to set
+		// only if it passes overlap test with each rect
+		// test overlapping rects:
+		// left edge is left of right edge
+		// bottom edge is above top edge
+
+		// algo two:
+		// random recursive subdivide space
+		// each cell gets a random rect within
 	}
 }
 // text
