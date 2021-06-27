@@ -81,7 +81,7 @@ var g = {
 		
 		g.tick = 0;
 		g.max = grid.a.nt;
-		g.id = window.setInterval(g.frame, 8);
+		g.id = window.setInterval(g.frame, 2);
 
 		// data structs
 		// "panes" simple rect regions using fillRect
@@ -91,7 +91,7 @@ var g = {
 		// scene manager handles jumps between logical screens
 	},
 	"frame": function() {
-		if (g.tick % 100 == 0) {
+		if (g.tick % 400 == 0) {
 			console.log("% done: " + (g.tick / g.max));		
 		}
 
@@ -113,18 +113,18 @@ var g = {
 		txt.init();
 		txt.grid();
 
-		ren.clear();
+		ren.clear2();
 
 		g.tick = 0;
 		g.max = grid.a.nt;
-		g.id = window.setInterval(g.frame2, 20);
+		g.id = window.setInterval(g.frame2, 2);
 
 		// pre-populate grid cells
 		// with random data from glyph set
 		// then random render pick with replacement
 	},
 	"frame2": function() {
-		if (g.tick % 100 == 0) {
+		if (g.tick % 400 == 0) {
 			console.log("% done: " + (g.tick / g.max));		
 		}
 
@@ -135,13 +135,16 @@ var g = {
 			return;
 		}
 
+		ren.txt();
+
 		// clear to black
 		// render text black, white square bkgd
 
 		g.tick = g.tick + 1;
 	},
 	"load5": function() {
-	
+		console.log("layout panes");
+
 	}
 }
 // text
@@ -157,7 +160,7 @@ var txt = {
 			let f0 = (Math.random() * txt.a.length) >>> 0;
 			let f1 = Math.random();
 			let f2 = 0.32;
-			txt.b[i] = f1 >= f2 ? txt.a[f1] : " ";
+			txt.b[i] = f1 >= f2 ? txt.a[f0] : " ";
 		}
 		// index
 		txt.c = [];
@@ -171,7 +174,7 @@ var txt = {
 			txt.c[i] = txt.c[f0];
 			txt.c[f0] = t0;
 		}
-		console.log(txt.c);
+		// console.log(txt.a,txt.b,txt.c);
 	}
 }
 // layout
@@ -277,6 +280,10 @@ var ren = {
 		sce.a.c.con.fillStyle = rgba.css([255,255,255,1.0]);
 		sce.a.c.con.fillRect(0,0,sce.a.c.can.width,sce.a.c.can.height);
 	},
+	"clear2": function() {
+		sce.a.c.con.fillStyle = rgba.css([0,0,0,1.0]);
+		sce.a.c.con.fillRect(0,0,sce.a.c.can.width,sce.a.c.can.height);
+	},
 	"grid": function() {
 		sce.a.c.con.fillStyle = rgba.css([0,0,0,1.0]);
 		let c0 = grid.b[g.tick];
@@ -370,6 +377,41 @@ var ren = {
 			let y1 = (i / 32) >>> 0;
 			let y2 = ((y1 * py) + y0) >>> 0;
 			sce.a.c.con.fillRect(x2,y2,px,py);
+		}
+	},
+	"txt": function() {
+		// bitmap font glyph
+		let i0 = txt.c[g.tick];
+		let g0 = txt.b[i0];
+		if (g0 == " ") { 
+			return;
+		}
+		let b0 = bmp.a[g0];
+		// console.log(i0,g0,b0);
+
+		// grid cell
+		let c0 = grid.b[i0];
+
+		// bkgd fill
+		sce.a.c.con.fillStyle = rgba.css([255,255,255,1.0]);
+		sce.a.c.con.fillRect(c0.x,c0.y,c0.w,c0.h);
+
+		// text fill
+		ren.bmp2(b0,i0);
+	},
+	"bmp2": function(bmp0, i0) {
+		sce.a.c.con.fillStyle = rgba.css([0,0,0,1.0]);
+		let x0 = grid.b[i0].x;
+		let y0 = grid.b[i0].y;
+		for (let i = 0; i < bmp0.length; i++) {
+			if (bmp0[i] == 1) {
+				continue;
+			}
+			let x1 = i % 32;
+			let y1 = (i / 32) >>> 0;
+			let x2 = (x0 + x1) >>> 0;
+			let y2 = (y0 + y1) >>> 0;
+			sce.a.c.con.fillRect(x2,y2,1,1);
 		}
 	}
 }
