@@ -110,9 +110,68 @@ var g = {
 	"load4": function() {
 		console.log("text shuffle");
 
+		txt.init();
+		txt.grid();
+
+		ren.clear();
+
+		g.tick = 0;
+		g.max = grid.a.nt;
+		g.id = window.setInterval(g.frame2, 20);
+
 		// pre-populate grid cells
 		// with random data from glyph set
 		// then random render pick with replacement
+	},
+	"frame2": function() {
+		if (g.tick % 100 == 0) {
+			console.log("% done: " + (g.tick / g.max));		
+		}
+
+		if (g.tick >= g.max) {
+			console.log("anim done");
+			window.clearInterval(g.id);
+			window.setTimeout(g.load5, 1000);
+			return;
+		}
+
+		// clear to black
+		// render text black, white square bkgd
+
+		g.tick = g.tick + 1;
+	},
+	"load5": function() {
+	
+	}
+}
+// text
+var txt = {
+	"init": function() {
+		txt.a = "qwertyuiopasdfghjklzxcvbnm";
+		txt.a = txt.a.toUpperCase().split("");
+	},
+	"grid": function() {
+		// cells
+		txt.b = [];
+		for (let i = 0; i < grid.a.nt; i++) {
+			let f0 = (Math.random() * txt.a.length) >>> 0;
+			let f1 = Math.random();
+			let f2 = 0.32;
+			txt.b[i] = f1 >= f2 ? txt.a[f1] : " ";
+		}
+		// index
+		txt.c = [];
+		for (let i = 0; i < grid.a.nt; i++) {
+			txt.c[i] = i;
+		}
+		// shuffle
+		for (let i = grid.a.nt - 1; i >= 1; i--) {
+			let f0 = (Math.random() * (i - 1)) >>> 0;
+			let t0 = txt.c[i];
+			txt.c[i] = txt.c[f0];
+			txt.c[f0] = t0;
+		}
+		console.log(txt.c);
 	}
 }
 // layout
