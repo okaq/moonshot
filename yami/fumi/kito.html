@@ -145,6 +145,13 @@ var g = {
 	"load5": function() {
 		console.log("layout panes");
 
+		grid.rect();
+		ren.rect();
+
+		g.tick = 0;
+		g.max = 8;
+		g.id = window.setInterval(g.frame3, 1000);
+
 		// gen rand (poisson) rect
 
 		// algo one:
@@ -157,6 +164,24 @@ var g = {
 		// algo two:
 		// random recursive subdivide space
 		// each cell gets a random rect within
+	},
+	"frame3": function() {
+		if (g.tick % 4 == 0) {
+			console.log("% done: " + (g.tick / g.max));
+		}
+
+		if (g.tick >= g.max) {
+			console.log("anim done");
+			window.clearInterval(g.id);
+			window.setTimeout(g.load6, 1000);
+			return;
+		}
+
+		grid.rect();
+		ren.rect();
+
+		// jump, clear and render scene
+		g.tick = g.tick + 1;		
 	}
 }
 // text
@@ -237,6 +262,10 @@ var grid = {
 		let y1 = (y0 * grid.a.nx) >>> 0;
 		let i0 = (y1 + x0) >>> 0;
 		return i0;
+	},
+	"rect": function() {
+		// 
+		grid.d = [];
 	}
 }
 // scene
