@@ -278,6 +278,33 @@ var grid = {
 		let f1 = (Math.random() * grid.a.nt) >>> 0;
 		let p0 = grid.point2(f0);
 		let p1 = grid.point2(f1);
+		let x0 = p0[0] <= p1[0] ? p0[0] : p1[0];
+		let x1 = p0[0] >= p1[0] ? p0[0] : p1[0];
+		let y0 = p0[1] <= p1[1] ? p0[1] : p1[1];
+		let y1 = p0[1] >= p1[1] ? p0[1] : p1[1];
+		let p2 = [x0,y0];
+		let p3 = [x1,y1];
+		return grid.list(p2,p3);
+	},
+	"point2": function(i0) {
+		let x0 = i % grid.a.nx;
+		let y0 = (i / grid.a.nx) >>> 0;
+		return [x0,y0];
+	},
+	"point3": function(p0) {
+		let y0 = (p0[1] * grid.a.nx) >>> 0;
+		let i0 = (y0 + p0[0]) >>> 0;
+		return i0;
+	},
+	"list": function(p0,p1) {
+		// return every grid index betweeb grid space points
+		let r0 = [];
+		for (let y = p0[1]; y <= p1[1]; y++) {
+			for (let x = p0[0]; x <= p1[0]; x++) {
+				r0.push(grid.point3([x,y]);
+			}
+		}
+		return r0;
 	}
 }
 // scene
