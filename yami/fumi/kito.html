@@ -145,6 +145,7 @@ var g = {
 	"load5": function() {
 		console.log("layout panes");
 
+		ren.clear();
 		grid.rect();
 		ren.rect();
 
@@ -264,8 +265,19 @@ var grid = {
 		return i0;
 	},
 	"rect": function() {
-		// 
+		// rect as grid index list
 		grid.d = [];
+		let f0 = (Math.random() * 8) >>> 0;
+		for (let i = 0; i < f0; i++) {
+			grid.d[i] = grid.rand();
+		}
+	},
+	"rand": function() {
+		// rand rect generator
+		let f0 = (Math.random() * grid.a.nt) >>> 0;
+		let f1 = (Math.random() * grid.a.nt) >>> 0;
+		let p0 = grid.point2(f0);
+		let p1 = grid.point2(f1);
 	}
 }
 // scene
@@ -454,6 +466,9 @@ var ren = {
 			let y2 = (y0 + y1) >>> 0;
 			sce.a.c.con.fillRect(x2,y2,1,1);
 		}
+	},
+	"rect": function() {
+		
 	}
 }
 // bit ops
