@@ -147,6 +147,7 @@ var g = {
 
 		ren.clear();
 		grid.rect();
+		console.log(grid.d);
 		ren.rect();
 
 		g.tick = 0;
@@ -268,6 +269,7 @@ var grid = {
 		// rect as grid index list
 		grid.d = [];
 		let f0 = (Math.random() * 8) >>> 0;
+		f0 = f0 + 1;
 		for (let i = 0; i < f0; i++) {
 			grid.d[i] = grid.rand();
 		}
@@ -287,8 +289,8 @@ var grid = {
 		return grid.list(p2,p3);
 	},
 	"point2": function(i0) {
-		let x0 = i % grid.a.nx;
-		let y0 = (i / grid.a.nx) >>> 0;
+		let x0 = i0 % grid.a.nx;
+		let y0 = (i0 / grid.a.nx) >>> 0;
 		return [x0,y0];
 	},
 	"point3": function(p0) {
@@ -297,11 +299,11 @@ var grid = {
 		return i0;
 	},
 	"list": function(p0,p1) {
-		// return every grid index betweeb grid space points
+		// return every grid index between grid space points
 		let r0 = [];
 		for (let y = p0[1]; y <= p1[1]; y++) {
 			for (let x = p0[0]; x <= p1[0]; x++) {
-				r0.push(grid.point3([x,y]);
+				r0.push(grid.point3([x,y]));
 			}
 		}
 		return r0;
@@ -495,7 +497,15 @@ var ren = {
 		}
 	},
 	"rect": function() {
-		
+		sce.a.c.con.fillStyle = rgba.css([0,0,0,1.0]);
+		for (let i = 0; i < grid.d.length; i++) {
+			let c0 = grid.d[i];
+			for (let j = 0; j < c0.length; j++) {
+				let i0 = c0[j];
+				let c1 = grid.b[i0];
+				sce.a.c.con.fillRect(c1.x,c1.y,c1.w,c1.h);
+			}
+		}
 	}
 }
 // bit ops
