@@ -33,7 +33,7 @@ var g = {
 		g.subs = [dom,sce,bmp,net];
 		g.subs.forEach(function(el){el.init();});
 
-		ren.clear();
+		// ren.clear();
 
 		window.setTimeout(g.load, 1000);
 
@@ -63,12 +63,22 @@ var g = {
 	"load2": function() {
 		console.log("okaq rugger bee nano game begin");
 		
-		net.pong();
+		// net.pong();
+		grid.init();
+
+		window.setTimeout(g.load3, 1000);
 	},
 	"load3": function() {
 		console.log("bitmap runner and ball loaded");
 
+		let t0 = window.performance.now();
+
 		ren.clear();
+
+		console.log("grid clear time: " + (window.performance.now() - t0));
+
+		// grid full render in 10ms
+		// enough time to update and render 1 fps frame
 	}
 }
 // step
@@ -208,7 +218,23 @@ var grid = {
 		return r0;
 	}
 }
+// scene 
+var sce = {
+	"init": function() {
+		sce.a = {};
+		sce.a.r = [1920,1080,0,0];
+		sce.a.c = dom.canvas(sce.a.r);
+		dom.add(sce.a.c);
 
+	}
+}
+// xhr
+var net = {
+	"init": function() {
+		// urls
+		net.a = [];
+	}
+}
 // bit ops
 var bit = {
 	"rows": function(b0) {
@@ -323,6 +349,23 @@ var bit = {
 		let a1 = a0.slice(0,f0);
 		let a2 = a0.slice(f0,a0.length);
 		return a2.concat(a1);
+	}
+}
+// render
+var ren = {
+	"clear": function() {
+		// all rend ops are grid centric
+		// cell by cell, fill entire grid to color
+		sce.a.c.con.fillStyle = rgba.css([0,0,0,1.0]);
+		for (let i = 0; i < grid.b.length; i++) {
+			let c0 = grid.b[i];
+			sce.a.c.con.fillRect(c0.x,c0.y,c0.w,c0.h);	
+		}
+
+		// render rect in grid space
+		// bitmap in pixel space, start point in grid coords
+		// scaled bitmap in pixel space
+		// bitmap ops on bit array data
 	}
 }
    // dom

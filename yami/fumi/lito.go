@@ -19,7 +19,7 @@ func motd() {
 	fmt.Println("okaq web localhost:8080")
 }
 
-func KitoHandler(w http.ResponseWriter, r *http.Request) {
+func LitoHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println(r)
 	http.ServeFile(w,r,INDEX)
 }
