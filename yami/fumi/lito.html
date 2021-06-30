@@ -115,6 +115,100 @@ var ball = {
 		ball.b.y = 29;
 	}
 }
+// layout
+var grid = {
+	"init": function() {
+		// full hd, 32 x 32 pixel blocks
+		grid.a = {};
+		grid.a.w = 1920;
+		grid.a.h = 1080;
+		grid.a.px = 32;
+		grid.a.py = 32;
+		grid.a.nx = (grid.a.w / grid.a.px) >>> 0;
+		grid.a.ny = (grid.a.h / grid.a.py) >>> 0;
+		grid.a.nt = (grid.a.nx * grid.a.ny) >>> 0;
+
+		// cells
+		grid.b = [];
+		for (let i = 0; i < grid.a.nt; i++) {
+			grid.b[i] = {};
+			grid.b[i].w = grid.a.px;
+			grid.b[i].h = grid.a.py;
+			let x0 = i % grid.a.nx;
+			let x1 = (x0 * grid.a.px) >>> 0;
+			grid.b[i].x = x1;
+			let y0 = (i / grid.a.nx) >>> 0;
+			let y1 = (y0 * grid.a.py) >>> 0;
+			grid.b[i].y = y1;
+		}
+	},
+	"pane": function() {
+		// center 1024 pane in grid coordinates
+		// obtain index from (x,y) pos in window
+		grid.c = {};
+		grid.c.x = 448;
+		grid.c.y = 26;
+		grid.c.i = grid.point([grid.c.x,grid.c.y]);
+
+		// a scene is just a collection of bitmap states
+		// arranged at grid location indicies
+
+		// 1fps animation
+		// position restricted to discrete grid points
+	},
+	"point": function(p0) {
+		// translate screen point to grid index
+		let x0 = (p0[0] / grid.a.px) >>> 0;
+		let y0 = (p0[1] / grid.a.py) >>> 0;
+		let y1 = (y0 * grid.a.nx) >>> 0;
+		let i0 = (y1 + x0) >>> 0;
+		return i0;
+	},
+	"rect": function() {
+		// rect as grid index list
+		grid.d = [];
+		let f0 = (Math.random() * 8) >>> 0;
+		f0 = f0 + 1;
+		for (let i = 0; i < f0; i++) {
+			grid.d[i] = grid.rand();
+		}
+	},
+	"rand": function() {
+		// rand rect generator
+		let f0 = (Math.random() * grid.a.nt) >>> 0;
+		let f1 = (Math.random() * grid.a.nt) >>> 0;
+		let p0 = grid.point2(f0);
+		let p1 = grid.point2(f1);
+		let x0 = p0[0] <= p1[0] ? p0[0] : p1[0];
+		let x1 = p0[0] >= p1[0] ? p0[0] : p1[0];
+		let y0 = p0[1] <= p1[1] ? p0[1] : p1[1];
+		let y1 = p0[1] >= p1[1] ? p0[1] : p1[1];
+		let p2 = [x0,y0];
+		let p3 = [x1,y1];
+		return grid.list(p2,p3);
+	},
+	"point2": function(i0) {
+		let x0 = i0 % grid.a.nx;
+		let y0 = (i0 / grid.a.nx) >>> 0;
+		return [x0,y0];
+	},
+	"point3": function(p0) {
+		let y0 = (p0[1] * grid.a.nx) >>> 0;
+		let i0 = (y0 + p0[0]) >>> 0;
+		return i0;
+	},
+	"list": function(p0,p1) {
+		// return every grid index between grid space points
+		let r0 = [];
+		for (let y = p0[1]; y <= p1[1]; y++) {
+			for (let x = p0[0]; x <= p1[0]; x++) {
+				r0.push(grid.point3([x,y]));
+			}
+		}
+		return r0;
+	}
+}
+
 // bit ops
 var bit = {
 	"rows": function(b0) {
