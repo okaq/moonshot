@@ -85,11 +85,34 @@ var step = {
 // player
 var play = {
 	"init": function() {
+		// bitmap
+		play.a = {};
+		play.a.a = step.haus;
+		play.a.b = [];
+		play.a.b[0] = base64DecToArr(bmp.exp(play.a.a[0]));
+		play.a.b[1] = base64DecToArr(bmp.exp(play.a.a[1]));
+		// state
+		play.b = {};
+		play.b.a = 0;
+		play.b.x = 0;
+		play.b.y = 0;
+		// pos in grid space
 	}
 }
 // ball
 var ball = {
 	"init": function() {
+		// bitmap
+		ball.a = {};
+		ball.a.a = step.ball;
+		ball.a.b = [];
+		ball.a.b[0] = base64DecToArr(bmp.exp(ball.a.a[0]));
+		ball.a.b[1] = base64DecToArr(bmp.exp(ball.a.a[1]));
+		// state
+		ball.b = {};
+		ball.b.a = 1;
+		ball.b.x = 59;
+		ball.b.y = 29;
 	}
 }
 // bit ops
