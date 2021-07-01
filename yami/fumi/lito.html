@@ -79,6 +79,34 @@ var g = {
 
 		// grid full render in 10ms
 		// enough time to update and render 1 fps frame
+
+		window.setTimeout(g.load4, 1000);
+	},
+	"load4": function() {
+		console.log("rugger bee intro");
+
+		// random walk player and ball collisions
+		// random text graphics every 8 frames (@ 1fps)
+		// click to start, or start auto after 32 frames
+
+		// init scene
+
+		g.tick = 0;
+		g.max = 32;
+		g.id = window.setInterval(g.intro, 1000);
+
+	},
+	"intro": function() {
+		if (g.tick >= g.max) {
+			console.log("intro finish");
+
+			window.clearInterval(g.id);
+			return;
+		}
+
+		// update & render
+
+		g.tick = g.tick + 1;
 	}
 }
 // step
