@@ -108,6 +108,7 @@ var g = {
 
 		// update & render
 		sce.up();
+		ren.intro();
 
 		g.tick = g.tick + 1;
 	},
@@ -250,6 +251,9 @@ var grid = {
 			}
 		}
 		return r0;
+	},
+	"point4": function(i0) {
+		// return screen space point of grid index
 	}
 }
 // scene 
@@ -453,6 +457,20 @@ var ren = {
 		// bitmap in pixel space, start point in grid coords
 		// scaled bitmap in pixel space
 		// bitmap ops on bit array data
+	},
+	"intro": function() {
+		// assume 32 x 32
+		for (let i = 0; i < sce.b.length; i++) {
+			// anim state
+			let a0 = sce.b[i].b.a;
+			// bitmap data
+			let bmp0 = sce.b[i].a.b[a0];
+			// grid index
+			let x0 = sce.b[i].b.x;
+			let y0 = sce.b[i].b.y;
+			let i0 = grid.point3([x0,y0]);
+			ren.bmp
+		}
 	}
 }
    // dom
