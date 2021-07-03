@@ -90,7 +90,8 @@ var g = {
 		// click to start, or start auto after 32 frames
 
 		// init scene
-		sce.intro();
+		// sce.intro();
+		sce.intro2();
 
 		g.tick = 0;
 		g.max = 32;
@@ -271,7 +272,18 @@ var sce = {
 		sce.b.ball ={};
 		sce.b.text = {};
 
-		sce.c = ["play,"ball",'text"];
+		sce.c = ["play","ball","text"];
+	},
+	"intro2": function() {
+		// entity list
+		sce.b = [];
+		play.init();
+		ball.init();
+		sce.b[0] = play;
+		sce.b[1] = ball;
+
+		// instance collection 
+		// sce.b[i] = new Ball();
 	}
 }
 // xhr
