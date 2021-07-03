@@ -107,6 +107,7 @@ var g = {
 		}
 
 		// update & render
+		sce.up();
 
 		g.tick = g.tick + 1;
 	},
@@ -282,8 +283,23 @@ var sce = {
 		sce.b[0] = play;
 		sce.b[1] = ball;
 
+		// attach render function
+		// ren.bmp(bmp0, pos0, rect0)
+		// depends on entity anim state
+
 		// instance collection 
 		// sce.b[i] = new Ball();
+	},
+	"up": function() {
+		// flip anime state
+		for (let i = 0; i < sce.b.length; i++) {
+			sce.b[i].b.a = sce.b[i].b.a == 0 ? 1 : 0;
+		}
+		// jump pos
+		for (let i = 0; i < sce.b.length; i++) {
+			sce.b[i].b.x = (Math.random() * grid.a.nx) >>> 0;
+			sce.b[i].b.y = (Math.random() * grid.a.ny) >>> 0;
+		}
 	}
 }
 // xhr
