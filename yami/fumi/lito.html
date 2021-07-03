@@ -94,8 +94,8 @@ var g = {
 		sce.intro2();
 
 		g.tick = 0;
-		g.max = 32;
-		g.id = window.setInterval(g.intro, 1000);
+		g.max = 64;
+		g.id = window.setInterval(g.intro, 100);
 
 	},
 	"intro": function() {
@@ -134,8 +134,8 @@ var play = {
 		play.a = {};
 		play.a.a = step.haus;
 		play.a.b = [];
-		play.a.b[0] = base64DecToArr(bmp.exp(play.a.a[0]));
-		play.a.b[1] = base64DecToArr(bmp.exp(play.a.a[1]));
+		play.a.b[0] = bmp.exp(base64DecToArr(play.a.a[0]));
+		play.a.b[1] = bmp.exp(base64DecToArr(play.a.a[1]));
 		// state
 		play.b = {};
 		play.b.a = 0;
@@ -151,8 +151,8 @@ var ball = {
 		ball.a = {};
 		ball.a.a = step.ball;
 		ball.a.b = [];
-		ball.a.b[0] = base64DecToArr(bmp.exp(ball.a.a[0]));
-		ball.a.b[1] = base64DecToArr(bmp.exp(ball.a.a[1]));
+		ball.a.b[0] = bmp.exp(base64DecToArr(ball.a.a[0]));
+		ball.a.b[1] = bmp.exp(base64DecToArr(ball.a.a[1]));
 		// state
 		ball.b = {};
 		ball.b.a = 1;
@@ -480,6 +480,21 @@ var ren = {
 	},
 	"bmp": function(bmp0, r0) {
 		// render bitmap data in screen space rect
+		// clear rect
+		sce.a.c.con.fillStyle = rgba.css([255,255,255,1.0]);
+		sce.a.c.con.fillRect(r0[2],r0[3],r0[0],r0[1]);
+		// fill bitmap data
+		sce.a.c.con.fillStyle = rgba.css([0,0,0,1.0]);
+		for (let i = 0; i < bmp0.length; i++) {
+			if (bmp0[i] == 1) {
+				continue;
+			}
+			let x0 = i % grid.a.px;
+			let y0 = (i / grid.a.px) >>> 0;
+			let x1 = (x0 + r0[2]) >>> 0;
+			let y1 = (y0 + r0[3]) >>> 0;
+			sce.a.c.con.fillRect(x1,y1,1,1);
+		}
 	}
 }
    // dom
