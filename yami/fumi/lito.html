@@ -254,6 +254,10 @@ var grid = {
 	},
 	"point4": function(i0) {
 		// return screen space point of grid index
+		let p0 = grid.point2(i0);
+		let x0 = (p0[0] * grid.a.px) >>> 0;
+		let y0 = (p0[1] * grid.a.py) >>> 0;
+		return [x0,y0];
 	}
 }
 // scene 
@@ -469,8 +473,13 @@ var ren = {
 			let x0 = sce.b[i].b.x;
 			let y0 = sce.b[i].b.y;
 			let i0 = grid.point3([x0,y0]);
-			ren.bmp
+			let p0 = grid.point4(i0);
+			let r0 = [grid.a.px,grid.a.py,p0[0],p0[1]];
+			ren.bmp(bmp0,r0);
 		}
+	},
+	"bmp": function(bmp0, r0) {
+		// render bitmap data in screen space rect
 	}
 }
    // dom
