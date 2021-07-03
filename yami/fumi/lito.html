@@ -108,6 +108,9 @@ var g = {
 		// update & render
 
 		g.tick = g.tick + 1;
+	},
+	"load5": function() {
+		console.log(net.b);
 	}
 }
 // step
@@ -276,6 +279,19 @@ var net = {
 	"init": function() {
 		// urls
 		net.a = [];
+		net.a[0] = "http://localhost:8080/a";
+		net.a[1] = "http://localhost:8080/b";
+	},
+	"data": function() {
+		window.fetch(net.a[0])
+			.then(function(resp){return resp.json()})
+			.then(function(json){console.log(json)});
+			// .then(function(json){net.data2(json)})
+	},
+	"data2": function(json0) {
+		console.log(json0);
+		net.b = json0;
+		window.setTimeout(g.load5, 1000);
 	}
 }
 // bit ops
