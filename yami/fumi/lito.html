@@ -101,7 +101,7 @@ var g = {
 	"intro": function() {
 		if (g.tick >= g.max) {
 			console.log("intro finish");
-
+			window.setTimeout(g.load6, 1000);
 			window.clearInterval(g.id);
 			return;
 		}
@@ -114,6 +114,30 @@ var g = {
 	},
 	"load5": function() {
 		console.log(net.b);
+	},
+	"load6": function() {
+		
+	}
+}
+// text
+var txt = {
+	"init": function() {
+		// string
+		txt.a = [];
+		txt.a[0] = "okaq nano game";
+		txt.a[1] = "rugger bee";
+		// pos grid index
+		txt.b = [];
+		txt.b[0] = 260;
+		txt.b[1] = 620;
+		// size
+		txt.c = [];
+		txt.c[0] = grid.a.px;
+		txt.c[1] = grid.a.px;
+		// state
+		txt.d = [];
+		txt.d[0] = 0;
+		txt.d[1] = 1;
 	}
 }
 // step
