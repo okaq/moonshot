@@ -116,7 +116,10 @@ var g = {
 		console.log(net.b);
 	},
 	"load6": function() {
-		
+		console.log("text screen");
+
+		txt.init();
+		txt.gen();
 	}
 }
 // text
@@ -138,6 +141,24 @@ var txt = {
 		txt.d = [];
 		txt.d[0] = 0;
 		txt.d[1] = 1;
+	},
+	"gen": function() {
+		// from the init config
+		// generate flat list of bitmap, index, render func elements
+		txt.e = [];
+		for (let i = 0; i < txt.a.length; i++) {
+			txt.e[i] = [];
+			// bmp
+			txt.e[i][0] = [];
+			let s0 = txt.a[i].toUpperCase().split("");
+			for (let j = 0; j < s0.length; i++) {
+				if (s0[j] == " ") {
+					txt.e[i][0][j] = null;
+					continue;
+				}
+				txt.e[i][0][j] = bmp.a[s0[j]];
+			}
+		}
 	}
 }
 // step
