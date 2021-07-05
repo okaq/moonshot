@@ -150,13 +150,25 @@ var txt = {
 			txt.e[i] = [];
 			// bmp
 			txt.e[i][0] = [];
+			// index
+			txt.e[i][1] = [];
+			// render func
+			txt.e[i][2] = [];
+			// start pos
+			let i0 = txt.b[i];
+	
 			let s0 = txt.a[i].toUpperCase().split("");
+			
 			for (let j = 0; j < s0.length; i++) {
 				if (s0[j] == " ") {
 					txt.e[i][0][j] = null;
+					i0 = i0 + grid.a.nx - 1;
 					continue;
 				}
 				txt.e[i][0][j] = bmp.a[s0[j]];
+				i0 = i0 + 1;
+				txt.e[i][1][j] = i0;
+				txt.e[i][2][j] = 0;
 			}
 		}
 	}
