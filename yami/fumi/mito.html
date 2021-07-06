@@ -64,6 +64,37 @@ var g = {
 		console.log("okaq rugger bee nano game begin");
 
 		logo.init();
+	},
+	"load3": function() {
+		console.log("okaq glitch logo");
+
+		ren.clear();
+		ren.glitch();
+	}
+}
+// layout
+var grid = {
+	"init": function() {
+		grid.a = [];
+
+		// words, phrases, game info
+		// one per grid line
+		// fill the page
+		// pink on black
+
+		// origin at (0,128) below okaq logo font bitmap
+		// 1024 bit array, 1 px block, 32 x 32px 
+		// 60 cols, 1080 - 128 = 952, 28 rows
+
+		// btc wallet top
+	}
+}
+// text
+var txt = {
+	"init": function() {
+		txt.a = [];
+		txt.a[0] = "tokyo summer olympics 2020";
+		txt.a[1] = "the games that never was";
 	}
 }
 // scene 
@@ -84,6 +115,16 @@ var net = {
 		net.a[0] = "https://okaq.github.io/oxy.js";
 	}
 }
+// render
+var ren = {
+	"clear": function() {
+		sce.a.c.con.fillStyle = rgba.css([0,0,0,1.0]);
+		sce.a.c.con.fillRect(0,0,sce.a.c.can.width,sce.a.c.can.height);
+	},
+	"glitch": function() {
+		sce.a.c.con.drawImage(logo.a.a,708,0);
+	}
+}
 // logo
 var logo = {
 	"init": function() {
@@ -93,7 +134,11 @@ var logo = {
 		logo.a.a.addEventListener("load", logo.draw, false);
 	},
 	"draw": function() {
-		console.log(logo.a.a);
+		// console.log(logo.a.a);
+		console.log("image width x hight: " + logo.a.a.width + " x " + logo.a.a.height);
+		// okaq_logo_0.jpg = 504 x 148, 2.4kB
+
+		window.setTimeout(g.load3, 1000);
 	}
 }
    // dom
