@@ -62,6 +62,26 @@ var g = {
 	},
 	"load2": function() {
 		console.log("okaq rugger bee nano game begin");
+
+		logo.init();
+	}
+}
+// scene 
+var sce = {
+	"init": function() {
+		sce.a = {};
+		sce.a.r = [1920,1080,0,0];
+		sce.a.c = dom.canvas(sce.a.r);
+		dom.add(sce.a.c);
+
+	}
+}
+// xhr
+var net = {
+	"init": function() {
+		// urls
+		net.a = [];
+		net.a[0] = "https://okaq.github.io/oxy.js";
 	}
 }
 // logo
@@ -73,7 +93,7 @@ var logo = {
 		logo.a.a.addEventListener("load", logo.draw, false);
 	},
 	"draw": function() {
-
+		console.log(logo.a.a);
 	}
 }
    // dom
